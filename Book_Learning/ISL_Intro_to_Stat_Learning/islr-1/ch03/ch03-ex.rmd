@@ -1,0 +1,679 @@
+---
+title: "ISLR, Chapter 3"
+output: 
+  github_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Exercise 1
+
+* **Intercept** - Are there any sales in the absence of all advertising (Yes)
+* **TV** - Does TV advertising have an impact on sales (Yes; 46 additional units sold for every $1000 spent on TV ads)
+* **radio** - Does radio advertising have an impact on sales (Yes; 189 additional units sold for every $1000 spent on radio ads)
+* **newspaper** - Does newspaper advertising have an impact on sales (No; p-value = 0.86)
+
+---
+
+### Exercise 2
+Difference between KNN classification vs. KNN regression:
+
+**KNN classification** - Used to predict the class of a point from its covariates. From the labelled training set, take the `K` points that are nearest to the new point in covariate space. The class of the new point is the class that is most common in the `K` points.
+
+**KNN regression** - Used to predict the response of a point from its covariates. From the labelled training set, select the `K` nearest neighbors in covariate space. The response of the point to predict is the average of the response of these `K` points.
+
+---
+
+### Exercise 3
+
+Linear model: 
+
+`Salary = 50 + 20*GPA + 0.07*IQ + 35*Gender + 0.01*GPA:IQ - 10*GPA:Gender`
+
+`Gender: Male = 0, Female = 1`
+
+*a:*
+`F = 35 - 10*GPA`
+
+`M = 0`
+
+`M - F = 0 - (35 - 10*GPA) = 10*GPA - 35`
+
+Males earn more than females on average only the fixed GPA is > 3.5
+
+*b:* Salary of female with IQ=110, GPA=4 is 
+
+```{r Ex3-b}
+50 + 20*4 + 0.07*110 + 35*1 + 0.01*4*110 - 10*4*1 
+```
+
+*c:* Support for interaction effect is provided by its associated p-value. If p-value is low, then there is evidence for an interaction effect. Also, since scale of IQ is much larger than that of the other covariates(1-100+ vs 1-4 & 0-1), the coefficient for interaction will be small.
+
+---
+
+### Exercise 4
+
+*a:* Training RSS will be lower with the more complex cubic model since it can fit the data better (low bias, high variance model)
+
+*b:* Test RSS is likely to be higher for the more complex cubic model due to overfitting.
+
+*c:* Training RSS will still be lower for the more complex cubic model.
+
+*d:* Not enough info to determine whether test RSS will be higher for more complex cubic model or not. If the true relationship is quadratic, then test RSS can be similar to the linear and cubic model. (?)
+
+---
+
+### Exercise 5
+
+---
+
+### Exercise 6
+
+---
+
+### Exercise 7
+
+---
+
+### Exercise 8
+
+Simple linear regression on `Auto` data set
+
+*(i):* There is a relationship between `mpg` and `horsepower` with `mpg` decreasing non-linearly with increase in horsepower. 
+
+```{r Ex8-a1}
+library(ISLR)
+
+plot(Auto$mpg ~ Auto$horsepower, xlab="horsepower", ylab="mpg")
+lines(lowess(Auto$mpg ~ Auto$horsepower), col='red', lwd=3)
+```
+
+*(ii):* Correlation (strength & direction of linear relationship) between the 2 is:
+
+```{r Ex8-a2} 
+cor(Auto$mpg, Auto$horsepower) 
+```
+
+which is quite strong. Also, p-value for coefficient for `horsepower` is very low, suggesting that `mpg` does depend on `horsepower`.
+
+*(iii):* The relationship is negative: `mpg` decreases as `horsepower` increases. This can be determined from the sign of the correlation and also from the sign of the coefficient for horsepower in the linear model below. 
+
+*(iv):* For `horsepower = 98`, predicted values with 95% intervals are:
+
+```{r Ex8-a4}
+m <- lm(Auto$mpg ~ Auto$horsepower)
+m
+
+summary(m)
+
+# predict(m, data.frame(horsepower=c(98)), interval="confidence")
+# predict(m, data.frame(horsepower=c(98)), interval="prediction")
+```
+
+When `horsepower = 98`, predicted `mpg = 24.47`. 95% confidence interval is `(23.97, 24.96)` and 95% prediction interval is `(14.81, 34.13)`
+
+
+*b:* The linear model is not a good fit for the data. The `lowess` line shows the fit of a non-parametric regression model that fits the data a lot better.
+
+```{r Ex8-b}
+plot(Auto$mpg ~ Auto$horsepower, xlab="horsepower", ylab="mpg")
+lines(lowess(Auto$mpg ~ Auto$horsepower), col='red', lwd=3)
+abline(m, col='blue', lwd=3)
+legend("topright", c("Lowess line", "Linear model"), col=c("red", "blue"), lwd=3)
+```
+
+*c:* From the linear regression diagnostic plots below, we see that there is a definite pattern in the `residuals vs. fitted values` plot, suggesting that the simple linear model above is not a good fit for the data.
+
+```{r Ex8-c}
+par(mfrow=c(2,2))
+plot(m)
+```
+
+---
+
+### Exercise 9
+
+Multiple liner regression on `Auto` data set
+* Convert `origin` from number to factor
+* Exlcude `name` from scatterplot matrix of variables
+
+*a:*
+```{r Ex9-a}
+plot(Auto[,-ncol(Auto)])
+```
+* `mpg` decreases with `cylinders`, `displacement`, `horsepower` & `weight`
+* `mpg` increases with `acceleration`, `year` and  `origin` (Japanese > European > American)
+
+*b:* 
+
+```{r Ex9-b}
+round(cor(Auto[,-c(8,9)]), 2)
+```
+
+*c:* 
+
+```{r Ex9-c}
+
+m <- lm(mpg ~ .-name, data=Auto)
+summary(m)
+
+```
+
+* There is a relationship between `mpg` and covariates since p-values for the model coefficients for `displacement`, `weight`, `year` and `origin` and << 0.05. 
+* Coefficient for `year` suggests that `mpg` increases by 0.78 per year.
+
+*d:* 
+
+```{r Ex9-d}
+par(mfrow=c(2,2))
+plot(m)
+```
+
+* Residuals vs. fitted values plot shows a non-linear relationship between response and covariates
+* A few points with large estimates for `mpg` are marked as outliers `(323, 326, 327)`
+* Residuals vs. Leverage plot also marks point `14` as having high leverage
+
+*e:*
+
+```{r Ex9-e}
+m2 <- lm(mpg ~ (.-name)*(.-name), data=Auto)
+summary(m2)
+```
+
+Covariates & interactions significant at the 5% level are:
+
+* `acceleration`
+* `origin2`
+* `origin3`
+* `acceleration:cylinders`
+* `acceleration:year`
+* `acceleration:origin2`
+* `acceleration:origin3`
+* `year:origin2`
+* `year:origin3`
+
+*f:*
+
+`TODO`
+
+---
+
+### Exercise 10
+
+*a:* Multiple regression model for `Sales`
+
+```{r Ex10-a}
+library(ISLR)
+data(Carseats)
+
+m <- lm(Sales ~ Price + Urban + US, data=Carseats)
+summary(m)
+
+par(mfrow=c(2,2))
+plot(m)
+par(mfrow=c(1,1))
+
+```
+
+*b:* Coefficient interpretation
+
+* $\beta_0$ represents baseline sales and is significant at the 5% level
+* $\beta_1$ represent effect of price on sales and is significant at the 5% level. For every $100 increase in price, sales drop by 5400 units
+* $\beta_2$ represents effect of store location on sales. Urban store location contribute to a decrease of 22 units compared to a rural store location.
+* $\beta_3$ represents effect of country location on sales. Stores located in the US have increased sales of 1200 units compared to stores located outside the US.
+
+*c:* Linear model fit above is:
+
+$Sales = 13.04 - 0.055 \cdot Price - 0.022 \cdot Urban + 1.2 \cdot US + \epsilon$
+
+Coding:
+
+* `Urban` = 1 if store is in an urban location, 0 otherwise
+* `US` = 1 if store is located in the US, 0 otherwise
+
+*d:* Null hypothesis of $H_0: \beta_j = 0$ can be rejected for $\beta_0$ (intercept), $\beta_1$ (Price) and $\beta_3$ (US) since their p-values are < 0.05
+
+*e* Smaller model
+
+```{r Ex10-e}
+m <- lm(Sales ~ Price + US, data=Carseats)
+summary(m)
+
+par(mfrow=c(2,2))
+plot(m)
+par(mfrow=c(1,1))
+
+```
+
+*f:* Comparison of model fit:
+
+* Model 1: RSS = 2.472, ad R^2 = 0.2335
+* Model 2: RSS = 2.469, adj R^2 = 0.2354
+
+Model fit is similar for both models.
+
+*g:* Approx 95% CI for model coefficients in model 2:
+
+```{r Ex10-g}
+ paste('intercept: (', round(coefficients(summary(m))[1,1] - 1.96*coefficients(summary(m))[1,2],3), ',', round(coefficients(summary(m))[1,1] + 1.96*coefficients(summary(m))[1,2],3), ')', sep='')
+
+paste('Price: (', round(coefficients(summary(m))[2,1] - 1.96*coefficients(summary(m))[2,2],3), ',', round(coefficients(summary(m))[2,1] + 1.96*coefficients(summary(m))[2,2],3), ')', sep='')
+
+paste('US: (', round(coefficients(summary(m))[3,1] - 1.96*coefficients(summary(m))[3,2],3), ',', round(coefficients(summary(m))[3,1] + 1.96*coefficients(summary(m))[3,2],3), ')', sep='')
+
+
+# 95% CI can also be calculated by:
+confint(m)
+
+```
+
+*h:* Based on model diagnostics plots:
+
+* Outliers: Observations 51, 69, 377
+* High leverage observations: 1 obs seems to have high leverage
+
+---
+
+### Exercise 11
+
+Generate simulated data:
+
+```{r Ex11-1}
+set.seed (1)
+x <- rnorm(100)
+y <- 2*x+rnorm(100)
+```
+
+*a:* Model without intercept
+
+```{r Ex11-a}
+mxy <- lm(y ~ x - 1)
+summary(mxy)
+coef(summary(mxy))
+```
+
+* Coefficient for `x` is significant at the 5% level. Std error is small relative to estimate => 95% CI is narrow.
+
+*b:* Model with intercept
+
+```{r Ex11-b}
+myx <- lm(x ~ y -1)
+summary(myx)
+coef(summary(myx))
+```
+
+* Coefficient for `y` is significant at the 5% level. Std error is small relative to estimate => 95% CI is narrow.
+
+*c:* $\beta$ in `mxy` should be inverse of that in `myx` but this is only approximately true. Adj R^2 for both models is the same, but RSE for `mxy` is more than double that of `myx`.
+
+*d:*
+TODO
+
+*e:* `n` is the same in both models. The t-statistic shown above is symmetric in `x` and `y`, so it will be the same whether `x` is regressed onto `y` or vice versa.
+
+*f:* T-statistic for $\beta_1$ is the same in both models below
+
+```{r Ex11-f}
+mxy <- lm(x ~ y)
+t1 <- coef(summary(mxy))[2,3]
+t1
+
+myx <- lm(y ~ x)
+t2 <- coef(summary(myx))[2,3]
+t2
+
+ abs(t1-t2) < 1e6
+```
+
+---
+
+### Exercise 12
+
+*a:* Estimates for $\beta$ for `Y ~ X` and `X ~ Y` are equal when denominators of (3.38) are equal (i.e., when `X = Y`)
+
+*b:* Estimates for $\beta$ in the 2 models below are different
+
+```{r Ex12-b}
+set.seed(1) 
+x <- rnorm(100)
+y <- x + rnorm(100)
+
+plot(x, y)
+
+myx <- lm(y ~ x - 1)
+summary(myx)
+
+mxy <- lm(x ~ y - 1)
+summary(mxy)
+
+```
+
+*c:* Estimates for $\beta$ in 2 models below are the same
+
+```{r Ex12-c}
+set.seed(1) 
+x <- rnorm(100)
+y <- x
+
+plot(x, y)
+
+myx <- lm(y ~ x - 1)
+summary(myx)
+
+mxy <- lm(x ~ y - 1)
+summary(mxy)
+
+```
+---
+
+### Exercise 13
+
+*a:* 
+
+```{r Ex13-a}
+x <- rnorm(100)
+```
+
+*b:* 
+
+```{r Ex13-b}
+eps <- rnorm(100, 0, sd=sqrt(0.25))
+```
+
+*c:* 
+
+```{r Ex13-c}
+y <- -1 + 0.5*x + eps
+```
+
+* Length of `y` is 100
+* $\beta_0 = -1$, $\beta_1 = 0.5$
+
+*d:* As expected, `y` is randomly distributed around `0.5 x`
+
+```{r Ex13-d}
+plot(x, y)
+cor(x, y)
+```
+
+*e:*
+
+```{r Ex13-e}
+m <- lm(y ~ x)
+summary(m)
+```
+Estimates of $\beta_0$ and $\beta_1$ are close to their true values. Std errors for these estimates are small. And both coefficients are statistically significant at the 5% level.
+
+*f:* 
+
+```{r Ex13-f}
+plot(x,y)
+abline(m, col='red', lwd=2)
+
+df <- data.frame(x, y)
+df <- df[order(df[,1]),]
+lines(df$x, -1 + 0.5*df$x, col='blue', lwd=2, lty='dotted')
+legend("bottomright", legend=c('linear model', 'pop. regr. line'), col=c('red', 'blue'), lwd=2)
+
+```
+
+*g:* 
+
+```{r Ex13-g}
+m1 <- lm(y ~ x + I(x^2))
+summary(m1)
+
+anova(m, m1)
+```
+
+In this model, the coefficient for $x^2$ is not significant at the 5% level. `RSE` and Adjusted $R^2$ are similar for both models. ANOVA of both models suggests that $x^2$ does not significant decrease RSS. So $x^2$ has no impact on the model.
+
+*h:* 
+
+```{r Ex13-h}
+eps <- rnorm(100, 0, sd=sqrt(0.1))
+y <- -1 + 0.5*x + eps
+
+m2 <- lm(y ~ x)
+summary(m2)
+
+plot(x, y, main="Less Noise")
+abline(m2, col='red', lwd=2)
+
+df <- data.frame(x, y)
+df <- df[order(df[,1]),]
+lines(df$x, -1 + 0.5*df$x, col='blue', lwd=2, lty='dotted')
+legend("bottomright", legend=c('linear model', 'pop. regr. line'), col=c('red', 'blue'), lwd=2)
+
+```
+
+Estimate of $\beta_1$ is similar to, and `RSE` and adjusted $R^2$ are lower than, the first model due to lower variance in the data
+
+*i:* 
+
+```{r Ex13-i}
+eps <- rnorm(100, 0, sd=sqrt(0.75))
+y <- -1 + 0.5*x + eps
+
+m3 <- lm(y ~ x)
+summary(m3)
+
+plot(x, y, main="More Noise")
+abline(m3, col='red', lwd=2)
+
+df <- data.frame(x, y)
+df <- df[order(df[,1]),]
+lines(df$x, -1 + 0.5*df$x, col='blue', lwd=2, lty='dotted')
+legend("bottomright", legend=c('linear model', 'pop. regr. line'), col=c('red', 'blue'), lwd=2)
+
+```
+
+Estimate of $\beta_1$ is worse than, and `RSE` & adjusted $R^2$ are higher than, the first model due to higher variance in the data.
+
+*j:* Std errors of model coefficient estimates increase with the variance in the data and so the corresponding confidence intervals also increase with data variance.
+
+```{r Ex13-j}
+
+confint(m)
+confint(m2)
+confint(m3)
+
+```
+
+---
+
+### Exercise 14
+
+*a:* Linear model is:
+
+```{r Ex14-a}
+set.seed(1)
+x1 = runif(100)
+x2 = 0.5*x1 + rnorm(100)/10
+y = 2 + 2*x1 + 0.3*x2 + rnorm(100)
+```
+
+$\beta_0 + \beta_1 x_1 + \beta_2 x2 + \epsilon$, where regression coefficients are:
+
+$\beta_0 = 2$
+$\beta_1 = 2$
+$\beta_2 = 0.3$
+
+*b:* Correlation between `x1` and `x2` is: 
+
+```{r Ex14-b}
+cor(x1, x2)
+
+plot(x1, x2, pch=16)
+lines(lowess(x1, x2), col='red', lwd=2)
+```
+
+*c:* Linear model with both `x1` and `x2`
+
+```{r Ex14-c}
+m <- lm(y ~ x1 + x2)
+summary(m)
+```
+
+* Estimate for $\beta_0$ is closer to true value but estimates of $\beta_1$  and $\beta_2$ are very different (though the std error includes the true value)
+* Cannot reject hypothesis: $H_0: \beta_1 = 0$
+* Can reject hypothesis: $H_0: \beta_2 = 0$
+
+*d:* Linear model with `x1` only
+
+```{r Ex14-d}
+m <- lm(y ~ x1)
+summary(m)
+```
+
+* Estimates of model coefficients are 'close' to their true values
+* Estimates for both $\beta_0$ and $\beta_1$ are significant at the 5% level (p-value < 0.05)
+
+
+*e:* Linear model with `x2` only
+
+```{r Ex14-e}
+m <- lm(y ~ x2)
+summary(m)
+```
+
+* Estimate of $\beta_0$ is close to its true value and is significant at the 5% level
+* Estimate of $\beta_1$ is far from its true value but is significant at the 5% level
+
+*f:* Yes, the estimates of model coefficients and their statistical significance from `(c) - (e)` contradict each other. $\beta_1$ and $\beta_2$ are significant when covariates are included individually, but only $\beta_2$ is significant when both covariates are included in the model. This is because `x1` and `x2` are highly correlated. This correlation also results ininflated std errors for $\beta_1$ and $\beta_2$ when both are included in the model. Std errors are almost double that of std errors for the same coefficients in models containing a single coefficient. 
+
+*g:* Include additional point
+
+```{r Ex15-g}
+
+x1 = c(x1, 0.1)
+x2 = c(x2, 0.8)
+y = c(y,6)
+
+m1 <- lm(y ~ x1)
+m2 <- lm(y ~ x2)
+m12 <- lm(y ~ x1 + x2)
+
+par(mfrow=c(2,2))
+
+plot(x1, y)
+lines(lowess(x1, y), col='red', lwd=2)
+abline(m1, col='blue', lwd=2)
+legend("bottomright", legend=c('lowess', 'model'), col=c('red', 'blue'), lwd=2)
+points(0.1, 6, pch=16, cex=1.5)
+
+plot(x2, y)
+lines(lowess(x2, y), col='red', lwd=2)
+abline(m2, col='blue', lwd=2)
+legend("bottomright", legend=c('lowess', 'model'), col=c('red', 'blue'), lwd=2)
+points(0.8, 6, pch=16, cex=1.5)
+
+plot(x1, x2)
+lines(lowess(x1, x2), col='red', lwd=2)
+points(0.1, 0.8, pch=16, cex=1.5)
+
+plot(y)
+points(101, 6, pch=16, cex=1.5)
+
+
+summary(m1)
+plot(m1)
+
+summary(m2)
+plot(m2)
+
+summary(m12)
+plot(m12)
+
+```
+
+* In model with both covariates, only coefficient for `x2` is significant at the 5% level. Both coefficients are far from their true values.
+* In model with only `x1`, coefficient for `x1` is significant at the 5% level but its estimate is far from its true value (though within std error)
+* In model with only `x2`, coefficient for `x2` is significant at the 5% level but its estimate is far from true value
+* The new point is an outlier in the model containing only `x1` but not in the other 2 models.
+* The new point is a high leverage point in all 3 models.
+
+---
+
+### Exercise 15
+
+*a:* Simple linear regression of`crim` vs. each covariate. 
+
+When fitting a linear model of `crim` against each of the covariates separately, all covariates have a significant relationship with `crim` (p-value < 0.05 for model coefficient term for covariate). The plots below show how `crim` changes with each covariate.
+
+```{r Ex15-a}
+library(MASS)
+data(Boston)
+
+m1.coef <- vector(mode="numeric", length=length(names(Boston)) - 1)
+
+for (i in 2:length(Boston)) {
+  plot(Boston[,1] ~ Boston[,i], xlab=names(Boston)[i], ylab=names(Boston)[1])
+  
+  m <- lm(Boston[,1] ~ Boston[,i])
+  
+  cf = names(Boston)[i]
+  cfsum = summary(m)$coefficients
+  
+  m1.coef[i-1] <- cfsum[2,1]
+  ifelse(cfsum[2,4] < 0.05, print(paste(cf, ': Model coef is significant')), print(paste(cf, ': NO')) )
+}
+
+```
+
+*b:* Multiple linear regression of `crim` vs. all covariates. 
+
+From the model summary, only the covariates below are statistically significant, so we can reject the null hypothesis `H_0: B_j = 0`
+
+* `zn`
+* `dis`
+* `rad`
+* `black`
+* `medv`
+
+```{r Ex15-b}
+
+m2 <- lm(crim ~ .-crim, data=Boston)
+summary(m2)
+
+m2.coef = coef(m2)[-1]
+m2.coef
+```
+
+*c:* More covariates are statistically significant when `crim` is regressed against each of them separately. Coefficient for `nox` is very different between the 2 models. Even the signs of the coefficients do not match. Coefficients for other covariates are more similar in comparison.
+
+```{r Ex15-c}
+df <- cbind(m1.coef, m2.coef)
+plot(df, main='Model Coefficient comparison', xlab='Simple Linear Regression', ylab='Multiple Linear Regression')
+
+plot(df, main='Model Coefficient comparison (zoom)', xlab='Simple Linear Regression', ylab='Multiple Linear Regression', xlim=c(-3,3), ylim=c(-1.1,1.1), pch=16)
+
+```
+
+*d:* Investigate non-linear association between response & covariates
+
+The pairwise plots of response vs. covariates show the relationship between the 2. The covariates below show evidence of non-linear relationship wth the response `crim`. 
+
+* indus
+* nox
+* age
+* dis
+* ptratio
+* medv
+
+
+```{r Ex15-d}
+
+plot(Boston)
+
+for (i in 2:ncol(Boston)) {
+  covar <- names(Boston)[i]
+  f <- paste(names(Boston)[1], ' ~ ', covar, '+ I(', covar, '^2) + I(', covar, '^3)', sep='')
+  m <- lm(as.formula(f), data=Boston)
+  print(summary(m))
+  print('-----')
+}
+```

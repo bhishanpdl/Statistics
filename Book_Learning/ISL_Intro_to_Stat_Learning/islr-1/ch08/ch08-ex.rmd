@@ -1,0 +1,418 @@
+---
+title: "ISLR, Chapter 8"
+output: 
+  github_document:
+    toc: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Exercise 1
+
+---
+
+### Exercise 2
+
+---
+
+### Exercise 3
+
+---
+
+### Exercise 4
+
+---
+
+### Exercise 5
+
+---
+
+### Exercise 6
+
+---
+
+### Exercise 7
+
+The plot below shows test MSE as a function of the number of trees for the Boston housing data set. Median house value was regressed on all other covariates (`p` = 13) or a subset of them (`p/2` and `sqrt(p)`). Each line shows the test MSE for a different value of `m`, the number of covariates selected randomly for each split. `m = p` represents bagging while `m < p` represents random forests. Random forests perform better than bagging with median test MSE values of `13.05` and `12.75` for `p/2` and `sqrt(p)` compared to `16.04` for `p`. Both performed better than a single tree which had a test MSE of `26.14`)
+
+
+```{r Ex7}
+library(randomForest)
+library(tree)
+library(MASS)
+data(Boston)
+
+set.seed(1)
+
+boston.train.idx <- sample(nrow(Boston), 250)
+boston.train <- Boston[boston.train.idx,]
+boston.test <- Boston[-boston.train.idx,]
+
+# Test MSE for a single decision tree
+dt <- tree(medv ~ ., data=boston.train)
+dtp <- predict(dt, newdata=boston.test[,1:(ncol(boston.test)-1)])
+dtp.mse <- round(mean((dtp - boston.test[,14])^2),2)
+
+# Test MSE for Random Forests for different values of `m` and number of trees
+mtry.array <- c(13, round(13/2), round(sqrt(13)) )
+ntree.array <- seq(1,1000, 10)
+rf.mse <- matrix(nrow=length(mtry.array), ncol=length(ntree.array))
+i <- 1
+j <- 1
+
+for (mtry in mtry.array) {
+  for (ntree in ntree.array) {
+    rf <- randomForest(
+        medv ~ ., 
+        data=boston.train, 
+        xtest=boston.test[,1:(ncol(boston.test)-1)], 
+        ytest=boston.test[,ncol(boston.test)],
+        ntree=ntree,
+        mtry=mtry,
+        keep.forest=T
+    )
+    
+    rf.mse[[i,j]] <- mean(rf$test$mse)
+    j <- j+1
+  }
+  i <- i+1
+  j = 1
+}
+
+# Plot test MSE as a function of number of trees for each `m`
+ylim <- c(floor(min(rf.mse)), ceiling(max(rf.mse)))
+plot(ntree.array, rf.mse[1,], type='l', col='red', lwd=1.5, ylim=ylim, main="Random forests: Boston data set (medv ~.)", xlab="Number of trees", ylab="Test MSE")
+lines(ntree.array, rf.mse[2,], col='blue', lwd=1.5)
+lines(ntree.array, rf.mse[3,], col='forestgreen', lwd=1.5)
+legend("topright", legend=c('Single tree', 'm=p', 'm=p/2', 'm=sqrt(p)'), col=c("black", "red", "blue", "forestgreen"), lwd=2, lty=c('dotted', 'solid', 'solid', 'solid'))
+
+abline(h=dtp.mse, lty='dotted')
+
+```
+
+---
+
+### Exercise 8
+
+Fit regression trees to `Carseats` data using `Sales` as the response
+
+```{r Ex8}
+library(ISLR)
+data(Carseats)
+
+library(tree)
+library(randomForest)
+```
+
+*a:* Split data into training & test data sets
+
+```{r Ex8-a}
+set.seed(1)
+train.idx <- sample(nrow(Carseats), size=nrow(Carseats)/2)
+carseats.train <- Carseats[train.idx,]
+carseats.test <- Carseats[-train.idx,]
+```
+
+*b:* Fit decision tree to `Carseats` data. The resulting tree uses 6 covariates and has a test MSE of `4.15`. Plot of tree shows that `Sales` depends mainly on `ShelveLoc` and `Price`.
+
+```{r Ex8-b}
+dt <- tree(Sales ~ ., data=carseats.train)
+dtp <- predict(dt, newdata=carseats.test[,-1])
+dtp.mse <- round(mean((dtp - carseats.test$Sales)^2), 2)
+dtp.mse
+
+summary(dt)
+
+plot(dt)
+text(dt, pretty=0)
+```
+
+*c:* Cross-validation suggests that pruning the tree to 10 terminal nodes will give a simpler model without much loss of performance. This pruned tree uses 3 covariates and has a test MSE of `4.15`. Pruning the tree did not improve test MSE.
+
+```{r Ex8-c}
+
+cvt <- cv.tree(dt, FUN=prune.tree)
+plot(cvt$size, cvt$dev, type='b', lwd=2)
+
+dt10 <- prune.tree(dt, best=10)
+dt10p <- predict(dt10, newdata=carseats.test[,-1])
+dt10p.mse <- round(mean((dtp - carseats.test$Sales)^2),2)
+dt10p.mse
+
+summary(dt10)
+
+plot(dt10)
+text(dt10, pretty = 0)
+```
+
+*d:* Using bagging to fit the data with 500 trees results in a decrease in test MSE to ~ `2.5`. The most importance variables according to bagging are `Price`, `ShelveLoc`, `Age` & `CompPrice`, the same covariates used in the pruned tree above wihth 8 terminal nodes.
+
+```{r Ex8-d}
+
+bt <- randomForest(Sales ~ ., data=carseats.train, mtry=10, xtest=carseats.test[,-1], ytest=carseats.test[,1])
+plot(bt)
+
+bt.mse <- median(bt$test$mse)
+print(bt.mse)
+importance(bt, type=2)
+```
+
+*e:* Random forests with 500 trees were used to fit the data. Test MSE decreased with increase in number of covariates considered at each split with the lowest test MSE occuring when all covariates were used at each split (same as bagging). For each value of `m`, `ShelveLoc`, `Price` and `Age` were the most important covariates. 
+
+```{r Ex8-e}
+
+p <- ncol(Carseats) - 1
+mtry.array <- 1:10
+rf.mse <- rep(NaN, length(mtry.array))
+i <- 1
+
+for (mtry in mtry.array) {
+  rf <- randomForest(Sales ~ ., data=carseats.train, mtry=mtry, xtest=carseats.test[,-1], ytest=carseats.test[,1])
+  mse <- median(rf$test$mse)
+  rf.mse[[i]] <- mse
+  
+  print(importance(rf))
+  
+  i <- i + 1
+}
+
+df <- data.frame(mtry=mtry.array, mse=rf.mse)
+plot(df, type='b', lwd=2, ylab='Test MSE')
+
+```
+
+---
+
+### Exercise 9
+
+Explore the `OJ` data set
+
+
+*a:* Create training and test sets
+
+```{r Ex9-a}
+library(tree)
+library(randomForest)
+library(ISLR)
+data(OJ)
+
+OJ$StoreID <- as.factor(OJ$StoreID)
+OJ$SpecialCH <- as.factor(OJ$SpecialCH)
+OJ$SpecialMM <- as.factor(OJ$SpecialMM)
+OJ$Store7 <- as.factor(OJ$Store7)
+OJ$STORE <- as.factor(OJ$STORE)
+
+set.seed(1)
+train.idx <- sample(nrow(OJ), size=800)
+oj.train <- OJ[train.idx, ]
+oj.test <- OJ[-train.idx,]
+
+```
+
+*b:* A decision tree fit to the data had 8 terminal nodes. Only the covariates `LoyalCH`, `PriceDiff`, `SpecialCH` and `ListPriceDiff` were used. Training misclassification error rate is ` 0.165 (16.5%)` and residual mean deviance is `0.7305`.
+
+```{r Ex9-b}
+dt <- tree(Purchase ~ ., data=oj.train)
+summary(dt)
+```
+
+*c:* Terminal node details. Terminal node `7` contains only data points with `LoyalCH > 0.764572`. This node has a deviance of `86.14` and a fitted value of `CH`. It has `278` data points of which `96.4%` have `Purchase = CH` and `3.6%` have `Purchase = MM`.
+
+```{r Ex9-c}
+dt
+```
+
+*d:* A plot of the tree indicates that `LoyalCH` is the most important covariate and is used in the first 2 levels of the tree. Data points with `LoyalCH > 0.5` are associated with `CH` purchases while points with `LoyalCH < 0.26` are associated with `MM` purchases.
+
+```{r Ex9-d}
+plot(dt)
+text(dt, pretty=0)
+
+```
+
+*e:* Predictions are thresholded at 0.8, i.e., if `P(CH) >= 0.8`, then the prediction is classified as `CH`, else `MM`. With this threshold value, the test misclassification error rate is `23.7%`.
+
+```{r Ex9-e}
+
+dtp <- predict(dt, newdata=oj.test[,-1])
+dtp.class <- ifelse(dtp[,1] >= 0.8, 'CHp', 'MMp')
+cm <- table(oj.test$Purchase, dtp.class)
+print(cm) 
+
+err <- (cm[1,2] + cm[2,1])/sum(cm)
+print(err)
+
+```
+
+*f/g/h:* Cross-validation suggests that a tree with 5 terminal nodes is the smallest tree with the lowest misclassification error rate.
+
+```{r Ex9-f}
+set.seed(1)
+cvt <- cv.tree(dt, FUN=prune.misclass)
+print(cvt)
+plot(cvt$size, cvt$dev, type='b', lwd=2)
+  
+```
+
+*i/j/k:* Compare pruned & unpruned trees. The training error rate for a pruned tree with 5 terminal nodes is `0.1825`, higher than that for the unpruned tree (`0.165`). The test misclassification error rate for both trees is the same (`0.237`).
+
+```{r Ex9-i}
+
+dt.pruned <- prune.tree(dt, best=5)
+summary(dt.pruned)
+
+plot(dt.pruned)
+text(dt.pruned, pretty=0)
+
+
+dt.pruned.p <- predict(dt.pruned, newdata=oj.test[,-1])
+dtp.pruned.class <- ifelse(dt.pruned.p[,1] >= 0.8, 'CHp', 'MMp')
+cm.pruned <- table(oj.test$Purchase, dtp.pruned.class)
+print(cm.pruned) 
+
+err.pruned <- (cm.pruned[1,2] + cm.pruned[2,1])/sum(cm.pruned)
+print(err.pruned)
+
+```
+
+---
+
+### Exercise 10
+
+Analyze `Hitters` data set with boosting
+
+*a:* Remove players with no salary info
+
+```{r Ex10-a}
+library(gbm)
+library(randomForest)
+library(ISLR)
+data(Hitters)
+
+h2 <- Hitters[! is.na(Hitters$Salary), ]
+h2$Salary <- log(h2$Salary)
+```
+
+*b:* Create training and test data sets
+
+```{r Ex10-b}
+train.idx <- 1:200
+h2.train <- h2[train.idx,]
+h2.test <- h2[-train.idx,]
+```
+
+*c/d:* Boosting on data set
+
+```{r Ex10-c}
+set.seed(1)
+
+num.trees <- 1000
+shrinkage.array <- seq(0.001, 1, length.out=100)
+train.mse <- rep(NaN, length(shrinkage.array))
+test.mse <- rep(NaN, length(shrinkage.array))
+i <- 1
+
+for (s in shrinkage.array) {
+  h2.boost <- gbm(Salary ~ ., data=h2.train, distribution="gaussian", n.trees=num.trees, interaction.depth=5, shrinkage=s)
+  train.mse[[i]] <- h2.boost$train.error[num.trees]
+  
+  h2p <- predict(h2.boost, newdata=h2.test[-19], n.trees=num.trees)
+  test.mse[[i]] <- mean((h2p - h2.test$Salary)^2)
+  
+  i <- i + 1
+}
+
+# Min test MSE
+paste("Boosting: Test MSE = ", round(min(test.mse),2), sep='')
+
+# plot train & test MSE as a function of shrinkage
+ylim <- c(0, round(max(train.mse, test.mse), 2))
+plot(shrinkage.array, train.mse, type='l', xlab='Shrinkage', ylab='MSE', ylim=ylim, col='blue')
+lines(shrinkage.array, test.mse, type='l', col='red')
+lines(lowess(shrinkage.array, test.mse), lwd=2, col='red')
+legend("topleft", legend=c("Train MSE", "Test MSE"), col=c("blue", "red"), lwd=2)
+
+```
+
+*e*: TODO
+
+*f:* The most important covariates in the boosted model are `CAtBat` and `Assists`, followed by `PutOuts`, `AtBat` and `Errors`.
+
+```{r Ex10-f}
+par(mar=par()$mar + 1)
+summary(h2.boost, las=2)
+```
+
+*g:* With a bagged model, the test MSE is `0.23`. So bagging seems to perform better than boosting for this data set. A random forests model with `mtry=6` had a slightly lower test MSE of `0.22`.
+
+```{r Ex10-g}
+bt <- randomForest(Salary ~ ., data=h2.train, mtry=19, xtest=h2.test[,-19], ytest=h2.test[,19], keep.forest=TRUE)
+bt
+```
+
+---
+
+### Exercise 11
+
+Analyze the `Caravan` data set
+
+*a:* Create training and test data sets
+
+```{r Ex11-a}
+library(gbm)
+library(ISLR)
+data(Caravan)
+
+set.seed(1)
+
+train.idx <- 1:1000
+caravan.train <- Caravan[train.idx,]
+caravan.test <- Caravan[-train.idx,]
+
+PurchaseBinary <- ifelse(Caravan$Purchase == 'Yes', 1, 0)
+PurchaseBinary.train <- PurchaseBinary[train.idx]
+PurchaseBinary.test <- PurchaseBinary[-train.idx]
+```
+
+*b:* When a boosted model is fit to the data, `PPERSAUT`, `MKOOPKLA` & `MOPLHOOG` were the most influential covariates.
+
+```{r Ex11-b}
+
+bt <- gbm(PurchaseBinary.train ~ .-Purchase, data=caravan.train, distribution="bernoulli", n.trees=1000, shrinkage=0.01)
+summary(bt)
+```
+
+*c:*
+
+```{r Ex11-c}
+
+btp <- predict(bt, newdata=caravan.test[,-86], n.trees=1000)
+
+# convert prediction log odds to probability (for bernoulli distribution only)
+odds <- exp(btp)
+p <- odds/(1+odds)
+hist(p, col='grey', breaks=50)
+
+# Confusion matrix for purchase
+PurchaseBinary.p <- ifelse(p > 0.2, 1, 0)
+cm <- table(PurchaseBinary.test, PurchaseBinary.p)
+cm
+
+# Misclassification error
+round((cm[1,2] + cm[2,1])/sum(cm),2)
+
+# Fraction of people predicted to make a purchase who actually do
+round(cm[2,2]/sum(cm[,2]),2)
+
+```
+
+**Comparison to kNN & Logistic Regression:**
+
+TODO
+
+---
+
+### Exercise 12
