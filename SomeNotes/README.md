@@ -1,1 +1,2 @@
-Some Statistics notes.
+# p-value
+![](p_value1.png)
