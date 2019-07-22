@@ -1,8 +1,14 @@
+![](../images/p_value_1_2_tails.jpeg)
+
 # z-test for coin toss
 ```
  Let's suppose that after n=100 flips, we get h=61 heads. 
  We choose a significance level of 0.05: is the coin fair or not? 
  Our null hypothesis is: the coin is fair (q=1/2).
+ H0 : a coin is a fair coin.
+ H1 : a coin is a tricky coin.
+ alpha = 5% or 0.05
+ 
  
 import numpy as np
 import scipy.stats as st
