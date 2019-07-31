@@ -8,6 +8,9 @@ Table of Contents
       * [One tailed z-test](#one-tailed-z-test)
       * [Two-tailed z-test](#two-tailed-z-test)
 
+# Important
+- [various probability distributions](https://ben18785.shinyapps.io/distribution-zoo/)
+
 # Statistics Books
 - [ESL The Elements of Statistical Learning by  Friedman, Hastie, and Tibshirani](https://web.stanford.edu/~hastie/ElemStatLearn/)
 - [ISL An Introduction to Statistical Learning: With Applications in R by  Friedman, Hastie, and Tibshirani](http://www-bcf.usc.edu/~gareth/ISL/)
