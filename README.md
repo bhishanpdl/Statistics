@@ -1,5 +1,6 @@
 Table of Contents
 =================
+   * [Important Links](#important-links)
    * [Statistics Books](#statistics-books)
    * [Fitting lognormal distribution](#fitting-lognormal-distribution)
    * [T-test and KS(Kolmogorov-Smirnov) test for one sample](#t-test-and-kskolmogorov-smirnov-test-for-one-sample)
@@ -8,12 +9,14 @@ Table of Contents
       * [One tailed z-test](#one-tailed-z-test)
       * [Two-tailed z-test](#two-tailed-z-test)
 
-# Important
-- [various probability distributions](https://ben18785.shinyapps.io/distribution-zoo/)
+# Important Links
+- [various probability distributions rshiny app online](https://ben18785.shinyapps.io/distribution-zoo/)
+- [Fourier wave transformation youtube](https://www.youtube.com/watch?v=r18Gi8lSkfM)
 
 # Statistics Books
 - [ESL The Elements of Statistical Learning by  Friedman, Hastie, and Tibshirani](https://web.stanford.edu/~hastie/ElemStatLearn/)
 - [ISL An Introduction to Statistical Learning: With Applications in R by  Friedman, Hastie, and Tibshirani](http://www-bcf.usc.edu/~gareth/ISL/)
+- [Why Dividing By N Underestimates the Variance youtube](https://www.youtube.com/watch?v=sHRBg6BhKjI)
 
 # Fitting lognormal distribution
 ```python
