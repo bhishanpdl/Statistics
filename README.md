@@ -12,6 +12,7 @@ Table of Contents
 # Important Links
 - [various probability distributions rshiny app online](https://ben18785.shinyapps.io/distribution-zoo/)
 - [Fourier wave transformation youtube](https://www.youtube.com/watch?v=r18Gi8lSkfM)
+- [29 statistical concepts](https://www.datasciencecentral.com/profiles/blogs/29-statistical-concepts-explained-in-simple-english-part-16)
 
 # Statistics Books
 - [ESL The Elements of Statistical Learning by  Friedman, Hastie, and Tibshirani](https://web.stanford.edu/~hastie/ElemStatLearn/)
