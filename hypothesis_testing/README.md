@@ -1,3 +1,5 @@
+![](../images/hypothesis_tests.png)
+
 ![](../images/p_value_1_2_tails.jpeg)
 
 # z-test for coin toss
