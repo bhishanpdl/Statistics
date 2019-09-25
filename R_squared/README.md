@@ -3,4 +3,6 @@ In statistics, the coefficient of determination, denoted $R^2$
 and pronounced "R squared", is the proportion of the variance in
 the dependent variable that is predictable from the independent variable(s).
 
+Suppose R2 = 0.49. This implies that 49% of the variability of the dependent variable has been accounted for, and the remaining 51% of the variability is still unaccounted for. 
+
 # Formula
