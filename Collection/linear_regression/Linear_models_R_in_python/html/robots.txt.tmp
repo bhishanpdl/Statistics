@@ -1,0 +1,7 @@
+# robots.txt
+#
+# Here to stop recursive linking apps mainly
+
+User-agent: *
+Disallow: /su6bsac/calendar
+Disallow: /pysabw/destinymembers/
