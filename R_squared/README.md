@@ -10,5 +10,8 @@ $$
 R^2 = 1 - \frac{SS_{res}}{SS_{tot}}
 $$
 $$
-SS_{reg} = \Sigma e_i^2
+SS_{reg} = \Sigma_i e_i^2
+$$
+$$
+SS_{tot} = \Sigma_i (y_i - \tilde{y})^2
 $$
