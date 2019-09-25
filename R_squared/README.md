@@ -8,4 +8,5 @@ Suppose R2 = 0.49. This implies that 49% of the variability of the dependent var
 # Formula
 $$
 R^2 = 1 - \frac{SS_{res}}{SS_{tot}}
+SS_{res} = \Sum e_i^2
 $$
