@@ -6,3 +6,6 @@ the dependent variable that is predictable from the independent variable(s).
 Suppose R2 = 0.49. This implies that 49% of the variability of the dependent variable has been accounted for, and the remaining 51% of the variability is still unaccounted for. 
 
 # Formula
+$$
+R^2 = 1 - \frac{SS_{res}}{SS_{tot}}
+$$
