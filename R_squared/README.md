@@ -13,5 +13,5 @@ $$
 SS_{reg} = \Sigma_i e_i^2
 $$
 $$
-SS_{tot} = \Sigma_i (y_i - \tilde{y})^2
+SS_{tot} = \Sigma_i (y_i - \hat{y})^2
 $$
