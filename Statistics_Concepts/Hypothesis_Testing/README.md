@@ -1,7 +1,7 @@
 # Good links
 - [hypothesis-testing-spinning-the-wheel](https://nikolanews.com/statistical-hypothesis-testing-spinning-the-wheel/)
 ![](../../images/hypothesis_wheel1.png)
-![](../../images/hypothesis_wheel2.png)
+<img src="https://github.com/bhishanpdl/Statistics/blob/master/images/hypothesis_wheel2.png" width="1200" height="1000">
 
 ![](../../images/p_value_1_2_tails.jpeg)
 
