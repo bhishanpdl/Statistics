@@ -1,12 +1,16 @@
 # Good links
 - [hypothesis-testing-spinning-the-wheel](https://nikolanews.com/statistical-hypothesis-testing-spinning-the-wheel/)
+![](../../images/hypothesis_wheel1.png)
+![](../../images/hypothesis_wheel2.png)
+
+![](../../images/p_value_1_2_tails.jpeg)
 
 
-![](../images/hypothesis_tests.png)
+![](../../images/hypothesis_tests.png)
 
-![](../images/p_value_1_2_tails.jpeg)
+![](../../images/p_value_1_2_tails.jpeg)
 
-![](../images/zTest_tTest.png)
+![](../../images/zTest_tTest.png)
 
 
 # z-test for coin toss
