@@ -1,3 +1,11 @@
+Table of Contents
+=================
+   * [Accuracy and balanced accuracy](#accuracy-and-balanced-accuracy)
+   * [Precision](#precision)
+   * [Recall](#recall)
+   * [F-beta score](#f-beta-score)
+   * [Classification metrics](#classification-metrics)
+
 # Accuracy and balanced accuracy
 ![](accuracy.png)
 ![](balanced_accuracy.png)
@@ -7,16 +15,15 @@
 ![](precision.png)
 - Precision is all P.
 - How many selected items are GOOD?
-- Precision is how much precise is our true positive out of ALL predicted positives.
 - Precision is important metric when FP is important. For example, spam email detection.
-  When an non-spam email is predicted as spam, it is undesirable effect.
+  When an non-spam email is predicted as spam, it is bad.
 
 # Recall
 ![](precision.png)
 - Recall has FN instead of FP.
 - How frauds are selected?
 - Recall is important when FN is important.
-- For example, in fraud detection. When fraud is deteced non-fraud its bad.
+- For example, in fraud detection. When fraud is deteced non-fraud it is bad.
 - Another example is patient sickness detection.
 
 # F-beta score
