@@ -18,7 +18,7 @@ Statsmodels uses OLS method to fit the data.
 import statsmodels.api as sm
 
 X1 = sm.add_constant(X)
-lst_vif = [variance_inflation_factor(X1, i) for i in range(len(X1))]
+lst_vif = [variance_inflation_factor(X1, i) for i in range(X1.shape[1])]
 ```
 
 ## Using scikit learn
