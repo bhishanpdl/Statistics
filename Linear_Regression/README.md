@@ -3,3 +3,4 @@
 
 # Regression Algorithms List
 ![](images/regression_algorithms_list.png)
+![](images/regression_applications.png)
