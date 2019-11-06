@@ -26,7 +26,7 @@ Table of Contents
 - How frauds are selected?
 - Recall is important when FN is important.
 - For example, in fraud detection. When fraud is deteced non-fraud it is bad.
-- Another example is patient sickness detection.
+- Another example is patient sickness detection and terrorist detection.
 
 # F-beta score
 ![](fbeta_score.png)
