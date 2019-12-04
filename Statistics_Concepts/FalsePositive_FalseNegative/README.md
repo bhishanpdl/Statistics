@@ -10,7 +10,7 @@ In medical field, assume you have to give chemo therapy to patients. Your lab te
 
 Assume a patient comes to that hospital and he is tested positive for cancer (But he doesn’t have cancer) based on lab prediction. What will happen to him? (Assuming Sensitivity is 1)
 
-One more example might come from marketing. Let’s say an ecommerce company decided to give $1000 Gift voucher to the customers whom they assume to purchase at least $5000 worth of items. They send free voucher mail directly to 100 customers without any minimum purchase condition because they assume to make at least 20% profit on sold items above 5K.
+One more example might come from marketing. Let’s say an ecommerce company decided to give `$1000` Gift voucher to the customers whom they assume to purchase at least `$5000` worth of items. They send free voucher mail directly to 100 customers without any minimum purchase condition because they assume to make at least `20%` profit on sold items above `5K`.
 
 Now what if they have sent it to false positive cases? 
 
