@@ -1,6 +1,5 @@
-# False Positives and False Negatives
 
-1. What are False Positives and False Negatives
+### What are False Positives and False Negatives
  False Positives are the cases where you wrongly classified a non-event as an event a.k.a Type I error.
 
   And, False Negatives are the cases where you wrongly classify events as non-events, a.k.a Type II error.
@@ -15,7 +14,7 @@
 
  Now what if they have sent it to false positive cases? 
 
-1. Can you cite some examples where a false negative important than a false positive?
+### Can you cite some examples where a false negative important than a false positive?
 
  Assume there is an airport ‘A’ which has received high security threats and based on certain characteristics they identify whether a particular passenger can be a threat or not. Due to shortage of staff they decided to scan passenger being predicted as risk positives by their predictive model.
 
@@ -25,7 +24,7 @@
 
   What if you rejected to marry a very good person based on your predictive model and you happen to meet him/her after few years and realize that you had a false negative?
 
-1. Can you cite some examples where both false positive and false negatives are equally important?
+### Can you cite some examples where both false positive and false negatives are equally important?
 
  In the banking industry giving loans is the primary source of making money but at the same time if your repayment rate is not good you will not make any profit, rather you will risk huge losses.
 
