@@ -1,13 +1,6 @@
-Table of Contents
-=================
-   * [Important Links](#important-links)
-   * [Statistics Books](#statistics-books)
-   * [Fitting lognormal distribution](#fitting-lognormal-distribution)
-   * [T-test and KS(Kolmogorov-Smirnov) test for one sample](#t-test-and-kskolmogorov-smirnov-test-for-one-sample)
-   * [p-values](#p-values)
-   * [Hypothesis Testing](#hypothesis-testing)
-      * [One tailed z-test](#one-tailed-z-test)
-      * [Two-tailed z-test](#two-tailed-z-test)
+# Blogs and Talks
+- [Jake VanDerPlas for PyCon 2016: Statistics for Hackers](https://nbviewer.jupyter.org/github/croach/statistics-for-hackers/blob/master/statistics-for-hackers.ipynb)
+ - [Frequentists AB test](http://ethen8181.github.io/machine-learning/ab_tests/frequentist_ab_test.html)
 
 # Important Links
 - [various probability distributions rshiny app online](https://ben18785.shinyapps.io/distribution-zoo/)
