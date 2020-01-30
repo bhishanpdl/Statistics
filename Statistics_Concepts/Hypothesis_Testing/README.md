@@ -1,3 +1,6 @@
+# 17 Hypothesis Testing in Python
+https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-sheet/
+
 # Good links
 - [hypothesis-testing-spinning-the-wheel](https://nikolanews.com/statistical-hypothesis-testing-spinning-the-wheel/)
 ![](../../images/hypothesis_wheel1.png)
