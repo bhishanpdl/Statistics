@@ -106,6 +106,22 @@ Step 4: Find the probability of actually having the gene, given a positive resul
 Divide the chance of having a real, positive result (Step 1) by the chance of
 getting any kind of positive result (Step 3) = .009/.10404 = 0.0865 (8.65%).
 
+**Solution**
+```
+P(D) = 1/100  defective gene
+P(T|D) = 90/100 True Positive TP means if there are 100 defects, test will find 90 of them.
+P(T|~D) = 9.6/100 False Positive FP means test shows +ve for NOT defective person.
+
+There are 1 defective gene person. And, he becoming +ve is 90 %. This means  90 * 1
+There are 99 not defectve gene person. And, he becoming +ve is 9.6%. This means 9.6 * 99
+
+
+P(D|T) = P(T|D) * P(D) / P(T)
+       = 90 * 1
+          ----------------------
+          90 * 1 + 9.6 * 99
+```
+
 
 # Example 4
 Q. Given the following statistics, what is the probability that a woman has cancer
