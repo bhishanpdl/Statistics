@@ -4,11 +4,16 @@
 # Example 1
 You might be interested in finding out a patient’s probability of having liver disease if they are an alcoholic. “Being an alcoholic” is the test (kind of like a litmus test) for liver disease.  
 
-A could mean the event “Patient has liver disease.” Past data tells you that 10% of patients entering your clinic have liver disease. P(A) = 0.10.  
-B could mean the litmus test that “Patient is an alcoholic.” Five percent of the clinic’s patients are alcoholics. P(B) = 0.05.  
-You might also know that among those patients diagnosed with liver disease, 7% are alcoholics. This is your B|A: the probability that a patient is alcoholic, given that they have liver disease, is 7%.
+- A could mean the event “Patient has liver disease.” Past data tells you that 10% of patients entering your clinic have liver disease. P(A) = 0.10.  
+- B could mean the litmus test that “Patient is an alcoholic.” Five percent of the clinic’s patients are alcoholics. P(B) = 0.05.  
+- You might also know that among those patients diagnosed with liver disease, 7% are alcoholics. This is your B|A: the probability that a patient is alcoholic, given that they have liver disease, is 7%.
+
+
 Bayes’ theorem tells you:  
-P(A|B) = (0.07 * 0.1)/0.05 = 0.14  
+
+P(A|B) = (0.07 * 0.1)/0.05 = 0.14 
+
+
 In other words, if the patient is an alcoholic, their chances of having liver disease is 0.14 (14%).
 This is a large increase from the 10% suggested by past data.
 But it’s still unlikely that any particular patient has liver disease.
