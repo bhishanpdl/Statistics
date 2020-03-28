@@ -49,6 +49,17 @@ P(A|B) = P(B|A) * P(A) / P(B) = (0.08 * 0.1)/0.05 = 0.16
 
 The probability of an addict being prescribed pain pills is 0.16 (16%).  
 
+**Solution** 
+```
+P(N) = 10/100
+P(A) = 5/100
+P(A|N) = 8/100
+
+P(N|A) = P(A|N) * P(N) / P(A)
+       = 8 * 10 / 5 = 16% answer
+
+```
+
 # Example 3 
 1% of people have a certain genetic defect.  
 90% of tests for the gene detect the defect (true positives).  
