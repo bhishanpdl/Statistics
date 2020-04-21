@@ -1,4 +1,5 @@
 # Blogs and Talks
+- [Good: Understanding Maximum Likelihood](https://rpsychologist.com/d3/likelihood/)
 - [Good: tutorialspoint Statistics - One Proportion Z Test](https://www.c.com/statistics/one_proportion_z_test.htm)
 - [Jake VanDerPlas for PyCon 2016: Statistics for Hackers](https://nbviewer.jupyter.org/github/croach/statistics-for-hackers/blob/master/statistics-for-hackers.ipynb)
  - [Frequentists AB test](http://ethen8181.github.io/machine-learning/ab_tests/frequentist_ab_test.html)
