@@ -167,3 +167,29 @@ P(Bc*P(A|Bc) = 0.99 * 0.08 = 0.0792.
 
 Inserting those two solutions into the formula, we get:  
 0.009 / (0.009 + 0.0792) = 10%.  
+
+# Cookie problem (Think Bayes)
+Suppose there are two bowls of cookies.
+Bowl 1 contains 30 vanilla cookies and 10 chocolate cookies.
+Bowl 2 contains 20 of each.
+Now suppose you choose one of the bowls at random and, without looking,
+select a cookie at random. The cookie is vanilla. What is the probability that
+it came from Bowl 1?
+
+From Bayes’s theorem we get  
+p(B1|V) = p(B1) p(V|B1) / p(V)  
+
+The term on the left is what we want: the probability of Bowl 1, given that
+we chose a vanilla cookie. The terms on the right are:
+• p(B1): This is the probability that we chose Bowl 1, unconditioned by
+what kind of cookie we got. Since the problem says we chose a bowl
+at random, we can assume p(B1) = 1/2.
+• p(V|B1): This is the probability of getting a vanilla cookie from Bowl
+1, which is 3/4.
+• p(V): This is the probability of drawing a vanilla cookie from either
+bowl. Since we had an equal chance of choosing either bowl and the
+bowls contain the same number of cookies, we had the same chance of
+choosing any cookie. Between the two bowls there are 50 vanilla and
+30 chocolate cookies, so p(V) = 5/8.
+Putting it together, we have
+p(B1|V) = (1/2) * (3/4) / (5/8) = 3/5
