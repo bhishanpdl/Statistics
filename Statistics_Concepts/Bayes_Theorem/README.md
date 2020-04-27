@@ -1,5 +1,7 @@
 # References
 - https://www.statisticshowto.datasciencecentral.com/bayes-theorem-problems/
+- [Alan Downey Bayes problems](http://allendowney.blogspot.com/2011/10/all-your-bayes-are-belong-to-us.html)
+
 
 # Example 1
 You might be interested in finding out a patient’s probability of having liver disease if they are an alcoholic. “Being an alcoholic” is the test (kind of like a litmus test) for liver disease.  
