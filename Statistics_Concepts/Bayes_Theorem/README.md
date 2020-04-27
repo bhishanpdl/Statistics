@@ -1,9 +1,23 @@
+Table of Contents
+=================
+   * [References](#references)
+   * [Alcholic Problem](#alcholic-problem)
+   * [Clinic Test problem](#clinic-test-problem)
+   * [Genetic Defect Problem](#genetic-defect-problem)
+   * [Cancer Problem](#cancer-problem)
+   * [Cookie problem](#cookie-problem)
+   * [M&amp;M problem](#mm-problem)
+   * [Elvis Presley Problem](#elvis-presley-problem)
+   * [Blood type problem](#blood-type-problem)
+   * [Smoker Problem](#smoker-problem)
+   * [Monty Hall Problem](#monty-hall-problem)
+
 # References
 - https://www.statisticshowto.datasciencecentral.com/bayes-theorem-problems/
 - [Alan Downey Bayes problems](http://allendowney.blogspot.com/2011/10/all-your-bayes-are-belong-to-us.html)
 
 
-# Example 1
+# Alcholic Problem
 You might be interested in finding out a patient’s probability of having liver disease if they are an alcoholic. “Being an alcoholic” is the test (kind of like a litmus test) for liver disease.  
 
 - A could mean the event “Patient has liver disease.” Past data tells you that 10% of patients entering your clinic have liver disease. P(A) = 0.10.  
@@ -20,7 +34,7 @@ In other words, if the patient is an alcoholic, their chances of having liver di
 This is a large increase from the 10% suggested by past data.
 But it’s still unlikely that any particular patient has liver disease.
 
-# Example 2
+# Clinic Test problem
 Another way to look at the theorem is to say that one event follows another. 
 Above I said “tests” and “events”, but it’s also legitimate to think of it as
 the “first event” that leads to the “second event.” 
@@ -62,7 +76,7 @@ P(N|A) = P(A|N) * P(N) / P(A)
 
 ```
 
-# Example 3 
+# Genetic Defect Problem
 1% of people have a certain genetic defect.  
 90% of tests for the gene detect the defect (true positives).  
 9.6% of the tests are false positives.  
@@ -125,7 +139,7 @@ P(D|T) = P(T|D) * P(D) / P(T)
 ```
 
 
-# Example 4
+# Cancer Problem
 Q. Given the following statistics, what is the probability that a woman has cancer
 if she has a positive mammogram result?
 
