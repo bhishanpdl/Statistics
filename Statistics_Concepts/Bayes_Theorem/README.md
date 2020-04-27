@@ -190,6 +190,6 @@ at random, we can assume p(B1) = 1/2.
 bowl. Since we had an equal chance of choosing either bowl and the
 bowls contain the same number of cookies, we had the same chance of
 choosing any cookie. Between the two bowls there are 50 vanilla and
-30 chocolate cookies, so p(V) = 5/8.
+30 chocolate cookies, so p(V) =  (1/2) (3/4) + (1/2) (1/2) = 5/8
 Putting it together, we have
 p(B1|V) = (1/2) * (3/4) / (5/8) = 3/5
