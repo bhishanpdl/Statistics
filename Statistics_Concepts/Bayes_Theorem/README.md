@@ -15,6 +15,7 @@ Table of Contents
 # References
 - https://www.statisticshowto.datasciencecentral.com/bayes-theorem-problems/
 - [Alan Downey Bayes problems](http://allendowney.blogspot.com/2011/10/all-your-bayes-are-belong-to-us.html)
+- [Bayes Theorem and some of the mysteries it has solved](https://www.youtube.com/watch?v=82q3uYw6MuY)
 
 
 # Alcholic Problem
