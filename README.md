@@ -15,6 +15,9 @@
 - [ISL An Introduction to Statistical Learning: With Applications in R by  Friedman, Hastie, and Tibshirani](http://www-bcf.usc.edu/~gareth/ISL/)
 - [Why Dividing By N Underestimates the Variance youtube](https://www.youtube.com/watch?v=sHRBg6BhKjI)
 
+# Probability and Statistics Links
+- [Interactive Concepts brown.edu: Seeing Theory](https://lnkd.in/etgzUv7)
+
 # Fitting lognormal distribution
 ```python
 import numpy as np
