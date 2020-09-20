@@ -17,7 +17,7 @@ https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-
 
 
 # z-test for coin toss
-```
+```python
  Let's suppose that after n=100 flips, we get h=61 heads. 
  We choose a significance level of 0.05: is the coin fair or not? 
  Our null hypothesis is: the coin is fair (q=1/2).
