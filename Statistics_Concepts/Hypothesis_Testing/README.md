@@ -28,7 +28,7 @@ https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-
  
 import numpy as np
 import scipy.stats as st
-import scipy.special as sp
+import scipy.special as ssp
 n = 100  # number of coin flips
 h = 61  # number of heads
 q = .5  # null-hypothesis of fair coin
