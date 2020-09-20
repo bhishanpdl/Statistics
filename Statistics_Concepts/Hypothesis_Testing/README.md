@@ -20,7 +20,7 @@ https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-
 ```python
  Let's suppose that after n=100 flips, we get h=61 heads. 
  We choose a significance level of 0.05: is the coin fair or not? 
- Our null hypothesis is: the coin is fair (q=1/2).
+ Our null hypothesis is: the coin is fair (p=1/2).
  H0 : a coin is a fair coin.
  H1 : a coin is a tricky coin.
  alpha = 5% or 0.05
@@ -31,11 +31,13 @@ import scipy.stats as st
 import scipy.special as ssp
 n = 100  # number of coin flips
 h = 61  # number of heads
-q = .5  # null-hypothesis of fair coin
+p = .5  # null-hypothesis of fair coin
 
 # find z-statistic
 xbar = float(h) / n
-z = (xbar - q) * np.sqrt(n / (q * (1 - q)))
+z = (xbar - p) * np.sqrt(n / (p * (1 - p)))
+Mean  = np
+Variance = npq = np(1-p)
 
 # from the z-score, compute the p-value 
 pval = 2 * (1 - st.norm.cdf(z))
