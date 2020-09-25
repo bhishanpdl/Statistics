@@ -11,6 +11,8 @@ Table of Contents
    * [Two-sampled Z-test](#two-sampled-z-test)
    * [F-test or ANOVA](#f-test-or-anova)
 
+# Resources
+- [Analytics Vidhya: Everything you Should Know about p-value from Scratch for Data Science](https://www.analyticsvidhya.com/blog/2019/09/everything-know-about-p-value-from-scratch-data-science/)
 
 # Hypothesis testing
 Suppose a pizza place claims their delivery times are 30 minutes
