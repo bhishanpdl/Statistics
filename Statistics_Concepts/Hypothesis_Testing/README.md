@@ -1,3 +1,6 @@
+# Resources
+- [Youtube: 07e Python Data Analytics: Hypothesis Testing Interactive](https://www.youtube.com/watch?v=bcb3m3LBtRk)
+
 # 17 Hypothesis Testing in Python
 https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-sheet/
 
