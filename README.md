@@ -87,7 +87,7 @@ The fact that we are looking for scores “greater than” a certain point means
 
 Step 3: Draw a picture to help you visualize the problem.
 
-![](images/hypothesis-testing-example.jpg)
+![](images/one_and_two_tails2.png)
 
 Step 4: State the alpha level. If you aren’t given an alpha level, use 5% (0.05).
 
@@ -99,7 +99,8 @@ For this set of data: z= (112.5-100) / (15/√30)=4.56.
 Step 6: If Step 6 is greater than Step 5, reject the null hypothesis. If it’s less than Step 5, you cannot reject the null hypothesis. In this case, it is greater (4.56 > 1.645), so you can reject the null. Rejecting null means we can say alternative is true. This means principle's claim is statistically supported with 5 % level of confidence.
 
 ## Two-tailed z-test
-Blood glucose levels for obese patients have a mean of 100 with a standard deviation of 15. A researcher thinks that a diet high in raw cornstarch will have a positive or negative effect on blood glucose levels. A sample of 30 patients who have tried the raw cornstarch diet have a mean glucose level of 140. Test the hypothesis that the raw cornstarch had an ef
+![](images/one_and_two_tails.jpg)
+Blood glucose levels for obese patients have a mean of 100 with a standard deviation of 15. A researcher thinks that a diet high in raw cornstarch will have a positive or negative effect on blood glucose levels. A sample of 30 patients who have tried the raw cornstarch diet have a mean glucose level of 140. Test the hypothesis that the raw cornstarch had an effect:
 
 Step 1: State the null hypothesis: H0:μ=100
 
