@@ -6,7 +6,7 @@
  - [Data8: A/B Testing](https://www.inferentialthinking.com/chapters/12/1/AB_Testing.html)
 
 # Important Links
-- [various probability distributions rshiny app online](https://ben18785.shinyapps.io/distribution-zoo/)
+- [Rshiny app online with 28 distributions plots and multiple language codes](https://ben18785.shinyapps.io/distribution-zoo/)
 - [Fourier wave transformation youtube](https://www.youtube.com/watch?v=r18Gi8lSkfM)
 - [29 statistical concepts](https://www.datasciencecentral.com/profiles/blogs/29-statistical-concepts-explained-in-simple-english-part-16)
 
@@ -24,7 +24,8 @@ import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 
-
+# look distribution here: https://ben18785.shinyapps.io/distribution-zoo/
+# for lognorm scale = exp(mu) and s=sigma
 sample = stats.lognorm.rvs(loc=0, s=1, size=1000, random_state=0)
 
 # plot sample
@@ -33,7 +34,6 @@ x_axis = np.linspace(0,10,1000)
 plt.figure(figsize=(12,8))
 plt.plot(x_axis, sample,'b.',label='Orignal data')
 #plt.hist(sample);
-
 
 # fit lognormal
 params = stats.lognorm.fit(sample, floc=0)
@@ -59,7 +59,7 @@ import scipy.stats as stats
 def compare(x, y, func):
     """Returne p-value for some appropriate comparison test."""
     return func(x, y)[1]
-    
+
 x, y = np.random.normal(0, 1, (100,2)).T
 
 print ("p value assuming equal variance    =%.8f" % compare(x, y, stats.ttest_ind))
