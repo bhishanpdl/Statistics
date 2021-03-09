@@ -28,20 +28,24 @@ Ref: https://ipython-books.github.io/72-getting-started-with-statistical-hypothe
  alpha = 5% or 0.05
 
 import numpy as np
-import scipy.stats as st
+import scipy.stats as stats
 import scipy.special as ssp
 n = 100  # number of coin flips
 h = 61  # number of heads
 p = .5  # null-hypothesis of fair coin
 
 # find z-statistic
-xbar = float(h) / n
-z = (xbar - p) * np.sqrt(n / (p * (1 - p)))
-Mean  = np
-Variance = npq = np(1-p)
+xbar  = float(h) / n
+
+var     = p*(1-p) # variance is npq but in the book, it is pq
+sigma   = np.sqrt(var)
+expected_mean = p # mu = np in wikipedia, but p in book.
+std_err = sigma/np.sqrt(n)
+z       = (xbar - expected_mean) / std_err # wikipedia standardizing standard score.
+# z = (xbar - p) * np.sqrt(n / (p * (1 - p)))
 
 # from the z-score, compute the p-value
-pval = 2 * (1 - st.norm.cdf(z))
+pval = 2 * (1 - stats.norm.cdf(z))
 pval # 0.0278
 
 # decision
