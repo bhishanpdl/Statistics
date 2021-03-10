@@ -21,6 +21,20 @@ Table of Contents
 - [ISL An Introduction to Statistical Learning: With Applications in R by  Friedman, Hastie, and Tibshirani](http://www-bcf.usc.edu/~gareth/ISL/)
 - [Why Dividing By N Underestimates the Variance youtube](https://www.youtube.com/watch?v=sHRBg6BhKjI)
 
+# scipy stats distributions
+
+```python
+"""
+A random variable X is normal with mean 1020 and a standard deviation 50. Calculate P(X>1200)
+
+"""
+from scipy import stats
+
+# for norm, loc=mean and scale=std
+p =  1 - stats.norm.cdf(x=1200,loc=1020,scale=50)
+# excel: p =1-norm.dist(x=1200, mean=1020, std=50, cumulative=true)
+```
+
 # Fitting lognormal distribution
 ```python
 import numpy as np
@@ -62,7 +76,7 @@ import scipy.stats as stats
 def compare(x, y, func):
     """Returne p-value for some appropriate comparison test."""
     return func(x, y)[1]
-    
+
 x, y = np.random.normal(0, 1, (100,2)).T
 
 print ("p value assuming equal variance    =%.8f" % compare(x, y, stats.ttest_ind))

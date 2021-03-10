@@ -18,6 +18,25 @@
 # Probability and Statistics Links
 - [Interactive Concepts brown.edu: Seeing Theory](https://lnkd.in/etgzUv7)
 
+# 68-95-99.7 rule in Statistics
+
+```python
+from scipy.stats import norm
+
+mean = 0
+sigma = 1
+
+# cdf differences
+sig1 = norm.cdf(sigma, mean, sigma) - norm.cdf(-sigma, mean, sigma)
+sig2 = norm.cdf(2 * sigma, mean, sigma) - norm.cdf(-2 * sigma, mean, sigma)
+sig3 = norm.cdf(3 * sigma, mean, sigma) - norm.cdf(-3 * sigma, mean, sigma)
+
+print(f"Fraction of values within 1 sigma = {sig1*100:.2f}%") # 68.27%
+print(f"Fraction of values within 2 sigma = {sig2*100:.2f}%") # 95.45%
+print(f"Fraction of values within 3 sigma = {sig3*100:.2f}%") # 99.73%
+
+```
+
 # Fitting lognormal distribution
 ```python
 import numpy as np
