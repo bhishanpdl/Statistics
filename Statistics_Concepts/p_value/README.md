@@ -146,9 +146,9 @@ else:
 # One-sampled Z-test
 ```python
 from scipy import stats
-from statsmodels.stats import weightstats as stests
+from statsmodels.stats import weightstats as wstats
 
-ztest ,pval = stests.ztest(x, x2=None, value=30)
+ztest ,pval = wstats.ztest(x, x2=None, value=30)
 print(float(pval))
 if pval< alpha:
     print("reject null hypothesis")
@@ -164,7 +164,7 @@ alpha = 0.05
 
 # value is difference of mean
 
-ztest ,pval1 = stests.ztest(x1, x2=x2, value=0,alternative='two-sided')
+ztest ,pval1 = wstats.ztest(x1, x2=x2, value=0,alternative='two-sided')
 print(float(pval1))
 if pval< alpha:
     print("reject null hypothesis")
