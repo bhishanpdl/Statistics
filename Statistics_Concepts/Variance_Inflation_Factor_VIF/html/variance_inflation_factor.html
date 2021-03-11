@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Interactive_Hypothesis_Testing</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>variance_inflation_factor</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14259,313 +14259,66 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p align="center">
-    <img src="https://github.com/GeostatsGuy/GeostatsPy/blob/master/TCG_color_logo.png?raw=true" width="220" height="240" />
-
-</p><h2 id="Interactive-Hypothesis-Testing-Demonstration">Interactive Hypothesis Testing Demonstration<a class="anchor-link" href="#Interactive-Hypothesis-Testing-Demonstration">&#182;</a></h2><h3 id="Boostrap-and-Analytical-Methods-for-Hypothesis-Testing,-Difference-in-Means">Boostrap and Analytical Methods for Hypothesis Testing, Difference in Means<a class="anchor-link" href="#Boostrap-and-Analytical-Methods-for-Hypothesis-Testing,-Difference-in-Means">&#182;</a></h3><ul>
-<li><p>we calculate the hypothesis test for different in means with boostrap and compare to the analytical expression</p>
-</li>
-<li><p><strong>Welch's t-test</strong>: we assume the features are Gaussian distributed and the variance are unequal</p>
-</li>
-</ul>
-<h4 id="Michael-Pyrcz,-Associate-Professor,-University-of-Texas-at-Austin">Michael Pyrcz, Associate Professor, University of Texas at Austin<a class="anchor-link" href="#Michael-Pyrcz,-Associate-Professor,-University-of-Texas-at-Austin">&#182;</a></h4><h5 id="Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn-|-GeostatsPy"><a href="https://twitter.com/geostatsguy">Twitter</a> | <a href="https://github.com/GeostatsGuy">GitHub</a> | <a href="http://michaelpyrcz.com">Website</a> | <a href="https://scholar.google.com/citations?user=QVZ20eQAAAAJ&amp;hl=en&amp;oi=ao">GoogleScholar</a> | <a href="https://www.amazon.com/Geostatistical-Reservoir-Modeling-Michael-Pyrcz/dp/0199731446">Book</a> | <a href="https://www.youtube.com/channel/UCLqEr-xV-ceHdXXXrTId5ig">YouTube</a>  | <a href="https://www.linkedin.com/in/michael-pyrcz-61a648a1">LinkedIn</a> | <a href="https://github.com/GeostatsGuy/GeostatsPy">GeostatsPy</a><a class="anchor-link" href="#Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn-|-GeostatsPy">&#182;</a></h5><h4 id="Hypothesis-Testing">Hypothesis Testing<a class="anchor-link" href="#Hypothesis-Testing">&#182;</a></h4><p>Powerful methodology for spatial data analytics:</p>
-<ol>
-<li>extracted sample set 1 and 2, the means look different, but are they? </li>
-<li>should we suspect that the samples are in fact from 2 different populations?</li>
-</ol>
-<p>Now, let's try the t-test, hypothesis test for difference in means.  This test assumes that the variances are similar along with the data being Gaussian distributed (see the course notes for more on this).  This is our test:</p>
-\begin{equation}
-H_0: \mu_{X1} = \mu_{X2}
-\end{equation}\begin{equation}
-H_1: \mu_{X1} \ne \mu_{X2}
-\end{equation}<p>To test this we will calculate the t statistic with the bootstrap and analytical approaches.</p>
-<h4 id="The-Welch's-t-test-for-Difference-in-Means-by-Analytical-and-Empirical-Methods">The Welch's t-test for Difference in Means by Analytical and Empirical Methods<a class="anchor-link" href="#The-Welch's-t-test-for-Difference-in-Means-by-Analytical-and-Empirical-Methods">&#182;</a></h4><p>We work with the following test statistic, <em>t statistic</em>, from the two sample sets.</p>
-\begin{equation}
-\hat{t} = \frac{\overline{x}_1 - \overline{x}_2}{\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}
-\end{equation}<p>where $\overline{x}_1$ and $\overline{x}_2$ are the sample means, $s^2_1$ and $s^2_2$ are the sample variances and $n_1$ and $n_2$ are the numer of samples from the two datasets.</p>
-<p>The critical value, $t_{critical}$ is calculated by the analytical expression by:</p>
-\begin{equation}
-t_{critical} = \left|t(\frac{\alpha}{2},\nu)\right|
-\end{equation}<p>The degrees of freedom, $\nu$, is calculated as follows:</p>
-\begin{equation}
-\nu = \frac{\left(\frac{1}{n_1} + \frac{\mu}{n_2}\right)^2}{\frac{1}{n_1^2(n_1-1)} + \frac{\mu^2}{n_2^2(n_2-1)}}
-\end{equation}<p>Alternatively, the sampling distribution of the t<em>{statistic} and t</em>{critical} may be calculated empirically with bootstrap.</p>
-<p>The workflow proceeds as:</p>
-<ul>
-<li><p>shift both sample sets to have the mean of the combined data, $x_1$ → $x^*_1$, $x_2$ → $x^*_2$</p>
-</li>
-<li><p>for each bootstrap realization, $\ell=1\ldots,L$</p>
-<ul>
-<li><p>perform $n_1$ Monte Carlo simulations, draws with replacement, from sample set $x^*_1$</p>
-</li>
-<li><p>perform $n_2$ Monte Carlo simulations, draws with replacement, from sample set $x^*_2$</p>
-</li>
-<li><p>calculate the t_{statistic} realization, $\hat{t}^{\ell}$ given the resulting sample means $\overline{x}^{*,\ell}_1$ and $\overline{x}^{*,\ell}_2$ and the sample variances $s^{*,2,\ell}_1$ and $s^{*,2,\ell}_2$</p>
-</li>
-</ul>
-</li>
-<li><p>pool the results to assemble the $t_{statistic}$ sampling distribution</p>
-</li>
-<li><p>calculate the cumulative probability of the observed t_{statistic}m, $\hat{t}$, from the boostrap distribution based on $\hat{t}^{\ell}$, $\ell = 1,\ldots,L$.</p>
-</li>
-</ul>
-<p>Here's some prerequisite information on the boostrap.</p>
-<h4 id="Bootstrap">Bootstrap<a class="anchor-link" href="#Bootstrap">&#182;</a></h4><p>Uncertainty in the sample statistics</p>
-<ul>
-<li>one source of uncertainty is the paucity of data.</li>
-<li>do 200 or even less wells provide a precise (and accurate estimate) of the mean? standard deviation? skew? P13?</li>
-</ul>
-<p>Would it be useful to know the uncertainty in these statistics due to limited sampling?</p>
-<ul>
-<li>what is the impact of uncertainty in the mean porosity e.g. 20%+/-2%?</li>
-</ul>
-<p><strong>Bootstrap</strong> is a method to assess the uncertainty in a sample statistic by repeated random sampling with replacement.</p>
-<p>Assumptions</p>
-<ul>
-<li>sufficient, representative sampling, identical, idependent samples</li>
-</ul>
-<p>Limitations</p>
-<ol>
-<li>assumes the samples are representative </li>
-<li>assumes stationarity</li>
-<li>only accounts for uncertainty due to too few samples, e.g. no uncertainty due to changes away from data</li>
-<li>does not account for boundary of area of interest </li>
-<li>assumes the samples are independent</li>
-<li>does not account for other local information sources</li>
-</ol>
-<p>The Bootstrap Approach (Efron, 1982)</p>
-<p>Statistical resampling procedure to calculate uncertainty in a calculated statistic from the data itself.</p>
-<ul>
-<li>Does this work?  Prove it to yourself, for uncertainty in the mean solution is standard error: </li>
-</ul>
-\begin{equation}
-\sigma^2_\overline{x} = \frac{\sigma^2_s}{n}
-\end{equation}<p>Extremely powerful - could calculate uncertainty in any statistic!  e.g. P13, skew etc.</p>
-<ul>
-<li>Would not be possible access general uncertainty in any statistic without bootstrap.</li>
-<li>Advanced forms account for spatial information and sampling strategy (game theory and Journel’s spatial bootstrap (1993).</li>
-</ul>
-<p>Steps:</p>
-<ol>
-<li><p>assemble a sample set, must be representative, reasonable to assume independence between samples</p>
-</li>
-<li><p>optional: build a cumulative distribution function (CDF)</p>
-<ul>
-<li>may account for declustering weights, tail extrapolation</li>
-<li>could use analogous data to support</li>
-</ul>
-</li>
-<li><p>For $\ell = 1, \ldots, L$ realizations, do the following:</p>
-<ul>
-<li><p>For $i = \alpha, \ldots, n$ data, do the following:</p>
-<ul>
-<li>Draw a random sample with replacement from the sample set or Monte Carlo simulate from the CDF (if available). </li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Calculate a realization of the sammary statistic of interest from the $n$ samples, e.g. $m^\ell$, $\sigma^2_{\ell}$. Return to 3 for another realization.</p>
-</li>
-<li><p>Compile and summarize the $L$ realizations of the statistic of interest.</p>
-</li>
-</ol>
-<p>This is a very powerful method.  Let's try it out and compare the result to the analytical form of the confidence interval for the sample mean.</p>
-<h4 id="Objective">Objective<a class="anchor-link" href="#Objective">&#182;</a></h4><p>Provide an example and demonstration for:</p>
-<ol>
-<li>interactive plotting in Jupyter Notebooks with Python packages matplotlib and ipywidgets</li>
-<li>provide an intuitive hands-on example of confidence intervals and compare to statistical boostrap   </li>
-</ol>
-<h4 id="Getting-Started">Getting Started<a class="anchor-link" href="#Getting-Started">&#182;</a></h4><p>Here's the steps to get setup in Python with the GeostatsPy package:</p>
-<ol>
-<li>Install Anaconda 3 on your machine (<a href="https://www.anaconda.com/download/">https://www.anaconda.com/download/</a>). </li>
-<li>Open Jupyter and in the top block get started by copy and pasting the code block below from this Jupyter Notebook to start using the geostatspy functionality. </li>
-</ol>
-<h4 id="Load-the-Required-Libraries">Load the Required Libraries<a class="anchor-link" href="#Load-the-Required-Libraries">&#182;</a></h4><p>The following code loads the required libraries.</p>
-
+<p><h1>Table of Contents<span class="tocSkip"></span></h1></p>
+<div class="toc"><ul class="toc-item"><li><span><a href="#Outlier-detection-using-VIF" data-toc-modified-id="Outlier-detection-using-VIF-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Outlier detection using VIF</a></span></li><li><span><a href="#Using-numpy" data-toc-modified-id="Using-numpy-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Using numpy</a></span></li><li><span><a href="#Using-statsmodels" data-toc-modified-id="Using-statsmodels-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Using statsmodels</a></span></li><li><span><a href="#Using-scikit-learn" data-toc-modified-id="Using-scikit-learn-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Using scikit-learn</a></span></li></ul></div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interactive</span>                        <span class="c1"># widgets and interactivity</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">widgets</span>                            
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">Layout</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">Label</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">VBox</span><span class="p">,</span> <span class="n">HBox</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>                           <span class="c1"># plotting</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>                                        <span class="c1"># working with arrays</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                                       <span class="c1"># working with DataFrames</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>                                   <span class="c1"># statistical calculations</span>
-<span class="kn">import</span> <span class="nn">random</span>                                             <span class="c1"># random drawing / bootstrap realizations of the data</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Make-a-Synthetic-Dataset">Make a Synthetic Dataset<a class="anchor-link" href="#Make-a-Synthetic-Dataset">&#182;</a></h4><p>This is an interactive method to:</p>
-<ul>
-<li><p>select a parametric distribution</p>
-</li>
-<li><p>select the distribution parameters</p>
-</li>
-<li><p>select the number of samples and visualize the synthetic dataset distribution</p>
-</li>
-</ul>
+<h1 id="Outlier-detection-using-VIF">Outlier detection using VIF<a class="anchor-link" href="#Outlier-detection-using-VIF">&#182;</a></h1><p>In case of collinearity, we can check whether two features are correlated or
+not using correlation matrix. But, to check the multi-collinearity we can use
+VIF to check for the multi-collinearity. Generally features with VIF &gt; 10
+are considered suspicious.</p>
+<p>In linear regression collinearity harms the model performance and gives
+unusual confidence intervals for the fitted parameters. Its good to remove
+the highly correlated features.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># interactive calculation of the sample set (control of source parametric distribution and number of samples)</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39; Interactive Hypothesis Testing, Difference in Means, Analytical &amp; Bootstrap Methods, Michael Pyrcz, Associate Professor, The University of Texas at Austin&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;950px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-
-<span class="n">n1</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$n_</span><span class="si">{1}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">n1</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
-
-<span class="n">m1</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$\overline</span><span class="si">{x}</span><span class="s1">_</span><span class="si">{1}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">m1</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
-
-<span class="n">s1</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$s_1$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">s1</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
-
-<span class="n">ui1</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">n1</span><span class="p">,</span><span class="n">m1</span><span class="p">,</span><span class="n">s1</span><span class="p">],)</span>                               <span class="c1"># basic widget formatting </span>
-
-<span class="n">n2</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$n_</span><span class="si">{2}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">n2</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span>
-
-<span class="n">m2</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$\overline</span><span class="si">{x}</span><span class="s1">_</span><span class="si">{2}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">m2</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span>
-
-<span class="n">s2</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$s_2$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">s2</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span>
-
-<span class="n">ui2</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">n2</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">s2</span><span class="p">],)</span>                               <span class="c1"># basic widget formatting </span>
-
-<span class="n">L</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$L$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">L</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;gray&#39;</span>
-
-<span class="n">alpha</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$α$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;gray&#39;</span>
-
-<span class="n">ui3</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">L</span><span class="p">,</span><span class="n">alpha</span><span class="p">],)</span>                                <span class="c1"># basic widget formatting </span>
-
-<span class="n">ui4</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HBox</span><span class="p">([</span><span class="n">ui1</span><span class="p">,</span><span class="n">ui2</span><span class="p">,</span><span class="n">ui3</span><span class="p">],)</span>                               <span class="c1"># basic widget formatting </span>
-
-<span class="n">ui2</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">l</span><span class="p">,</span><span class="n">ui4</span><span class="p">],)</span>
-
-<span class="k">def</span> <span class="nf">f_make</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>                                      <span class="c1"># function to take parameters, make sample and plot</span>
-
-    
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">73073</span><span class="p">)</span>
-    <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">m1</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="n">s1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">n1</span><span class="p">)</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">73074</span><span class="p">)</span>
-    <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">m2</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="n">s2</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">n2</span><span class="p">)</span>
-  
-    <span class="n">mu</span> <span class="o">=</span> <span class="p">(</span><span class="n">s2</span><span class="o">*</span><span class="n">s2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">s1</span><span class="o">*</span><span class="n">s1</span><span class="p">)</span>
-    <span class="n">nu</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">n1</span> <span class="o">+</span> <span class="n">mu</span><span class="o">/</span><span class="n">n2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n1</span> <span class="o">+</span> <span class="n">mu</span><span class="o">/</span><span class="n">n2</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">n1</span><span class="o">*</span><span class="n">n1</span><span class="o">*</span><span class="p">(</span><span class="n">n1</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="p">((</span><span class="n">mu</span><span class="o">*</span><span class="n">mu</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n2</span><span class="o">*</span><span class="n">n2</span><span class="o">*</span><span class="p">(</span><span class="n">n2</span><span class="o">-</span><span class="mi">1</span><span class="p">))))</span>
-    
-    <span class="n">prop_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">8.0</span><span class="p">,</span><span class="mf">8.0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
-    <span class="n">analytical_distribution</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">prop_values</span><span class="p">,</span><span class="n">df</span> <span class="o">=</span> <span class="n">nu</span><span class="p">)</span> 
-    <span class="n">analytical_tcrit</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="n">alpha</span><span class="o">*</span><span class="mf">0.005</span><span class="p">,</span><span class="n">df</span> <span class="o">=</span> <span class="n">nu</span><span class="p">)</span>
-    
-    <span class="c1"># Analytical Method with SciPy</span>
-    <span class="n">t_stat_observed</span><span class="p">,</span> <span class="n">p_value_analytical</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    
-    <span class="c1"># Bootstrap Method</span>
-    <span class="n">global_average</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">]))</span>   <span class="c1"># shift the means to be equal to the globla mean</span>
-    <span class="n">x1s</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span> <span class="o">+</span> <span class="n">global_average</span>
-    <span class="n">x2s</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span> <span class="o">+</span> <span class="n">global_average</span>
-    
-    <span class="n">t_stat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">L</span><span class="p">);</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
-    
-    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">73075</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">):</span>                      <span class="c1"># loop over realizations</span>
-        <span class="n">samples1</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">x1s</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cum_weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x1s</span><span class="p">))</span>
-        <span class="c1">#print(samples1)</span>
-        <span class="n">samples2</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">x2s</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cum_weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x2s</span><span class="p">))</span>
-        <span class="c1">#print(samples2)</span>
-        <span class="n">t_stat</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="n">p_value</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">samples1</span><span class="p">,</span><span class="n">samples2</span><span class="p">,</span><span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-      
-    <span class="n">bootstrap_lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">t_stat</span><span class="p">,</span><span class="n">alpha</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">bootstrap_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">t_stat</span><span class="p">,</span><span class="mf">100.0</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
-    <span class="c1">#print(t_stat)</span>
-   
-    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">cumulative</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">density</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">cumulative</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">density</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.4</span><span class="p">]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">30.0</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sample Distributions&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    
-    <span class="c1">#plt.hist(x2)</span>
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">8.0</span><span class="p">,</span><span class="mf">8.0</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Bootstrap and Analytical $t_</span><span class="si">{statistic}</span><span class="s1">$ Sampling Distributions&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$t_</span><span class="si">{statistic}</span><span class="s1">$&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">t_stat_observed</span><span class="p">,</span><span class="n">t_stat_observed</span><span class="p">],[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;observed $t_</span><span class="si">{statistic}</span><span class="s1">$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">bootstrap_lower</span><span class="p">,</span><span class="n">bootstrap_lower</span><span class="p">],[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;bootstrap interval&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">bootstrap_upper</span><span class="p">,</span><span class="n">bootstrap_upper</span><span class="p">],[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">prop_values</span><span class="p">,</span><span class="n">analytical_distribution</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;analytical $t_</span><span class="si">{statistic}</span><span class="s1">$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">t_stat</span><span class="p">,</span><span class="n">cumulative</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">density</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">8.0</span><span class="p">,</span><span class="mf">8.0</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;bootstrap $t_</span><span class="si">{statistic}</span><span class="s1">$&#39;</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">prop_values</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">analytical_distribution</span><span class="p">,</span> <span class="n">where</span> <span class="o">=</span> <span class="n">prop_values</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">analytical_tcrit</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">prop_values</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">analytical_distribution</span><span class="p">,</span> <span class="n">where</span> <span class="o">=</span> <span class="n">prop_values</span> <span class="o">&gt;=</span> <span class="n">analytical_tcrit</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-    <span class="n">handles</span><span class="p">,</span><span class="n">labels</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
-    <span class="n">handles</span> <span class="o">=</span> <span class="p">[</span><span class="n">handles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">handles</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">handles</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">handles</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="p">,</span><span class="n">labels</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-
-<span class="c1"># connect the function to make the samples and plot to the widgets    </span>
-<span class="n">interactive_plot</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive_output</span><span class="p">(</span><span class="n">f_make</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;n1&#39;</span><span class="p">:</span> <span class="n">n1</span><span class="p">,</span> <span class="s1">&#39;m1&#39;</span><span class="p">:</span> <span class="n">m1</span><span class="p">,</span> <span class="s1">&#39;s1&#39;</span><span class="p">:</span> <span class="n">s1</span><span class="p">,</span> <span class="s1">&#39;n2&#39;</span><span class="p">:</span> <span class="n">n2</span><span class="p">,</span> <span class="s1">&#39;m2&#39;</span><span class="p">:</span> <span class="n">m2</span><span class="p">,</span> <span class="s1">&#39;s2&#39;</span><span class="p">:</span> <span class="n">s2</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">:</span> <span class="n">L</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="n">alpha</span><span class="p">})</span>
-<span class="n">interactive_plot</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>                <span class="c1"># reduce flickering by delaying plot updating</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Boostrap-and-Analytical-Methods-for-Hypothesis-Testing,-Difference-in-Means">Boostrap and Analytical Methods for Hypothesis Testing, Difference in Means<a class="anchor-link" href="#Boostrap-and-Analytical-Methods-for-Hypothesis-Testing,-Difference-in-Means">&#182;</a></h3><ul>
-<li>including the analytical and bootstrap methods for testing the difference in means</li>
-<li>interactive plot demonstration with ipywidget, matplotlib packages</li>
-</ul>
-<h4 id="Michael-Pyrcz,-Associate-Professor,-University-of-Texas-at-Austin">Michael Pyrcz, Associate Professor, University of Texas at Austin<a class="anchor-link" href="#Michael-Pyrcz,-Associate-Professor,-University-of-Texas-at-Austin">&#182;</a></h4><h5 id="Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn-|-GeostatsPy"><a href="https://twitter.com/geostatsguy">Twitter</a> | <a href="https://github.com/GeostatsGuy">GitHub</a> | <a href="http://michaelpyrcz.com">Website</a> | <a href="https://scholar.google.com/citations?user=QVZ20eQAAAAJ&amp;hl=en&amp;oi=ao">GoogleScholar</a> | <a href="https://www.amazon.com/Geostatistical-Reservoir-Modeling-Michael-Pyrcz/dp/0199731446">Book</a> | <a href="https://www.youtube.com/channel/UCLqEr-xV-ceHdXXXrTId5ig">YouTube</a>  | <a href="https://www.linkedin.com/in/michael-pyrcz-61a648a1">LinkedIn</a> | <a href="https://github.com/GeostatsGuy/GeostatsPy">GeostatsPy</a><a class="anchor-link" href="#Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn-|-GeostatsPy">&#182;</a></h5><h3 id="The-Problem">The Problem<a class="anchor-link" href="#The-Problem">&#182;</a></h3><p>Let's simulate bootstrap, resampling with replacement from a hat with $n_{red}$ and $n_{green}$ balls</p>
-<ul>
-<li><strong>$n_1$</strong>, <strong>$n_2$</strong> number of samples, <strong>$\overline{x}_1$</strong>, <strong>$\overline{x}_2$</strong> means and <strong>$s_1$</strong>, <strong>$s_2$</strong> standard deviation of the 2 sample sets</li>
-<li><strong>$L$</strong>: number of bootstrap realizations</li>
-<li><strong>$\alpha$</strong>: alpha level</li>
-</ul>
+<h1 id="Using-numpy">Using numpy<a class="anchor-link" href="#Using-numpy">&#182;</a></h1><p>This approach uses matrix inversion using numpy linear algegra.
+This is useful for small dataset, for large datasets, matrix inversion is 
+much computationally expensive task. So, we need to use statsmodels variance
+inflation factor (after adding constant term) which uses OLS method to fit
+the data and uses R-squared values to get VIF.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">ui2</span><span class="p">,</span> <span class="n">interactive_plot</span><span class="p">)</span>                            <span class="c1"># display the interactive plot</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span>
+
+<span class="n">cc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">matrix_vif</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+<span class="n">arr_vif</span> <span class="o">=</span> <span class="n">matrix_vif</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span>
+
+
+<span class="c1"># pandas series</span>
+<span class="n">ser_vif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">arr_vif</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;a b c d&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ser_vif</span><span class="p">)</span>
+
+<span class="c1"># pandas dataframe</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="n">a</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="n">b</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="n">c</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">:</span><span class="n">d</span><span class="p">})</span>
+<span class="n">df_cor</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="n">df_vif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+                      <span class="n">index</span> <span class="o">=</span> <span class="n">df_cor</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+                      <span class="n">columns</span><span class="o">=</span><span class="n">df_cor</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="n">df_vif</span>
 </pre></div>
 
      </div>
@@ -14584,40 +14337,80 @@ t_{critical} = \left|t(\frac{\alpha}{2},\nu)\right|
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-
-
-
-
-
-<div id="174d6a79-ab09-4cc2-9e41-05b800df9795" class="jupyter-widgets jp-OutputArea-output ">
-<script type="text/javascript">
-var element = document.getElementById('174d6a79-ab09-4cc2-9e41-05b800df9795');
-</script>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "59a8bfc27b0b46029e53e96dd17cd05c", "version_major": 2, "version_minor": 0}
-</script>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>a    22.95
+b     3.00
+c    12.95
+d     3.00
+dtype: float64
+</pre>
 </div>
-
 </div>
 
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
 
 
 
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-
-
-<div id="fc45cb48-9a04-4edf-bfb7-eb3d881d7178" class="jupyter-widgets jp-OutputArea-output ">
-<script type="text/javascript">
-var element = document.getElementById('fc45cb48-9a04-4edf-bfb7-eb3d881d7178');
-</script>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "064e284314124e259b718046c1c77b00", "version_major": 2, "version_minor": 0}
-</script>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>a</th>
+      <td>22.950000</td>
+      <td>6.453681</td>
+      <td>-16.301917</td>
+      <td>-6.453681</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>6.453681</td>
+      <td>3.000000</td>
+      <td>-4.080441</td>
+      <td>-2.000000</td>
+    </tr>
+    <tr>
+      <th>c</th>
+      <td>-16.301917</td>
+      <td>-4.080441</td>
+      <td>12.950000</td>
+      <td>4.080441</td>
+    </tr>
+    <tr>
+      <th>d</th>
+      <td>-6.453681</td>
+      <td>-2.000000</td>
+      <td>4.080441</td>
+      <td>3.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </div>
 
 </div>
@@ -14629,36 +14422,439 @@ var element = document.getElementById('fc45cb48-9a04-4edf-bfb7-eb3d881d7178');
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Observations">Observations<a class="anchor-link" href="#Observations">&#182;</a></h4><p>Some observations:</p>
-<ul>
-<li><p>lower dispersion and higher difference in means increases the absolute magnitude of the observed $t_{statistic}$</p>
-</li>
-<li><p>the bootstrap distribution closely matches the analytical distribution if $L$ is large enough</p>
-</li>
-<li><p>it is possible to use bootstrap to calculate the sampling distribution instead of relying on the theoretical express distribution, in this case the Student's t distribution.</p>
-</li>
-</ul>
-<h4 id="Comments">Comments<a class="anchor-link" href="#Comments">&#182;</a></h4><p>This was a demonstration of interactive hypothesis testing for the significance in difference in means aboserved between 2 sample sets in Jupyter Notebook Python with the ipywidgets and matplotlib packages.</p>
-<p>I have many other demonstrations on data analytics and machine learning, e.g. on the basics of working with DataFrames, ndarrays, univariate statistics, plotting data, declustering, data transformations, trend modeling and many other workflows available at <a href="https://github.com/GeostatsGuy/PythonNumericalDemos">https://github.com/GeostatsGuy/PythonNumericalDemos</a> and <a href="https://github.com/GeostatsGuy/GeostatsPy">https://github.com/GeostatsGuy/GeostatsPy</a>.</p>
-<p>I hope this was helpful,</p>
-<p><em>Michael</em></p>
-<h4 id="The-Author:">The Author:<a class="anchor-link" href="#The-Author:">&#182;</a></h4><h3 id="Michael-Pyrcz,-Associate-Professor,-University-of-Texas-at-Austin">Michael Pyrcz, Associate Professor, University of Texas at Austin<a class="anchor-link" href="#Michael-Pyrcz,-Associate-Professor,-University-of-Texas-at-Austin">&#182;</a></h3><p><em>Novel Data Analytics, Geostatistics and Machine Learning Subsurface Solutions</em></p>
-<p>With over 17 years of experience in subsurface consulting, research and development, Michael has returned to academia driven by his passion for teaching and enthusiasm for enhancing engineers' and geoscientists' impact in subsurface resource development.</p>
-<p>For more about Michael check out these links:</p>
-<h4 id="Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn"><a href="https://twitter.com/geostatsguy">Twitter</a> | <a href="https://github.com/GeostatsGuy">GitHub</a> | <a href="http://michaelpyrcz.com">Website</a> | <a href="https://scholar.google.com/citations?user=QVZ20eQAAAAJ&amp;hl=en&amp;oi=ao">GoogleScholar</a> | <a href="https://www.amazon.com/Geostatistical-Reservoir-Modeling-Michael-Pyrcz/dp/0199731446">Book</a> | <a href="https://www.youtube.com/channel/UCLqEr-xV-ceHdXXXrTId5ig">YouTube</a>  | <a href="https://www.linkedin.com/in/michael-pyrcz-61a648a1">LinkedIn</a><a class="anchor-link" href="#Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn">&#182;</a></h4><h4 id="Want-to-Work-Together?">Want to Work Together?<a class="anchor-link" href="#Want-to-Work-Together?">&#182;</a></h4><p>I hope this content is helpful to those that want to learn more about subsurface modeling, data analytics and machine learning. Students and working professionals are welcome to participate.</p>
-<ul>
-<li><p>Want to invite me to visit your company for training, mentoring, project review, workflow design and / or consulting? I'd be happy to drop by and work with you!</p>
-</li>
-<li><p>Interested in partnering, supporting my graduate student research or my Subsurface Data Analytics and Machine Learning consortium (co-PIs including Profs. Foster, Torres-Verdin and van Oort)? My research combines data analytics, stochastic modeling and machine learning theory with practice to develop novel methods and workflows to add value. We are solving challenging subsurface problems!</p>
-</li>
-<li><p>I can be reached at mpyrcz@austin.utexas.edu.</p>
-</li>
-</ul>
-<p>I'm always happy to discuss,</p>
-<p><em>Michael</em></p>
-<p>Michael Pyrcz, Ph.D., P.Eng. Associate Professor The Hildebrand Department of Petroleum and Geosystems Engineering, Bureau of Economic Geology, The Jackson School of Geosciences, The University of Texas at Austin</p>
-<h4 id="More-Resources-Available-at:-Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn">More Resources Available at: <a href="https://twitter.com/geostatsguy">Twitter</a> | <a href="https://github.com/GeostatsGuy">GitHub</a> | <a href="http://michaelpyrcz.com">Website</a> | <a href="https://scholar.google.com/citations?user=QVZ20eQAAAAJ&amp;hl=en&amp;oi=ao">GoogleScholar</a> | <a href="https://www.amazon.com/Geostatistical-Reservoir-Modeling-Michael-Pyrcz/dp/0199731446">Book</a> | <a href="https://www.youtube.com/channel/UCLqEr-xV-ceHdXXXrTId5ig">YouTube</a>  | <a href="https://www.linkedin.com/in/michael-pyrcz-61a648a1">LinkedIn</a><a class="anchor-link" href="#More-Resources-Available-at:-Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn">&#182;</a></h4>
+<h1 id="Using-statsmodels">Using statsmodels<a class="anchor-link" href="#Using-statsmodels">&#182;</a></h1>
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tools.tools</span> <span class="kn">import</span> <span class="n">add_constant</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<span class="kn">import</span> <span class="nn">statsmodels.robust</span> <span class="k">as</span> <span class="nn">smrb</span> <span class="c1"># smrb.mad() etc</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+     <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+     <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+     <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">]}</span>
+<span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span>
+<span class="n">X1</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1"># we need to add constant to get VIF</span>
+<span class="n">X1</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>array([[1., 1., 2., 4., 4.],
+       [1., 1., 2., 6., 3.],
+       [1., 2., 3., 7., 4.],
+       [1., 3., 2., 8., 5.],
+       [1., 4., 1., 9., 4.]])</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lst_vif</span> <span class="o">=</span> <span class="p">[</span><span class="n">variance_inflation_factor</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X1</span><span class="p">))]</span>
+<span class="n">lst_vif</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[16]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>[136.87499999999918,
+ 22.950000000000042,
+ 2.9999999999999987,
+ 12.950000000000006,
+ 3.000000000000005]</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ser_vif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">vif</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;constant a b c d&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">ser_vif</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>constant    136.875
+a            22.950
+b             3.000
+c            12.950
+d             3.000
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># using pandas to add constant</span>
+<span class="n">df_X1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">const</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">vif</span> <span class="o">=</span> <span class="p">[</span><span class="n">variance_inflation_factor</span><span class="p">(</span><span class="n">df_X1</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">df_X1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+<span class="n">ser_vif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">vif</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;a b c d constant&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+<span class="n">ser_vif</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>a            22.950
+b             3.000
+c            12.950
+d             3.000
+constant    136.875
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Using-scikit-learn">Using scikit-learn<a class="anchor-link" href="#Using-scikit-learn">&#182;</a></h1><p><a href="https://stackoverflow.com/questions/42658379/variance-inflation-factor-in-python">https://stackoverflow.com/questions/42658379/variance-inflation-factor-in-python</a></p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">vif_sklearn</span><span class="p">(</span><span class="n">exogs</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
+    <span class="c1"># initialize dictionaries</span>
+    <span class="n">vif_dict</span><span class="p">,</span> <span class="n">tolerance_dict</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
+
+    <span class="c1"># form input data for each exogenous variable</span>
+    <span class="k">for</span> <span class="n">exog</span> <span class="ow">in</span> <span class="n">exogs</span><span class="p">:</span>
+        <span class="n">not_exog</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">exogs</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">exog</span><span class="p">]</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">not_exog</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">exog</span><span class="p">]</span>
+
+        <span class="c1"># extract r-squared from the fit</span>
+        <span class="n">r_squared</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="c1"># calculate VIF</span>
+        <span class="n">vif</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">r_squared</span><span class="p">)</span>
+        <span class="n">vif_dict</span><span class="p">[</span><span class="n">exog</span><span class="p">]</span> <span class="o">=</span> <span class="n">vif</span>
+
+        <span class="c1"># calculate tolerance</span>
+        <span class="n">tolerance</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">r_squared</span>
+        <span class="n">tolerance_dict</span><span class="p">[</span><span class="n">exog</span><span class="p">]</span> <span class="o">=</span> <span class="n">tolerance</span>
+
+    <span class="c1"># return VIF DataFrame</span>
+    <span class="n">df_vif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;VIF&#39;</span><span class="p">:</span> <span class="n">vif_dict</span><span class="p">,</span> <span class="s1">&#39;Tolerance&#39;</span><span class="p">:</span> <span class="n">tolerance_dict</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">df_vif</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;car_crashes&#39;</span><span class="p">)</span>
+<span class="n">exogs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;alcohol&#39;</span><span class="p">,</span> <span class="s1">&#39;speeding&#39;</span><span class="p">,</span> <span class="s1">&#39;no_previous&#39;</span><span class="p">,</span> <span class="s1">&#39;not_distracted&#39;</span><span class="p">]</span>
+<span class="n">vif_sklearn</span><span class="p">(</span><span class="n">exogs</span><span class="o">=</span><span class="n">exogs</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[19]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>VIF</th>
+      <th>Tolerance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>alcohol</th>
+      <td>3.436072</td>
+      <td>0.291030</td>
+    </tr>
+    <tr>
+      <th>speeding</th>
+      <td>1.884340</td>
+      <td>0.530690</td>
+    </tr>
+    <tr>
+      <th>no_previous</th>
+      <td>3.113984</td>
+      <td>0.321132</td>
+    </tr>
+    <tr>
+      <th>not_distracted</th>
+      <td>2.668456</td>
+      <td>0.374749</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+     <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+     <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+     <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">]}</span>
+<span class="p">)</span>
+
+<span class="n">exogs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">]</span>
+<span class="n">my_sklearn_vif</span><span class="p">(</span><span class="n">exogs</span><span class="o">=</span><span class="n">exogs</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>VIF</th>
+      <th>Tolerance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>a</th>
+      <td>22.95</td>
+      <td>0.043573</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>3.00</td>
+      <td>0.333333</td>
+    </tr>
+    <tr>
+      <th>c</th>
+      <td>12.95</td>
+      <td>0.077220</td>
+    </tr>
+    <tr>
+      <th>d</th>
+      <td>3.00</td>
+      <td>0.333333</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">

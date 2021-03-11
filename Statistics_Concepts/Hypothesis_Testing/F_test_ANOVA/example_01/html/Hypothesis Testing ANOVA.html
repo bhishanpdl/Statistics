@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Interactive_Hypothesis_Testing</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Hypothesis Testing ANOVA</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14259,313 +14259,317 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p align="center">
-    <img src="https://github.com/GeostatsGuy/GeostatsPy/blob/master/TCG_color_logo.png?raw=true" width="220" height="240" />
-
-</p><h2 id="Interactive-Hypothesis-Testing-Demonstration">Interactive Hypothesis Testing Demonstration<a class="anchor-link" href="#Interactive-Hypothesis-Testing-Demonstration">&#182;</a></h2><h3 id="Boostrap-and-Analytical-Methods-for-Hypothesis-Testing,-Difference-in-Means">Boostrap and Analytical Methods for Hypothesis Testing, Difference in Means<a class="anchor-link" href="#Boostrap-and-Analytical-Methods-for-Hypothesis-Testing,-Difference-in-Means">&#182;</a></h3><ul>
-<li><p>we calculate the hypothesis test for different in means with boostrap and compare to the analytical expression</p>
-</li>
-<li><p><strong>Welch's t-test</strong>: we assume the features are Gaussian distributed and the variance are unequal</p>
-</li>
-</ul>
-<h4 id="Michael-Pyrcz,-Associate-Professor,-University-of-Texas-at-Austin">Michael Pyrcz, Associate Professor, University of Texas at Austin<a class="anchor-link" href="#Michael-Pyrcz,-Associate-Professor,-University-of-Texas-at-Austin">&#182;</a></h4><h5 id="Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn-|-GeostatsPy"><a href="https://twitter.com/geostatsguy">Twitter</a> | <a href="https://github.com/GeostatsGuy">GitHub</a> | <a href="http://michaelpyrcz.com">Website</a> | <a href="https://scholar.google.com/citations?user=QVZ20eQAAAAJ&amp;hl=en&amp;oi=ao">GoogleScholar</a> | <a href="https://www.amazon.com/Geostatistical-Reservoir-Modeling-Michael-Pyrcz/dp/0199731446">Book</a> | <a href="https://www.youtube.com/channel/UCLqEr-xV-ceHdXXXrTId5ig">YouTube</a>  | <a href="https://www.linkedin.com/in/michael-pyrcz-61a648a1">LinkedIn</a> | <a href="https://github.com/GeostatsGuy/GeostatsPy">GeostatsPy</a><a class="anchor-link" href="#Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn-|-GeostatsPy">&#182;</a></h5><h4 id="Hypothesis-Testing">Hypothesis Testing<a class="anchor-link" href="#Hypothesis-Testing">&#182;</a></h4><p>Powerful methodology for spatial data analytics:</p>
-<ol>
-<li>extracted sample set 1 and 2, the means look different, but are they? </li>
-<li>should we suspect that the samples are in fact from 2 different populations?</li>
-</ol>
-<p>Now, let's try the t-test, hypothesis test for difference in means.  This test assumes that the variances are similar along with the data being Gaussian distributed (see the course notes for more on this).  This is our test:</p>
-\begin{equation}
-H_0: \mu_{X1} = \mu_{X2}
-\end{equation}\begin{equation}
-H_1: \mu_{X1} \ne \mu_{X2}
-\end{equation}<p>To test this we will calculate the t statistic with the bootstrap and analytical approaches.</p>
-<h4 id="The-Welch's-t-test-for-Difference-in-Means-by-Analytical-and-Empirical-Methods">The Welch's t-test for Difference in Means by Analytical and Empirical Methods<a class="anchor-link" href="#The-Welch's-t-test-for-Difference-in-Means-by-Analytical-and-Empirical-Methods">&#182;</a></h4><p>We work with the following test statistic, <em>t statistic</em>, from the two sample sets.</p>
-\begin{equation}
-\hat{t} = \frac{\overline{x}_1 - \overline{x}_2}{\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}
-\end{equation}<p>where $\overline{x}_1$ and $\overline{x}_2$ are the sample means, $s^2_1$ and $s^2_2$ are the sample variances and $n_1$ and $n_2$ are the numer of samples from the two datasets.</p>
-<p>The critical value, $t_{critical}$ is calculated by the analytical expression by:</p>
-\begin{equation}
-t_{critical} = \left|t(\frac{\alpha}{2},\nu)\right|
-\end{equation}<p>The degrees of freedom, $\nu$, is calculated as follows:</p>
-\begin{equation}
-\nu = \frac{\left(\frac{1}{n_1} + \frac{\mu}{n_2}\right)^2}{\frac{1}{n_1^2(n_1-1)} + \frac{\mu^2}{n_2^2(n_2-1)}}
-\end{equation}<p>Alternatively, the sampling distribution of the t<em>{statistic} and t</em>{critical} may be calculated empirically with bootstrap.</p>
-<p>The workflow proceeds as:</p>
-<ul>
-<li><p>shift both sample sets to have the mean of the combined data, $x_1$ → $x^*_1$, $x_2$ → $x^*_2$</p>
-</li>
-<li><p>for each bootstrap realization, $\ell=1\ldots,L$</p>
-<ul>
-<li><p>perform $n_1$ Monte Carlo simulations, draws with replacement, from sample set $x^*_1$</p>
-</li>
-<li><p>perform $n_2$ Monte Carlo simulations, draws with replacement, from sample set $x^*_2$</p>
-</li>
-<li><p>calculate the t_{statistic} realization, $\hat{t}^{\ell}$ given the resulting sample means $\overline{x}^{*,\ell}_1$ and $\overline{x}^{*,\ell}_2$ and the sample variances $s^{*,2,\ell}_1$ and $s^{*,2,\ell}_2$</p>
-</li>
-</ul>
-</li>
-<li><p>pool the results to assemble the $t_{statistic}$ sampling distribution</p>
-</li>
-<li><p>calculate the cumulative probability of the observed t_{statistic}m, $\hat{t}$, from the boostrap distribution based on $\hat{t}^{\ell}$, $\ell = 1,\ldots,L$.</p>
-</li>
-</ul>
-<p>Here's some prerequisite information on the boostrap.</p>
-<h4 id="Bootstrap">Bootstrap<a class="anchor-link" href="#Bootstrap">&#182;</a></h4><p>Uncertainty in the sample statistics</p>
-<ul>
-<li>one source of uncertainty is the paucity of data.</li>
-<li>do 200 or even less wells provide a precise (and accurate estimate) of the mean? standard deviation? skew? P13?</li>
-</ul>
-<p>Would it be useful to know the uncertainty in these statistics due to limited sampling?</p>
-<ul>
-<li>what is the impact of uncertainty in the mean porosity e.g. 20%+/-2%?</li>
-</ul>
-<p><strong>Bootstrap</strong> is a method to assess the uncertainty in a sample statistic by repeated random sampling with replacement.</p>
-<p>Assumptions</p>
-<ul>
-<li>sufficient, representative sampling, identical, idependent samples</li>
-</ul>
-<p>Limitations</p>
-<ol>
-<li>assumes the samples are representative </li>
-<li>assumes stationarity</li>
-<li>only accounts for uncertainty due to too few samples, e.g. no uncertainty due to changes away from data</li>
-<li>does not account for boundary of area of interest </li>
-<li>assumes the samples are independent</li>
-<li>does not account for other local information sources</li>
-</ol>
-<p>The Bootstrap Approach (Efron, 1982)</p>
-<p>Statistical resampling procedure to calculate uncertainty in a calculated statistic from the data itself.</p>
-<ul>
-<li>Does this work?  Prove it to yourself, for uncertainty in the mean solution is standard error: </li>
-</ul>
-\begin{equation}
-\sigma^2_\overline{x} = \frac{\sigma^2_s}{n}
-\end{equation}<p>Extremely powerful - could calculate uncertainty in any statistic!  e.g. P13, skew etc.</p>
-<ul>
-<li>Would not be possible access general uncertainty in any statistic without bootstrap.</li>
-<li>Advanced forms account for spatial information and sampling strategy (game theory and Journel’s spatial bootstrap (1993).</li>
-</ul>
-<p>Steps:</p>
-<ol>
-<li><p>assemble a sample set, must be representative, reasonable to assume independence between samples</p>
-</li>
-<li><p>optional: build a cumulative distribution function (CDF)</p>
-<ul>
-<li>may account for declustering weights, tail extrapolation</li>
-<li>could use analogous data to support</li>
-</ul>
-</li>
-<li><p>For $\ell = 1, \ldots, L$ realizations, do the following:</p>
-<ul>
-<li><p>For $i = \alpha, \ldots, n$ data, do the following:</p>
-<ul>
-<li>Draw a random sample with replacement from the sample set or Monte Carlo simulate from the CDF (if available). </li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Calculate a realization of the sammary statistic of interest from the $n$ samples, e.g. $m^\ell$, $\sigma^2_{\ell}$. Return to 3 for another realization.</p>
-</li>
-<li><p>Compile and summarize the $L$ realizations of the statistic of interest.</p>
-</li>
-</ol>
-<p>This is a very powerful method.  Let's try it out and compare the result to the analytical form of the confidence interval for the sample mean.</p>
-<h4 id="Objective">Objective<a class="anchor-link" href="#Objective">&#182;</a></h4><p>Provide an example and demonstration for:</p>
-<ol>
-<li>interactive plotting in Jupyter Notebooks with Python packages matplotlib and ipywidgets</li>
-<li>provide an intuitive hands-on example of confidence intervals and compare to statistical boostrap   </li>
-</ol>
-<h4 id="Getting-Started">Getting Started<a class="anchor-link" href="#Getting-Started">&#182;</a></h4><p>Here's the steps to get setup in Python with the GeostatsPy package:</p>
-<ol>
-<li>Install Anaconda 3 on your machine (<a href="https://www.anaconda.com/download/">https://www.anaconda.com/download/</a>). </li>
-<li>Open Jupyter and in the top block get started by copy and pasting the code block below from this Jupyter Notebook to start using the geostatspy functionality. </li>
-</ol>
-<h4 id="Load-the-Required-Libraries">Load the Required Libraries<a class="anchor-link" href="#Load-the-Required-Libraries">&#182;</a></h4><p>The following code loads the required libraries.</p>
+<p>In the previous article, we talked about hypothesis testing using the Welch's t-test on two independent samples of data. So what happens if we want know the statiscal significance for $k$ groups of data?</p>
+<p>This is where the analysis of variance technique, or ANOVA is useful.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interactive</span>                        <span class="c1"># widgets and interactivity</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">widgets</span>                            
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">Layout</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">Label</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">VBox</span><span class="p">,</span> <span class="n">HBox</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>                           <span class="c1"># plotting</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>                                        <span class="c1"># working with arrays</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>                                       <span class="c1"># working with DataFrames</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>                                   <span class="c1"># statistical calculations</span>
-<span class="kn">import</span> <span class="nn">random</span>                                             <span class="c1"># random drawing / bootstrap realizations of the data</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Make-a-Synthetic-Dataset">Make a Synthetic Dataset<a class="anchor-link" href="#Make-a-Synthetic-Dataset">&#182;</a></h4><p>This is an interactive method to:</p>
+<h3 id="ANOVA-Assumptions">ANOVA Assumptions<a class="anchor-link" href="#ANOVA-Assumptions">&#182;</a></h3><p>We'll be looking at SAT scores for five different districts in New York City. Specifically, we'll be using "scores.csv" from <a href="https://www.kaggle.com/nycopendata/high-schools">Kaggle</a>. First let's get the assumptions out of the way:</p>
 <ul>
-<li><p>select a parametric distribution</p>
-</li>
-<li><p>select the distribution parameters</p>
-</li>
-<li><p>select the number of samples and visualize the synthetic dataset distribution</p>
-</li>
+<li>The dependent variable (SAT scores) should be continuous. </li>
+<li>The independent variables (districts) should be two or more categorical groups.</li>
+<li>There must be different participants in each group with no participant being in more than one group. In our case, each school cannot be in more than one district.</li>
+<li>The dependent variable should be approximately normally distributed for each category.</li>
+<li>Variances of each group are approximately equal.</li>
 </ul>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># interactive calculation of the sample set (control of source parametric distribution and number of samples)</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39; Interactive Hypothesis Testing, Difference in Means, Analytical &amp; Bootstrap Methods, Michael Pyrcz, Associate Professor, The University of Texas at Austin&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;950px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-
-<span class="n">n1</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$n_</span><span class="si">{1}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">n1</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
-
-<span class="n">m1</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$\overline</span><span class="si">{x}</span><span class="s1">_</span><span class="si">{1}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">m1</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
-
-<span class="n">s1</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$s_1$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">s1</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
-
-<span class="n">ui1</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">n1</span><span class="p">,</span><span class="n">m1</span><span class="p">,</span><span class="n">s1</span><span class="p">],)</span>                               <span class="c1"># basic widget formatting </span>
-
-<span class="n">n2</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$n_</span><span class="si">{2}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">n2</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span>
-
-<span class="n">m2</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$\overline</span><span class="si">{x}</span><span class="s1">_</span><span class="si">{2}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">m2</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span>
-
-<span class="n">s2</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$s_2$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">s2</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span>
-
-<span class="n">ui2</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">n2</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">s2</span><span class="p">],)</span>                               <span class="c1"># basic widget formatting </span>
-
-<span class="n">L</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$L$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">L</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;gray&#39;</span>
-
-<span class="n">alpha</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;$α$&#39;</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">&#39;300px&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">&#39;30px&#39;</span><span class="p">))</span>
-<span class="n">alpha</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">handle_color</span> <span class="o">=</span> <span class="s1">&#39;gray&#39;</span>
-
-<span class="n">ui3</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">L</span><span class="p">,</span><span class="n">alpha</span><span class="p">],)</span>                                <span class="c1"># basic widget formatting </span>
-
-<span class="n">ui4</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HBox</span><span class="p">([</span><span class="n">ui1</span><span class="p">,</span><span class="n">ui2</span><span class="p">,</span><span class="n">ui3</span><span class="p">],)</span>                               <span class="c1"># basic widget formatting </span>
-
-<span class="n">ui2</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">l</span><span class="p">,</span><span class="n">ui4</span><span class="p">],)</span>
-
-<span class="k">def</span> <span class="nf">f_make</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>                                      <span class="c1"># function to take parameters, make sample and plot</span>
-
-    
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">73073</span><span class="p">)</span>
-    <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">m1</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="n">s1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">n1</span><span class="p">)</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">73074</span><span class="p">)</span>
-    <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">m2</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="n">s2</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">n2</span><span class="p">)</span>
-  
-    <span class="n">mu</span> <span class="o">=</span> <span class="p">(</span><span class="n">s2</span><span class="o">*</span><span class="n">s2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">s1</span><span class="o">*</span><span class="n">s1</span><span class="p">)</span>
-    <span class="n">nu</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">n1</span> <span class="o">+</span> <span class="n">mu</span><span class="o">/</span><span class="n">n2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n1</span> <span class="o">+</span> <span class="n">mu</span><span class="o">/</span><span class="n">n2</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">n1</span><span class="o">*</span><span class="n">n1</span><span class="o">*</span><span class="p">(</span><span class="n">n1</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="p">((</span><span class="n">mu</span><span class="o">*</span><span class="n">mu</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n2</span><span class="o">*</span><span class="n">n2</span><span class="o">*</span><span class="p">(</span><span class="n">n2</span><span class="o">-</span><span class="mi">1</span><span class="p">))))</span>
-    
-    <span class="n">prop_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">8.0</span><span class="p">,</span><span class="mf">8.0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
-    <span class="n">analytical_distribution</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">prop_values</span><span class="p">,</span><span class="n">df</span> <span class="o">=</span> <span class="n">nu</span><span class="p">)</span> 
-    <span class="n">analytical_tcrit</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="n">alpha</span><span class="o">*</span><span class="mf">0.005</span><span class="p">,</span><span class="n">df</span> <span class="o">=</span> <span class="n">nu</span><span class="p">)</span>
-    
-    <span class="c1"># Analytical Method with SciPy</span>
-    <span class="n">t_stat_observed</span><span class="p">,</span> <span class="n">p_value_analytical</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    
-    <span class="c1"># Bootstrap Method</span>
-    <span class="n">global_average</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">]))</span>   <span class="c1"># shift the means to be equal to the globla mean</span>
-    <span class="n">x1s</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span> <span class="o">+</span> <span class="n">global_average</span>
-    <span class="n">x2s</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span> <span class="o">+</span> <span class="n">global_average</span>
-    
-    <span class="n">t_stat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">L</span><span class="p">);</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
-    
-    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">73075</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">):</span>                      <span class="c1"># loop over realizations</span>
-        <span class="n">samples1</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">x1s</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cum_weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x1s</span><span class="p">))</span>
-        <span class="c1">#print(samples1)</span>
-        <span class="n">samples2</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">x2s</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cum_weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x2s</span><span class="p">))</span>
-        <span class="c1">#print(samples2)</span>
-        <span class="n">t_stat</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="n">p_value</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">samples1</span><span class="p">,</span><span class="n">samples2</span><span class="p">,</span><span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-      
-    <span class="n">bootstrap_lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">t_stat</span><span class="p">,</span><span class="n">alpha</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">bootstrap_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">t_stat</span><span class="p">,</span><span class="mf">100.0</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
-    <span class="c1">#print(t_stat)</span>
-   
-    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">cumulative</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">density</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">cumulative</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">density</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.4</span><span class="p">]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">30.0</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sample Distributions&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    
-    <span class="c1">#plt.hist(x2)</span>
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">]);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">8.0</span><span class="p">,</span><span class="mf">8.0</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Bootstrap and Analytical $t_</span><span class="si">{statistic}</span><span class="s1">$ Sampling Distributions&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$t_</span><span class="si">{statistic}</span><span class="s1">$&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">t_stat_observed</span><span class="p">,</span><span class="n">t_stat_observed</span><span class="p">],[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;observed $t_</span><span class="si">{statistic}</span><span class="s1">$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">bootstrap_lower</span><span class="p">,</span><span class="n">bootstrap_lower</span><span class="p">],[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;bootstrap interval&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">bootstrap_upper</span><span class="p">,</span><span class="n">bootstrap_upper</span><span class="p">],[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">],</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">prop_values</span><span class="p">,</span><span class="n">analytical_distribution</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;analytical $t_</span><span class="si">{statistic}</span><span class="s1">$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">t_stat</span><span class="p">,</span><span class="n">cumulative</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">density</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">8.0</span><span class="p">,</span><span class="mf">8.0</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;bootstrap $t_</span><span class="si">{statistic}</span><span class="s1">$&#39;</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">prop_values</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">analytical_distribution</span><span class="p">,</span> <span class="n">where</span> <span class="o">=</span> <span class="n">prop_values</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">analytical_tcrit</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">prop_values</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">analytical_distribution</span><span class="p">,</span> <span class="n">where</span> <span class="o">=</span> <span class="n">prop_values</span> <span class="o">&gt;=</span> <span class="n">analytical_tcrit</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-    <span class="n">handles</span><span class="p">,</span><span class="n">labels</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
-    <span class="n">handles</span> <span class="o">=</span> <span class="p">[</span><span class="n">handles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">handles</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">handles</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">handles</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="p">,</span><span class="n">labels</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-
-<span class="c1"># connect the function to make the samples and plot to the widgets    </span>
-<span class="n">interactive_plot</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive_output</span><span class="p">(</span><span class="n">f_make</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;n1&#39;</span><span class="p">:</span> <span class="n">n1</span><span class="p">,</span> <span class="s1">&#39;m1&#39;</span><span class="p">:</span> <span class="n">m1</span><span class="p">,</span> <span class="s1">&#39;s1&#39;</span><span class="p">:</span> <span class="n">s1</span><span class="p">,</span> <span class="s1">&#39;n2&#39;</span><span class="p">:</span> <span class="n">n2</span><span class="p">,</span> <span class="s1">&#39;m2&#39;</span><span class="p">:</span> <span class="n">m2</span><span class="p">,</span> <span class="s1">&#39;s2&#39;</span><span class="p">:</span> <span class="n">s2</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">:</span> <span class="n">L</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="n">alpha</span><span class="p">})</span>
-<span class="n">interactive_plot</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>                <span class="c1"># reduce flickering by delaying plot updating</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Boostrap-and-Analytical-Methods-for-Hypothesis-Testing,-Difference-in-Means">Boostrap and Analytical Methods for Hypothesis Testing, Difference in Means<a class="anchor-link" href="#Boostrap-and-Analytical-Methods-for-Hypothesis-Testing,-Difference-in-Means">&#182;</a></h3><ul>
-<li>including the analytical and bootstrap methods for testing the difference in means</li>
-<li>interactive plot demonstration with ipywidget, matplotlib packages</li>
-</ul>
-<h4 id="Michael-Pyrcz,-Associate-Professor,-University-of-Texas-at-Austin">Michael Pyrcz, Associate Professor, University of Texas at Austin<a class="anchor-link" href="#Michael-Pyrcz,-Associate-Professor,-University-of-Texas-at-Austin">&#182;</a></h4><h5 id="Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn-|-GeostatsPy"><a href="https://twitter.com/geostatsguy">Twitter</a> | <a href="https://github.com/GeostatsGuy">GitHub</a> | <a href="http://michaelpyrcz.com">Website</a> | <a href="https://scholar.google.com/citations?user=QVZ20eQAAAAJ&amp;hl=en&amp;oi=ao">GoogleScholar</a> | <a href="https://www.amazon.com/Geostatistical-Reservoir-Modeling-Michael-Pyrcz/dp/0199731446">Book</a> | <a href="https://www.youtube.com/channel/UCLqEr-xV-ceHdXXXrTId5ig">YouTube</a>  | <a href="https://www.linkedin.com/in/michael-pyrcz-61a648a1">LinkedIn</a> | <a href="https://github.com/GeostatsGuy/GeostatsPy">GeostatsPy</a><a class="anchor-link" href="#Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn-|-GeostatsPy">&#182;</a></h5><h3 id="The-Problem">The Problem<a class="anchor-link" href="#The-Problem">&#182;</a></h3><p>Let's simulate bootstrap, resampling with replacement from a hat with $n_{red}$ and $n_{green}$ balls</p>
-<ul>
-<li><strong>$n_1$</strong>, <strong>$n_2$</strong> number of samples, <strong>$\overline{x}_1$</strong>, <strong>$\overline{x}_2$</strong> means and <strong>$s_1$</strong>, <strong>$s_2$</strong> standard deviation of the 2 sample sets</li>
-<li><strong>$L$</strong>: number of bootstrap realizations</li>
-<li><strong>$\alpha$</strong>: alpha level</li>
-</ul>
+<h3 id="Data-Exploration">Data Exploration<a class="anchor-link" href="#Data-Exploration">&#182;</a></h3><p>Let's begin by taking a look at what our data looks like.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">ui2</span><span class="p">,</span> <span class="n">interactive_plot</span><span class="p">)</span>                            <span class="c1"># display the interactive plot</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;scores.csv&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>School ID</th>
+      <th>School Name</th>
+      <th>Borough</th>
+      <th>Building Code</th>
+      <th>Street Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip Code</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>...</th>
+      <th>End Time</th>
+      <th>Student Enrollment</th>
+      <th>Percent White</th>
+      <th>Percent Black</th>
+      <th>Percent Hispanic</th>
+      <th>Percent Asian</th>
+      <th>Average Score (SAT Math)</th>
+      <th>Average Score (SAT Reading)</th>
+      <th>Average Score (SAT Writing)</th>
+      <th>Percent Tested</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>02M260</td>
+      <td>Clinton School Writers and Artists</td>
+      <td>Manhattan</td>
+      <td>M933</td>
+      <td>425 West 33rd Street</td>
+      <td>Manhattan</td>
+      <td>NY</td>
+      <td>10001</td>
+      <td>40.75321</td>
+      <td>-73.99786</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>06M211</td>
+      <td>Inwood Early College for Health and Informatio...</td>
+      <td>Manhattan</td>
+      <td>M052</td>
+      <td>650 Academy Street</td>
+      <td>Manhattan</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>40.86605</td>
+      <td>-73.92486</td>
+      <td>...</td>
+      <td>3:00 PM</td>
+      <td>87.0</td>
+      <td>3.4%</td>
+      <td>21.8%</td>
+      <td>67.8%</td>
+      <td>4.6%</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>01M539</td>
+      <td>New Explorations into Science, Technology and ...</td>
+      <td>Manhattan</td>
+      <td>M022</td>
+      <td>111 Columbia Street</td>
+      <td>Manhattan</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>40.71873</td>
+      <td>-73.97943</td>
+      <td>...</td>
+      <td>4:00 PM</td>
+      <td>1735.0</td>
+      <td>28.6%</td>
+      <td>13.3%</td>
+      <td>18.0%</td>
+      <td>38.5%</td>
+      <td>657.0</td>
+      <td>601.0</td>
+      <td>601.0</td>
+      <td>91.0%</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>02M294</td>
+      <td>Essex Street Academy</td>
+      <td>Manhattan</td>
+      <td>M445</td>
+      <td>350 Grand Street</td>
+      <td>Manhattan</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>40.71687</td>
+      <td>-73.98953</td>
+      <td>...</td>
+      <td>2:45 PM</td>
+      <td>358.0</td>
+      <td>11.7%</td>
+      <td>38.5%</td>
+      <td>41.3%</td>
+      <td>5.9%</td>
+      <td>395.0</td>
+      <td>411.0</td>
+      <td>387.0</td>
+      <td>78.9%</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>02M308</td>
+      <td>Lower Manhattan Arts Academy</td>
+      <td>Manhattan</td>
+      <td>M445</td>
+      <td>350 Grand Street</td>
+      <td>Manhattan</td>
+      <td>NY</td>
+      <td>10002</td>
+      <td>40.71687</td>
+      <td>-73.98953</td>
+      <td>...</td>
+      <td>3:00 PM</td>
+      <td>383.0</td>
+      <td>3.1%</td>
+      <td>28.2%</td>
+      <td>56.9%</td>
+      <td>8.6%</td>
+      <td>418.0</td>
+      <td>428.0</td>
+      <td>415.0</td>
+      <td>65.1%</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 22 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Borough&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>Brooklyn         121
+Bronx            118
+Manhattan        106
+Queens            80
+Staten Island     10
+Name: Borough, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Creating-New-Columns">Creating New Columns<a class="anchor-link" href="#Creating-New-Columns">&#182;</a></h3><p>There is no total score column, so we'll have to create it. In addition, we'll have to find the mean score of the each district across all schools.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;total_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Average Score (SAT Reading)&#39;</span><span class="p">]</span> <span class="o">+</span>  \
+                      <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Average Score (SAT Math)&#39;</span><span class="p">]</span>    <span class="o">+</span>  \
+                      <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Average Score (SAT Writing)&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;Borough&#39;</span><span class="p">,</span> <span class="s1">&#39;total_score&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>        
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Brooklyn&#39;</span><span class="p">,</span> <span class="s1">&#39;Bronx&#39;</span><span class="p">,</span> <span class="s1">&#39;Manhattan&#39;</span><span class="p">,</span> <span class="s1">&#39;Queens&#39;</span><span class="p">,</span> <span class="s1">&#39;Staten Island&#39;</span><span class="p">]</span>
+<span class="n">district_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1">#Assigns each test score series to a dictionary key</span>
+<span class="k">for</span> <span class="n">district</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+    <span class="n">district_dict</span><span class="p">[</span><span class="n">district</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Borough&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">district</span><span class="p">][</span><span class="s1">&#39;total_score&#39;</span><span class="p">]</span>
+
+
+<span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">yerror</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1">#Assigns the mean score and 95% confidence limit to each district</span>
+<span class="k">for</span> <span class="n">district</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">district_dict</span><span class="p">[</span><span class="n">district</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+    <span class="n">yerror</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.96</span><span class="o">*</span><span class="n">district_dict</span><span class="p">[</span><span class="n">district</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">district_dict</span><span class="p">[</span><span class="n">district</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>    
+    <span class="nb">print</span><span class="p">(</span><span class="n">district</span> <span class="o">+</span> <span class="s1">&#39;_std : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">district_dict</span><span class="p">[</span><span class="n">district</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()))</span>
+    
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font_scale</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">yerror</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Average Total SAT Score&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -14584,20 +14588,14 @@ t_{critical} = \left|t(\frac{\alpha}{2},\nu)\right|
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-
-
-
-
-
-<div id="174d6a79-ab09-4cc2-9e41-05b800df9795" class="jupyter-widgets jp-OutputArea-output ">
-<script type="text/javascript">
-var element = document.getElementById('174d6a79-ab09-4cc2-9e41-05b800df9795');
-</script>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "59a8bfc27b0b46029e53e96dd17cd05c", "version_major": 2, "version_minor": 0}
-</script>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Brooklyn_std : 154.8684270520867
+Bronx_std : 150.39390071890665
+Manhattan_std : 230.29413953637814
+Queens_std : 195.25289850192115
+Staten Island_std : 222.30359621222706
+</pre>
 </div>
-
 </div>
 
 <div class="jp-OutputArea-child">
@@ -14608,16 +14606,10 @@ var element = document.getElementById('174d6a79-ab09-4cc2-9e41-05b800df9795');
 
 
 
-
-
-
-<div id="fc45cb48-9a04-4edf-bfb7-eb3d881d7178" class="jupyter-widgets jp-OutputArea-output ">
-<script type="text/javascript">
-var element = document.getElementById('fc45cb48-9a04-4edf-bfb7-eb3d881d7178');
-</script>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "064e284314124e259b718046c1c77b00", "version_major": 2, "version_minor": 0}
-</script>
+<div class="jp-RenderedImage jp-OutputArea-output ">
+<img src="data:image/png;base64,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qfV2MhERERG9fGq9Ijhx4kTExsZi8eLFWLFiBUpKSlBRUYGuXbvC19dXVrdt2zYcOnQIFy9eRLt27TB27NgGaZyIiIiIXkytQVBPTw87duzADz/8gJMnT6K8vBx9+vTB//3f/0FH53+7bdq0Cffu3UP37t2xdu1aPmNHRERE1ETUubKIsbExPv30U3z66ae11nz11VcwMzND165dVd4cEREREanPM9cafpb+/furog8iIiIiamC1vixCRERERM0bgyARERGRhmIQJCIiItJQDIJEREREGopBkIiIiEhDMQgSERERaahap48ZMGDAcx1QJBLh+PHjz9sPERERETWQWoNgeXk5RCJRQ/ZCRERERA2o1iB49uzZhuyDiIiIiBoYnxEkIiIi0lD1WmIuJycHR48eRW5uLiorKyEIAgBAEAQ8efIEjx49QkJCAo4dO6aWZomIiIhIdZQOgteuXcP48eNRUlICQRBkzw9Wh0GRSARBENCmTRv1dEpEREREKqV0EAwJCcHjx4/h5+cHsViMpUuXwtbWFsOGDUNGRgY2bdoEHR0dHDx4UJ39EhEREZGKKP2M4JUrV+Dk5ISAgAAMGjQI7733HrKzs+Hs7Izp06dj+/btkEqlWL9+vTr7JSIiIiIVUToIFhYWwsbGRvb3Tp06ITU1FZWVlQCAd955B4MGDcKZM2dU3yURERERqZzSQdDExAQlJSWyv7dr1w5lZWXIzMyUjb311lu4e/euajskIiIiIrVQOgja29vj2LFjKCwsBFB1RVAQBPz222+ymvT0dOjp6am+SyIiIiJSOaVfFpk4cSImT56MoUOHIigoCE5OTujevTtWr16NR48e4e+//8aJEyeee2k6IiIiImpYSl8RdHJywsqVK6GlpSW7KvjFF19AR0cHwcHBiIiIgJmZGT777DO1NUtEREREqlOvCaU9PDzg4eGBiooKAICtrS3i4+Nx5swZ6OnpwdHREcbGxmpplIiIiIhUS+krghs2bMClS5cAANra2rJxExMTuLm5wdnZGVeuXMGSJUtU3yURERERqZzSQXD16tVITEyss+bkyZPYvXv3Czf1T7dv34a1tXWd/1S/tPJ///d/NW4fMWKE3DFzc3OxaNEi9O7dGz169MDMmTORlZWl8t6JiIiIXla13hr++eefERMTIze2d+9eJCQk1Fj/5MkTJCcn4/XXX1dthwBMTU2xcuVKhfHS0lJ88803aN26NTp37gyg6s3lHj16wMfHR662ZcuWsj+XlZVh6tSpuHnzJiZNmgRjY2Ns2rQJvr6+iI6ORqtWrVT+GYiIiIheNrUGwSFDhuD777/Ho0ePAFStJXz37t065wls06YNAgICVN6koaEhPD09FcaXLl2KJ0+eYNWqVXj11VdRXl6OW7duYcaMGTXWV4uKikJycjI2bdqE999/HwDQr18/DBs2DOHh4Zg3b57KPwMRERHRy6bWIPjqq6/izJkzqKyshCAI6NatG2bOnImZM2fWfCAdHWhpKX2n+YWlpaVh+/bt8PLywrvvvgsAyMzMRHl5OSwtLevcNzY2Fu3atZOFQACwtLTEe++9h9jYWAZBIiIi0gh1vjWso/O/zRs2bED79u2hq6ur9qaUsWbNGujr62Pu3LmysfT0dACQBcGioiIYGRkp7JucnIw+ffoojNvY2ODMmTPIz8/Hq6++qqbOiYiIiF4OSk8f07dvXwBASUkJjh07hrS0NBQXF6Nly5bo1KkT+vbtCwMDA7U1+rTU1FQcP34ckydPxmuvvSYb/+OPPwAAu3btQmxsLB49egQzMzNMnz4dEyZMAFAVDqVSKczNzRWOa2ZmBgC4d+8egyARERE1e/WaR/DkyZNYtGgR8vLyIAiCbFwkEqFly5ZYvnw5+vfvr/Im/2nnzp3Q1tbGuHHj5Marrwimp6dj8eLFKC8vx969e7F06VIUFhZi1qxZKCoqAgDo6+srHLd6rLi4WM2fgIiIiKjxKR0Er127Bn9/f2hra2PSpEno2bMnXnvtNRQUFCApKQk7duzAnDlzsGvXLtkbvOpQUlKCX375BYMGDULbtm3ltg0ZMgR2dnaYNm2a7HlFDw8PjB07FuvXr4ePj48swIpEolq/xrOedWzVyhA6Otp11lDDMjNr0dgt0HPiuWvaeP6aLnWeu+tqOzJVU9X5UzoI/uc//4G2tjZ27tyJLl26yG17//334eLigrFjx+LHH3/EmjVrVNJcTX777TcUFxdj8ODBCtvc3d0VxrS0tODt7Y1FixbhypUrEIvFAKqmnvmnkpISAKjxucKn5eXxiuHL5sEDaWO3QM+J565p4/lrunjumrb6nL+6QqPSr/levHgREolEIQRWs7GxgUQiQVJSktKNPY+TJ0/ilVdewYABA5Tep3Xr1gCqbvkaGxvDxMQE9+/fV6irHnv6uUMiIiKi5krpIPj48eNnTrRsamoKqVS9/4dx6dIl2NnZKaxpXFZWBi8vL3z55ZcK+/z5558AAAsLCwBAly5dkJKSolCXkpKC9u3b80URIiIi0ghKB8H27dsjISEB5eXlNW4vKyvD2bNn0b59e5U190/l5eVIT09H165dFbbp6upCT08PBw4ckJv0WiqVYuvWrWjfvj3s7e0BAK6urvjzzz/lVknJyMjAuXPn4Obmprb+iYiIiF4mSgfBESNGICMjA5999hlyc3Pltt25cwfz5s1DZmYmhg8frvLDvJ7IAAAgAElEQVQmq927dw/l5eV44403atz++eefo7y8HGPHjkVYWBjCwsIwcuRI/P3331iyZInsJZBRo0ahY8eOmDNnDtavX4/w8HD4+fnB3NwcEydOVFv/RERERC8TpV8WmThxIn777TfExcXhyJEjaN++PYyNjXH//n3cv38fFRUV6NevH/z8/NTWbPVyd/+8LVzN3t4e4eHhCA4ORkhICEQiEbp3746VK1eie/fusjpdXV2Eh4djxYoVCAsLg7a2NsRiMRYuXMh1homIiEhjKB0EtbS08J///Ae7d+9GVFQU0tLS8PjxY+jr68POzg7Dhw+Ht7e3WpeZs7e3R1paWp017777LrZu3frMY5mbm+O7775TVWtERERETU69JpTW0tKCj48PfHx8AACVlZUNur4wEREREalOrSmuS5cuCA0NrXtnhkAiIiKiJqvWJCcIgtwyckRERETUvPCSHhEREZGGYhAkIiIi0lB1vixy584dnD9/vt4H7dWr13M3REREREQNo84gGBUVhaioqHof9Pr168/dEBERERE1jDqDoLW1Nbp06dJQvRARERFRA6ozCEokEvj7+zdUL0RERETUgPiyCBEREZGGYhAkIiIi0lAMgkREREQaqtZnBLdu3Yq2bds2ZC9ERERE1IBqDYJisbgh+yAiIiKiBsZbw0REREQaikGQiIiISEMxCBIRERFpKAZBIiIiIg3FIEhERESkoepcYq4mx48fx/79+5GamgqpVIrExERER0fj1q1bmDJlCoyMjNTRJxERERGpmNJBUBAEfP7554iKioIgCNDV1UV5eTkAIDk5GVu3bsWJEyewdetWGBsbq61hIiIiIlINpW8Nb9++Hfv378ewYcNw8uRJ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
+"
+>
 </div>
 
 </div>
@@ -14629,43 +14621,29 @@ var element = document.getElementById('fc45cb48-9a04-4edf-bfb7-eb3d881d7178');
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Observations">Observations<a class="anchor-link" href="#Observations">&#182;</a></h4><p>Some observations:</p>
-<ul>
-<li><p>lower dispersion and higher difference in means increases the absolute magnitude of the observed $t_{statistic}$</p>
-</li>
-<li><p>the bootstrap distribution closely matches the analytical distribution if $L$ is large enough</p>
-</li>
-<li><p>it is possible to use bootstrap to calculate the sampling distribution instead of relying on the theoretical express distribution, in this case the Student's t distribution.</p>
-</li>
-</ul>
-<h4 id="Comments">Comments<a class="anchor-link" href="#Comments">&#182;</a></h4><p>This was a demonstration of interactive hypothesis testing for the significance in difference in means aboserved between 2 sample sets in Jupyter Notebook Python with the ipywidgets and matplotlib packages.</p>
-<p>I have many other demonstrations on data analytics and machine learning, e.g. on the basics of working with DataFrames, ndarrays, univariate statistics, plotting data, declustering, data transformations, trend modeling and many other workflows available at <a href="https://github.com/GeostatsGuy/PythonNumericalDemos">https://github.com/GeostatsGuy/PythonNumericalDemos</a> and <a href="https://github.com/GeostatsGuy/GeostatsPy">https://github.com/GeostatsGuy/GeostatsPy</a>.</p>
-<p>I hope this was helpful,</p>
-<p><em>Michael</em></p>
-<h4 id="The-Author:">The Author:<a class="anchor-link" href="#The-Author:">&#182;</a></h4><h3 id="Michael-Pyrcz,-Associate-Professor,-University-of-Texas-at-Austin">Michael Pyrcz, Associate Professor, University of Texas at Austin<a class="anchor-link" href="#Michael-Pyrcz,-Associate-Professor,-University-of-Texas-at-Austin">&#182;</a></h3><p><em>Novel Data Analytics, Geostatistics and Machine Learning Subsurface Solutions</em></p>
-<p>With over 17 years of experience in subsurface consulting, research and development, Michael has returned to academia driven by his passion for teaching and enthusiasm for enhancing engineers' and geoscientists' impact in subsurface resource development.</p>
-<p>For more about Michael check out these links:</p>
-<h4 id="Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn"><a href="https://twitter.com/geostatsguy">Twitter</a> | <a href="https://github.com/GeostatsGuy">GitHub</a> | <a href="http://michaelpyrcz.com">Website</a> | <a href="https://scholar.google.com/citations?user=QVZ20eQAAAAJ&amp;hl=en&amp;oi=ao">GoogleScholar</a> | <a href="https://www.amazon.com/Geostatistical-Reservoir-Modeling-Michael-Pyrcz/dp/0199731446">Book</a> | <a href="https://www.youtube.com/channel/UCLqEr-xV-ceHdXXXrTId5ig">YouTube</a>  | <a href="https://www.linkedin.com/in/michael-pyrcz-61a648a1">LinkedIn</a><a class="anchor-link" href="#Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn">&#182;</a></h4><h4 id="Want-to-Work-Together?">Want to Work Together?<a class="anchor-link" href="#Want-to-Work-Together?">&#182;</a></h4><p>I hope this content is helpful to those that want to learn more about subsurface modeling, data analytics and machine learning. Students and working professionals are welcome to participate.</p>
-<ul>
-<li><p>Want to invite me to visit your company for training, mentoring, project review, workflow design and / or consulting? I'd be happy to drop by and work with you!</p>
-</li>
-<li><p>Interested in partnering, supporting my graduate student research or my Subsurface Data Analytics and Machine Learning consortium (co-PIs including Profs. Foster, Torres-Verdin and van Oort)? My research combines data analytics, stochastic modeling and machine learning theory with practice to develop novel methods and workflows to add value. We are solving challenging subsurface problems!</p>
-</li>
-<li><p>I can be reached at mpyrcz@austin.utexas.edu.</p>
-</li>
-</ul>
-<p>I'm always happy to discuss,</p>
-<p><em>Michael</em></p>
-<p>Michael Pyrcz, Ph.D., P.Eng. Associate Professor The Hildebrand Department of Petroleum and Geosystems Engineering, Bureau of Economic Geology, The Jackson School of Geosciences, The University of Texas at Austin</p>
-<h4 id="More-Resources-Available-at:-Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn">More Resources Available at: <a href="https://twitter.com/geostatsguy">Twitter</a> | <a href="https://github.com/GeostatsGuy">GitHub</a> | <a href="http://michaelpyrcz.com">Website</a> | <a href="https://scholar.google.com/citations?user=QVZ20eQAAAAJ&amp;hl=en&amp;oi=ao">GoogleScholar</a> | <a href="https://www.amazon.com/Geostatistical-Reservoir-Modeling-Michael-Pyrcz/dp/0199731446">Book</a> | <a href="https://www.youtube.com/channel/UCLqEr-xV-ceHdXXXrTId5ig">YouTube</a>  | <a href="https://www.linkedin.com/in/michael-pyrcz-61a648a1">LinkedIn</a><a class="anchor-link" href="#More-Resources-Available-at:-Twitter-|-GitHub-|-Website-|-GoogleScholar-|-Book-|-YouTube--|-LinkedIn">&#182;</a></h4>
+<p>From our data exploration, we can see that the average SAT scores are quite different for each district. We are interested in knowing if this is caused by random variation in data, or if there is an underlying cause. Since we have five different groups, we cannot use the t-test. Also note that the standard deviation of each group are also very different, so we've violated one of our assumpions. However, we are going to use the 1-way ANOVA test anyway just to understand the concepts.</p>
+<h3 id="The-Null-and-Alternative-Hypothesis">The Null and Alternative Hypothesis<a class="anchor-link" href="#The-Null-and-Alternative-Hypothesis">&#182;</a></h3><p>There are no significant differences between the groups' mean SAT scores.</p>
+<p>$ H_0 : \mu_1 = \mu_2 = \mu_3 = \mu_4 = \mu_5 $</p>
+<p>There is a significant difference between the groups' mean SAT scores.</p>
+<p>$ H_a : \mu_i \ne \mu_j $</p>
+<p>Where  $\mu_i$ and $\mu_j$ can be the mean of any group. If there is at least one group with a significant difference with another group, the null hypothesis will be rejected.</p>
+<h3 id="1-way-ANOVA">1-way ANOVA<a class="anchor-link" href="#1-way-ANOVA">&#182;</a></h3><p>Similar to the t-test, we can calculate a score for the ANOVA. Then we can look up the score in the F-distribution and obtain a p-value.</p>
+<p>The F-statistic is defined as follows:</p>
+$$ F = \frac{MS_{b}} {MS_w} $$$$ MS_{b} = \frac{SS_{b}} {K-1}$$$$ MS_{w} = \frac{SS_{w}} {N-K}$$$$ SS_{b} = {n_k\sum(\bar{x_{k}}-\bar{x_{G}})^2} $$$$ SS_{w} = \sum(x_{i}-\bar{x_{k}})^2 $$<p>Where $MS_{b}$ is the estimated variance between groups and $MS_{w}$ is the estimated variance within groups, $\bar{x_{k}}$ is the mean within each group, $n_k$ is the sample size for each group, ${x_i}$ is the individual data point, and $\bar{x_{G}}$ is the total mean.</p>
+<p>This is quite a lot of math, fortunately scipy has a function that plugs in all the values for us. The documentation for calculating 1-way ANOVA using scipy is <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html">here</a>.</p>
+
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stats</span><span class="o">.</span><span class="n">f_oneway</span><span class="p">(</span>
+             <span class="n">district_dict</span><span class="p">[</span><span class="s1">&#39;Brooklyn&#39;</span><span class="p">],</span> <span class="n">district_dict</span><span class="p">[</span><span class="s1">&#39;Bronx&#39;</span><span class="p">],</span> \
+             <span class="n">district_dict</span><span class="p">[</span><span class="s1">&#39;Manhattan&#39;</span><span class="p">],</span> <span class="n">district_dict</span><span class="p">[</span><span class="s1">&#39;Queens&#39;</span><span class="p">],</span> \
+             <span class="n">district_dict</span><span class="p">[</span><span class="s1">&#39;Staten Island&#39;</span><span class="p">]</span>
+<span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14673,6 +14651,146 @@ var element = document.getElementById('fc45cb48-9a04-4edf-bfb7-eb3d881d7178');
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>F_onewayResult(statistic=12.733085029201668, pvalue=1.0161974965566023e-09)</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The resulting pvalue was less than 0.05. We can reject the null hypothesis and conclude that there is a significant difference between the SAT scores for each district. Even though we've obtained a very low p-value, we cannot make any assumptions about the magnitude of the effect. Also scipy does not calculate $SS_b$ and $SS_w$, so it is probably better to write our own code.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">districts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Brooklyn&#39;</span><span class="p">,</span> <span class="s1">&#39;Bronx&#39;</span><span class="p">,</span> <span class="s1">&#39;Manhattan&#39;</span><span class="p">,</span> <span class="s1">&#39;Queens&#39;</span><span class="p">,</span> <span class="s1">&#39;Staten Island&#39;</span><span class="p">]</span>
+
+<span class="n">ss_b</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">districts</span><span class="p">:</span>
+    <span class="n">ss_b</span> <span class="o">+=</span> <span class="n">district_dict</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">district_dict</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;total_score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ss_w</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">districts</span><span class="p">:</span>
+    <span class="n">ss_w</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">district_dict</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">-</span> <span class="n">district_dict</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">msb</span> <span class="o">=</span> <span class="n">ss_b</span><span class="o">/</span><span class="mi">4</span>
+<span class="n">msw</span> <span class="o">=</span> <span class="n">ss_w</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">f</span><span class="o">=</span><span class="n">msb</span><span class="o">/</span><span class="n">msw</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;F_statistic: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>F_statistic: 12.733085029201687
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="The-Effect-Size">The Effect Size<a class="anchor-link" href="#The-Effect-Size">&#182;</a></h3><p>We can calculate the magnitude of the effect to determine how large the difference is. One of the measures we can use is Eta-squared.</p>
+$$ \eta^2 = \frac{SS_{b}} {SS_{total}}$$$$ SS_{b} = {n_k\sum(\bar{x_{k}}-\bar{x_{G}})^2} $$$$ SS_{total} = \sum(x_{i}-\bar{x_{G}})^2 $$
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ss_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;total_score&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;total_score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>        
+<span class="n">eta_squared</span> <span class="o">=</span> <span class="n">ss_b</span><span class="o">/</span><span class="n">ss_t</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;eta_squared: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eta_squared</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>eta_squared: 0.12099887621529214
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The general rules of thumb given by Cohen and Miles &amp; Shevlin (2001) for analyzing eta-squared, $\eta^2$:</p>
+<ul>
+<li>Small effect: $ 0.01 $</li>
+<li>Medium ffect: $ 0.06 $</li>
+<li>Large effect: $ 0.14 $</li>
+</ul>
+<p>From our calculations, the effect size for this ANOVA test would be "Medium". For a full write up on effect sizes click <a href="http://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/effectSize">here</a>.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<hr>
+<p>The files used for this article can be found in my <a href="https://github.com/sengkchu/codingdisciple.content/tree/master/Learning%20data%20science/Learning/Studying%20Statistics/Hypothesis%20Testing%20ANOVA">GitHub repository</a>.</p>
+
+</div>
 </div>
 </body>
 
