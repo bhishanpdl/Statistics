@@ -1,0 +1,1372 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- NOTE: Styling and javaScript for sit -->
+    <script type="text/javascript" nonce="707ca4376d70491a85f978e736f" src="//local.adguard.org?ts=1615736208421&amp;type=content-script&amp;dmn=www.pythonfordatascience.org&amp;css=1&amp;js=1&amp;gcss=1&amp;rel=1&amp;rji=1&amp;stealth=1&amp;uag=&amp;trref=aHR0cHM6Ly93d3cucHl0aG9uZm9yZGF0YXNjaWVuY2Uub3JnLw=="></script>
+<script type="text/javascript" nonce="707ca4376d70491a85f978e736f" src="//local.adguard.org?ts=1615736208421&amp;name=AdGuard%20Extra%20Beta&amp;type=user-script"></script><link rel="stylesheet" type= "text/css" href="/static/css/main3.css">
+
+	<!-- NOTE: This is for Latex Rendering  -->
+  <!-- NOTE: This is for Latex Rendering  -->
+	<!-- NOTE: https://docs.mathjax.org/en/latest/web/configuration.html -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+
+            "HTML-CSS": {
+                scale: 100
+            }
+        };
+    </script>
+
+		<!--
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+		-->
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+    
+    <title>One-way ANOVA with Python</title>
+    
+  </head>
+
+
+
+
+
+<body>
+
+	<header class="header">
+  	<h1>Python for Data Science</h1>
+	</header>
+
+
+
+	<nav class="topnav" id="myTopnav">
+  		<a id="home_a" href="/home">Home</a>
+			<a href="/descriptive-statistics-python">Descriptive statistics</a>
+
+      <div class= "dropdown">
+        <button class="dropbtn">Inferential statistics</button>
+          <div class="dropdown-content">
+            <a href="/parametric-assumptions-python">Parametric assumptions</a>
+						<a href="/variance-covariance-correlation">Variance, Covariance, and Correlation</a>
+      		  <a href= "/independent-samples-t-test-python">T-test</a>
+            <a href="/chi-square-test-of-independence-python">Chi-square test of independence</a>
+					  <a href="/anova-python">One-way ANOVA</a>
+						<a href="/factorial-anova-python">N-way (Multiple factorial) ANOVA</a>
+            <a href="/linear-regression-python">Linear regression</a>
+						<a href="/logistic-regression-python">Logistic regression</a>
+            <a href="/mixed-effects-regression-python">Mixed Effect Regression</a>
+      	  </div>
+    	</div>
+
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+	</nav>
+
+
+
+
+
+	<div id="top_card" class="container">
+
+  	<main class="left-section">
+
+        	
+
+
+
+
+<article id="toc" class="left-topcard">
+
+  <h2>Table of contents</h2>
+    <ul>
+      <li><a href="#introduction">Introduction</a></li>
+        <ul>
+          <li><a href="#assumptions_hyptoheses">Assumptions & Hypotheses</a></li>
+        </ul>
+
+      <li><a href="#test_with_python">One way ANOVA with Python</a></li>
+        <ul>
+          <li><a href="#anova_scipy_stats">... using Scipy.stats</a></li>
+          <li><a href="#anova_statsmodels">... using StatsModels</a></li>
+        </ul>
+
+      <li><a href="#assumption_check">Assumption Check</a></li>
+      <li><a href="#post-hoc">Post-hoc Testing</a></li>
+      <li><a href="#references">References</a></li>
+    </ul>
+
+</article>
+
+
+
+
+
+<article id="introduction" class= "left-midcard">
+
+    <h1>One-way ANOVA</h1>
+      <p>If you are looking for how to run the code jump to the <a href="#anova-test">next section</a> or
+          if you would like some theory/refresher then start with this section or
+          see a publicly available peer reviewed article such as this <a href="https://www.sciencedirect.com/science/article/pii/S0275540899000642" target="_blank">one</a>. <br>
+          <br>
+          ANOVA stands for "Analysis of Variance" and is an omnibus test, meaning
+          it tests for a difference overall between all groups.
+          The one-way ANOVA, also referred to as one factor ANOVA,
+          is a parametric test used to test for a statistically significant difference
+          of an outcome between 3 or more groups. Since it is an omnibus test, it
+          tests for a difference overall, i.e. at least one of the groups is
+          statistically significantly different than the others. However, if the
+          ANOVA is significant one cannot tell which group is different. In order
+          to tell which group is different, one has to conduct planned or post-hoc
+          comparisons. As with all parametric tests, there are certain conditions
+          that need to be met in order for the test results to be considered reliable. <br>
+          <br>
+          The reason why it's called an one-way or one factor ANOVA even though
+          there are 3 or more groups being tested is because those groups are
+          under one categorical variable, such as race or education level, and the name is referring to the number
+          of variables in the analysis and not the number of groups. If there are
+          two variables being compared it would technically be called a two-way,
+          or two factor, ANOVA if both variables are categorical, or it could be
+          called an ANCOVA if the 2<sup>nd</sup> variable is continuous. The "C"
+          doesn't stand for continuous, it stands for covariate. <br>
+          <br>
+          When working from the ANOVA framework, independent variables are sometimes
+          referred to as <i>factors</i> and the number of groups within each variable
+          are called <i>levels</i>, i.e. one variable with 3 categories could
+          be referred to as a factor with 3 levels.
+      </p>
+
+      <div id="assumptions_hyptoheses" class= "assump">
+        <p>Parametric test assumptions
+        <ul>
+          <li>Population distributions are normal</li>
+          <li>Samples have equal variances</li>
+          <li>Independence</li>
+        </ul>
+
+        Hypothesis
+        </p>
+        <ol style= "list-style-type: none">
+          <li>$H_0: \bar{x}_1 = \bar{x}_2 = \bar{x}_3 = \; ... \; = \bar{x}_k$</li>
+          <li>$H_A: \text{At least one of the groups means differ}$</li>
+        </ol>
+
+        <ol style= "list-style-type: none">
+
+        </ol>
+
+        <p>The test statistic is the F-statistic and compares the mean square
+            between samples ($MS_B$) to the mean square within sample ($MS_W$).
+            This <i>F-statistic</i> can be calculated using the following formula:
+
+        <ul style= "list-style-type: none">
+          <li>$F = \frac{MS_B}{MS_W}$</li>
+          <br>
+
+          <li>Where,</li>
+            <ul style= "list-style-type: none">
+              <li>$MS_B= \frac{\text{Sum of square between sample } (SS_B)}{(k - 1)}$</li>
+              <br>
+              <li>$MS_W= \frac{\text{Sum of square within sample } (SS_W)}{(n_T - k)}$</li>
+              <br>
+              <li>$k$ is the number of groups</li>
+              <li>$n_T$ is the total number of observations</li>
+            </ul>
+          <br>
+
+          <li>and where,</li>
+            <ul style= "list-style-type: none">
+              <li>Sum of square between sample ($SS_B$) = $\sum_k n_k(\bar{x}_k - \bar{x})^2$</li>
+              <li>Sum of square within sample ($SS_W$) = $\sum_{i, k}(x_{i, k} - \bar{x}_k)^2$ or can be calculated as $\sum_k (n_k - 1)s_k^2$</li>
+            </ul>
+        </ul>
+
+        <br>
+        One rejects the the null hypothesis, $H_0$, if the computed F-static is
+        greater than the critical F-statistic. The critical F-statistic is
+        determined by the degrees of freedom and alpha, $\alpha$, value.
+        </p>
+
+        <ol style= "list-style-type: none">
+          <li>Reject $H_0$ if $\text{calucated F-statistic} > \text{critical F-statistic}$</li>
+        </ol>
+
+        <p>Before the decision is made to accept or reject the null hypothesis the
+            assumptions need to be checked. See <a href="/parametric-assumptions-python" target= "_blank">this page</a> on
+            how to check the parametric assumptions in detail - how to check the
+            assumptions for this example will be demonstrated near the end.
+        </p>
+
+      </div>
+
+      <p>Let's make sense of all these mathmatical terms. In order to do that,
+          let's start with a generic ANOVA table filled in with symbols
+          and the data set used in this example for now.
+      </p>
+
+      <div class="info-table">
+        <table>
+          <caption style="text-align: left">ANOVA Table</caption>
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Sum of Squares</th>
+              <th>Degrees of Freedom</th>
+              <th>Mean Square</th>
+              <th>F-statistic</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: left">Between samples</td>
+              <td>$SS_B$</td>
+              <td>$k - 1$</td>
+              <td>$MS_B = \frac{SS_B}{(k - 1)}$</td>
+              <td>$\frac{MS_B}{MS_W}$</td>
+            </tr>
+            <tr>
+              <td style="text-align: left">Within samples</td>
+              <td>$SS_W$</td>
+              <td>$n_T - k$</td>
+              <td>$MS_W = \frac{SS_W}{(n_T - k)}$</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td style="text-align: left">Total</td>
+              <td>$TSS = SS_B + SS_W$</td>
+              <td>$n_T - 1$</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          <tfoot style= "border-bottom: none">
+            <tr>
+              <td colspan="5">Note: TSS means total sum of squares</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="info-table">
+        <table>
+          <caption style="text-align: left">Data Table</caption>
+          <thead>
+            <tr>
+              <th>Drug Dose</th>
+              <th colspan="5">Libido</th>
+              <th>Sample Size</th>
+              <th>Sample Means</th>
+              <th>Sample Variance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: left">Placebo ($k_1$)</td>
+              <td>3</td>
+              <td>2</td>
+              <td>1</td>
+              <td>1</td>
+              <td>4</td>
+              <td>5 ($n_1$)</td>
+              <td>2.2 ($\bar{x}_1$)</td>
+              <td>1.7 ($s^2_1$)</td>
+            </tr>
+            <tr>
+              <td style="text-align: left">Low ($k_2$)</td>
+              <td>5</td>
+              <td>2</td>
+              <td>4</td>
+              <td>2</td>
+              <td>3</td>
+              <td>5 ($n_2$)</td>
+              <td>3.2 ($\bar{x}_2$)</td>
+              <td>1.7 ($s^2_2$)</td>
+            </tr>
+            <tr>
+              <td style="text-align: left">High ($k_3$)</td>
+              <td>7</td>
+              <td>4</td>
+              <td>5</td>
+              <td>3</td>
+              <td>6</td>
+              <td>5 ($n_3$)</td>
+              <td>5.0 ($\bar{x}_3$)</td>
+              <td>2.5 ($s^2_3$)</td>
+            </tr>
+            <tr>
+              <td style="text-align: left">Total ($k= 3$)</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>15 ($n_T$)</td>
+              <td>3.5 ($\bar{x}$)</td>
+              <td>3.1 ($s^2$)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Now using the formulas from above, the ANOVA table can be filled in.</p>
+
+      <div class="math_block">
+        $$
+        \begin{aligned}
+
+        \text{Between samples row} & \\
+        & SS_B = \sum_k n_k(\bar{x}_k - \bar{x})^2 = 5(2.2 - 3.5)^2 + 5(3.2 - 3.5)^2 + 5(5.0 - 3.5)^2 = 20.15 \\
+        & \text{Degrees of Freedom} = k - 1 = 3 - 1 = 2 \\
+        & \text{Mean square ($MS_B$)} = \frac{SS_B}{k - 1} = \frac{20.15}{2} = 10.07 \\
+        \\
+
+        \text{Within samples row} & \\
+        & SS_W = \sum_{i, k}(x_{i, k} - \bar{x}_i)^2 \text{ or } \sum_k (n_k - 1)s_k^2 = (5 - 1)1.7 + (5 - 1)1.7 + (5 - 1)2.5 = 23.6 \\
+        & \text{Degrees of Freedom} = n_T - k = 15 - 3 = 12 \\
+        & \text{Mean square ($MS_W$)} = \frac{SS_W}{n_T - k} = \frac{23.6}{12} = 1.97 \\
+        \\
+
+        \text{Total row} & \\
+        & TSS = SS_B + SS_W = 20.15 + 23.6 = 43.75 \\
+        & \text{Degrees of Freedom} = n_T - 1 = 15 - 1 = 14 \\
+        \\
+
+        \text{F-statistic} & \\
+        & \text{F-statistic}= \frac{MS_B}{MS_W} = \frac{10.07}{1.97} = 5.11
+
+        \end{aligned}
+        $$
+      </div>
+
+      <div class="info-table">
+        <table>
+          <caption style="text-align: left">ANOVA Table</caption>
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Sum of Squares</th>
+              <th>Degrees of Freedom</th>
+              <th>Mean Square</th>
+              <th>F-statistic</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: left">Between samples</td>
+              <td>20.15</td>
+              <td>2</td>
+              <td>10.07</td>
+              <td>5.11</td>
+            </tr>
+            <tr>
+              <td style="text-align: left">Within samples</td>
+              <td>23.6</td>
+              <td>12</td>
+              <td>1.97</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td style="text-align: left">Total</td>
+              <td>43.75</td>
+              <td>14</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>In order to tell if the calcualted F-statistic is statistically significant,
+          one would look up the F-statistic based on the degress of freedom and alpha
+          level - using statistical software this doesn't need to be done since
+          it'll be provided.
+      </p>
+
+
+
+      <p>Fear not if math is not your strong suit. All this is being calucated when using
+          the methods of a statistical software or programming language. It's
+          good to know what is going on behind the scences.
+          <a href="#ref">References</a> for this section are provided at the end of the page.
+      </p>
+
+</article>
+
+
+
+<article id="test_with_python" class="left-midcard">
+
+  <h2><a name="anova-test" style="color: black">One-way ANOVA with Python</a></h2>
+    <p>Don't forget to check the assumptions before interpreting the results!
+        First to load the libraries and data needed. Below, <i>Pandas</i>, <i>Researchpy</i> and the
+        data set will be loaded. Specific libraries for each demonstrated method
+        below will contain any further libraries that are need is using that
+        demonstration.
+    </p>
+
+    <pre class="code"><code>import pandas as pd
+import researchpy as rp</code></pre>
+
+    <p>Now to load the data set and take a high level look at the variables.
+    </p>
+
+    <pre class="code"><code>df = pd.read_csv("https://raw.githubusercontent.com/researchpy/Data-sets/master/difficile.csv")
+df.drop('person', axis= 1, inplace= True)
+
+# Recoding value from numeric to string
+df['dose'].replace({1: 'placebo', 2: 'low', 3: 'high'}, inplace= True)
+
+df.info()</code></pre>
+
+    <div class="output">
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 15 entries, 0 to 14
+Data columns (total 2 columns):
+dose      15 non-null object
+libido    15 non-null int64
+dtypes: int64(1), object(1)
+memory usage: 320.0+ bytes
+    </div>
+
+
+
+    <pre class="code"><code>rp.summary_cont(df['libido'])</code></pre>
+
+    <div class="output">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Variable</th>
+            <th>N</th>
+            <th>Mean</th>
+            <th>SD</th>
+            <th>SE</th>
+            <th>95% Conf.</th>
+            <th>Interval</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>0</th>
+            <td>libido</td>
+            <td>15.0</td>
+            <td>3.466667</td>
+            <td>1.76743</td>
+            <td>0.456349</td>
+            <td>2.487896</td>
+            <td>4.445437</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+    <pre class="code"><code>rp.summary_cont(df['libido'].groupby(df['dose']))</code></pre>
+
+    <div class="output">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>N</th>
+            <th>Mean</th>
+            <th>SD</th>
+            <th>SE</th>
+            <th>95% Conf.</th>
+            <th>Interval</th>
+          </tr>
+          <tr>
+            <th>dose</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>high</th>
+            <td>5</td>
+            <td>5.0</td>
+            <td>1.581139</td>
+            <td>0.707107</td>
+            <td>3.450484</td>
+            <td>6.549516</td>
+          </tr>
+          <tr>
+            <th>low</th>
+            <td>5</td>
+            <td>3.2</td>
+            <td>1.303840</td>
+            <td>0.583095</td>
+            <td>1.922236</td>
+            <td>4.477764</td>
+          </tr>
+          <tr>
+            <th>placebo</th>
+            <td>5</td>
+            <td>2.2</td>
+            <td>1.303840</td>
+            <td>0.583095</td>
+            <td>0.922236</td>
+            <td>3.477764</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+
+    <h3 id="anova_scipy_stats">One-way ANOVA using scipy.stats</h3>
+
+    <p>Conducting an one-way ANOVA using scipy.stats is quick and only returns
+        the restuling F-statistic and p-value of the test.
+    </p>
+
+    <pre class="code"><code>import scipy.stats as stats
+
+stats.f_oneway(df['libido'][df['dose'] == 'high'],
+               df['libido'][df['dose'] == 'low'],
+               df['libido'][df['dose'] == 'placebo'])</code></pre>
+
+    <div class="output">
+F_onewayResult(statistic=5.11864406779661, pvalue=0.024694289538222603)
+    </div>
+
+    <p>Before the results should be interpreted, the assumptions of the test
+        should be checked. For example purposes, the results will be interpreted
+        before checking the assumptions.
+    </p>
+
+    <h4>Interpretation</h4>
+    <p>A new medication was developed to increase the libido of those who take the
+        medication. The purpose of this study was to test for a difference between
+        the dosage levels. The overall average libido was 3.5 95% CI(2.5, 4.4) with group
+        averages of 2.2 95% CI(0.9, 3.5) for the placebo group; 3.2 95% CI(1.9, 4.5)
+        for the low dose group; and 5.0 95% CI(3.5, 6.5) for the high dose group.
+        There is a statistically significant difference between the groups and their
+        effects the libido, F= 5.12, p-value= 0.0247.
+    </p>
+
+
+
+
+
+    <h3 id="anova_statsmodels">One-way ANOVA using StatsModels</h3>
+
+    <p>This method conducts a one-way ANOVA in two steps:</p>
+      <ol>
+        <li>Fit the model using an estimation method,</li>
+          <ul>
+            <li>The default estimation method in most statistical software packages
+                  is ordinary least squares</li>
+                  <ul>
+                    <li>Not going to dive into estimation methods as it's out
+                          of scope of this section's topic</li>
+                    <li>If you are not familiar with it and don't care to really dive into
+                          it, then just know it's one of many types of estimation methods
+                          that aim to provide estimates of the parameter (mean, propertion, etc.)
+                          being tested</li>
+                  </ul>
+          </ul>
+        <li>Pass fitted model into ANOVA method to produce ANOVA table</li>
+      </ol>
+    <p>Here is the official <a href="https://www.statsmodels.org/stable/anova.html" target="_blank">StatsModels documentation</a> on an ANOVA. The general structure
+      for entering the equation is:</p>
+
+      <pre class="code">ols("outcome_variable ~ independent_variable", data= data_frame).fit()</pre>
+
+    <p>In the case of an ANOVA, the independent variable will be categorical.
+        The pseudo code above would work if you were conducting a simple linear
+        regression, but that's not what we are here for! Have to
+        modify the pseudo code which would make it look like:</p>
+
+      <pre class="code">ols("outcome_variable ~ C(independent_variable)", data= data_frame).fit()</pre>
+
+    <p>Now to use real code. In the code below there is an argument "typ" in the
+        anova_lm method, this determines how the sum of squares is calculated. The
+        calculation differences is a bit out of scope, but it's encouraged to learn more
+        about them. An easy to read primer can be found <a href="http://md.psych.bio.uni-goettingen.de/mv/unit/lm_cat/lm_cat_unbal_ss_explained.html" target="_blank">here</a>.
+        Additionally, to see how to conduct an ANOVA with type 3 sum of squares
+        see this <a href="/anova-sum-of-squares-statsmodels-python" target= "_blank">page</a> - this
+        requires one additional step.
+    </p>
+
+    <div class="code"><code>import statsmodels.api as sm
+from statsmodels.formula.api import ols
+
+model = ols('libido ~ C(dose)', data=df).fit()
+aov_table = sm.stats.anova_lm(model, typ=2)
+aov_table</code></div>
+
+    <div class="output">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>sum_sq</th>
+            <th>df</th>
+            <th>F</th>
+            <th>PR(&gt;F)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: left">C(dose)</td>
+            <td>20.133333</td>
+            <td>2.0</td>
+            <td>5.118644</td>
+            <td>0.024694</td>
+          </tr>
+          <tr>
+            <td style="text-align: left">Residual</td>
+            <td>23.600000</td>
+            <td>12.0</td>
+            <td>NaN</td>
+            <td>NaN</td>
+          </tr>
+        </tbody>
+        <tfoot style= "border-bottom: none">
+          <tr>
+            <td style="text-align: left" colspan="5">Note: C(dose)= between samples and Residual= within samples</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <p>This table provides all the information one needs in order to interprete if
+      the results are significant; however, it does not provide any effect
+      size measures to tell if the statistical significance is meaningful. The
+      function below calculates eta-squared ($\eta^2$) and omega-squared ($\omega^2$).
+      A quick note, $\eta^2$ is the exact same thing as $R^2$ except when coming from the ANOVA
+      framework people call it $\eta^2$; $\omega^2$ is considered a better measure
+      of effect size since it is unbiased in it's calculation by accounting for
+      the degrees of freedom in the model.
+    </p>
+
+    <div class="code">"""
+The function below was created specifically for the one-way ANOVA table results returned for Type II sum of squares
+"""
+
+def anova_table(aov):
+    aov['mean_sq'] = aov[:]['sum_sq']/aov[:]['df']
+
+    aov['eta_sq'] = aov[:-1]['sum_sq']/sum(aov['sum_sq'])
+
+    aov['omega_sq'] = (aov[:-1]['sum_sq']-(aov[:-1]['df']*aov['mean_sq'][-1]))/(sum(aov['sum_sq'])+aov['mean_sq'][-1])
+
+    cols = ['sum_sq', 'df', 'mean_sq', 'F', 'PR(>F)', 'eta_sq', 'omega_sq']
+    aov = aov[cols]
+    return aov
+
+anova_table(aov_table)</div>
+
+    <div class="output">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>sum_sq</th>
+            <th>df</th>
+            <th>mean_sq</th>
+            <th>F</th>
+            <th>PR(&gt;F)</th>
+            <th>eta_sq</th>
+            <th>omega_sq</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: left;">C(dose)</td>
+            <td>20.133333</td>
+            <td>2.0</td>
+            <td>10.066667</td>
+            <td>5.118644</td>
+            <td>0.024694</td>
+            <td>0.460366</td>
+            <td>0.354486</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;">Residual</td>
+            <td>23.600000</td>
+            <td>12.0</td>
+            <td>1.966667</td>
+            <td>NaN</td>
+            <td>NaN</td>
+            <td>NaN</td>
+            <td>NaN</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Interpretation</h4>
+    <p>A new medication was developed to increase libido. The purpose of this study was to test for a difference between
+        the dosage levels. The overall average libido was 3.5 95% CI(2.5, 4.4) with group
+        averages of 2.2 95% CI(0.9, 3.5) for the placebo group; 3.2 95% CI(1.9, 4.5)
+        for the low dose group; and 5.0 95% CI(3.5, 6.5) for the high dose group.
+        There is a statistically significant difference between the groups and their
+        effects the libido, F= 5.12, p-value= 0.0247, with an overall large effect,
+        $\omega^2$= 0.35. <br>
+        <br>
+        In order to tell which groups differed significantly, post-hoc
+        tests need to be conducted. Before one goes through that work, the assumptions
+        should be checked first in case any modifications need to be made to the
+        model.
+    </p>
+
+
+</article>
+
+
+
+<article id="assumption_check" class="left-midcard">
+  <h2>Assumption check</h2>
+  <p>The assumptions in this section need to be met in order for the test results
+      to be considered valid. A more in-depth look at parametric assumptions is provided
+      <a href="/parametric-assumptions-python" target= "_blank">here</a>, which includes some potential remedies.
+  </p>
+
+
+
+  <h3>Independence</h3>
+  <p>This assumption is tested when the study is designed. What this means is that
+      all groups are mutually exclusive, i.e. an individual can only belong in
+      one group. Also, this means that the data is not repeated measures (not collected
+      through time). In this example, this condition is met.
+  </p>
+
+
+
+  <h3>Normality</h3>
+  <p>The assumption of normality is tested on the residuals of the model when
+      coming from an ANOVA or regression framework. One method for testing the
+      assumption of normality is the Shapiro-Wilk test. This can be completed
+      using the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.shapiro.html" target= "_blank">shapiro()</a>
+      method from scipy.stats. Ensure that scipy.stats is imported for the following
+      method to work. Unfortunately the output is not labelled, but it's
+      (W-test statistic, p-value).
+  </p>
+
+  <div class= "code"><code>import scipy.stats as stats
+
+stats.shapiro(model.resid)</code></div>
+
+  <div class="output">
+(0.9166916012763977, 0.17146942019462585)
+  </div>
+
+  <p>The test is non-significant, W= 0.9167, p= 0.1715, which indicates that the residuals are normally
+      distributed.<br>
+      <br>
+      Another way to test the assumption is through a visual check- this is helpful
+      when the sample is large. The reason this is true is that as the sample size
+      increases, the statistical test's ability to reject the null hypothesis increases,
+      i.e. it gains power to detect smaller differences as the sample size n increases. <br>
+      <br>
+      One method of visually checking the distribution is to use a probability plot
+      with or without the correlation value, $R^2$, to assess the observed values
+      correlation with the theoretical distribution in question - in the current case it would
+      be the Gaussian (a.k.a the normal) distribution. This can be completed
+      by using the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.probplot.html"  target= "_blank">probplot()</a>
+      method from Scipy.stats. If using the $R^2$ measure, one can refer to the
+      <a href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda3676.htm" target="_blank">NIST/SEMATECH e-handbook of statistical methods</a>
+      to see if the value is significant.
+  </p>
+
+  <div class="code"><code>import matplotlib.pyplot as plt
+
+fig = plt.figure(figsize= (10, 10))
+ax = fig.add_subplot(111)
+
+normality_plot, stat = stats.probplot(model.resid, plot= plt, rvalue= True)
+ax.set_title("Probability plot of model residual's", fontsize= 20)
+ax.set
+
+plt.show()</code></div>
+
+  <div class="output">
+    <img src="/static/images/One_Way_ANOVA/prob_plot_residuals.png" alt= "python homogeneity of variance levene statistics normality prob plot probability regression one way one-way anova researchpy">
+  </div>
+
+  <p>This is a case where the statistical testing method indicated the residuals
+      were normally distributed, but the probability plot correlation coefficient (PPCC)
+      indicated non-normality. Given the current example's sample size is small, N= 15,
+      the Shapiro-Wilk test indicated normality, and that the calculated PPCC,
+      $R^2$= 0.9349, is ever so slightly smaller
+      than the table PPC, $R^2$= 0.9376, it is reasonable to state this assumption
+      is met. However, looking at the plotted probability plot and the residual
+      structure it would also be reasonable to transform the data for the analysis, or
+      to use a non-parametric statistical test such as Welch's ANOVA or the
+      Kruskal-Wallis ANOVA.
+  </p>
+
+
+
+  <h3>Homogeneity of variance</h3>
+  <p>The final assumption is that all groups have equal variances. One method
+      for testing this assumption is the Levene's test of homogeneity of variances.
+      This can be completed using the <a href="https://docs.scipy.org/doc/scipy-0.13.0/reference/generated/scipy.stats.levene.html"  target= "_blank">levene()</a>
+      method from Scipy.stats.
+  </p>
+
+  <div class= "code"><code>stats.levene(df['libido'][df['dose'] == 'high'],
+             df['libido'][df['dose'] == 'low'],
+             df['libido'][df['dose'] == 'placebo'])</code></div>
+
+  <div class="output">
+LeveneResult(statistic=0.11764705882352934, pvalue=0.8900225182757423)
+  </div>
+
+  <p>The Levene's test of homogeneity of variances is not significant which indicates
+      that the groups have non-statistically significant difference in their varability.
+      Again, it may be worthwhile to check this assumption visually as well.
+  </p>
+
+  <div class="code"><code>fig = plt.figure(figsize= (10, 10))
+ax = fig.add_subplot(111)
+
+ax.set_title("Box Plot of Libido by Dosage", fontsize= 20)
+ax.set
+
+data = [df['libido'][df['dose'] == 'placebo'],
+        df['libido'][df['dose'] == 'low'],
+        df['libido'][df['dose'] == 'high']]
+
+ax.boxplot(data,
+           labels= ['Placebo', 'Low', 'High'],
+           showmeans= True)
+
+plt.xlabel("Drug Dosage")
+plt.ylabel("Libido Score")
+
+plt.show()</code></div>
+
+  <div class="output">
+    <img src="/static/images/One_Way_ANOVA/variance_plot.png" alt= "python homogeneity of variance levene statistics anova analysis of variance researchpy">
+  </div>
+
+  <p>The graphical testing of homogeneity of variances supports the statistical
+      testing findings which is the groups have equal variance. <br>
+      <br>
+      By default box plots show the median (orange line in graph above). The green
+      triangle is the mean for each group which was an additional argument that
+      was passed into the method. <br>
+      <br>
+      There are different ways to handle heteroskedasticity (unequal variance) and
+      a decision needs to be made. Some options include, but is not limited to,
+      transformming the dependent variable (outcome), could use trimmed means,
+      robust standard errors, or use a parametric test suchs as the Welch's t-test.
+      For a more in-depth look at the assumptions and some potential remedies, please
+      check out this <a href="/parametric-assumptions-python" target= "_blank">page</a>.
+  </p>
+
+
+</article>
+
+
+
+<article id="post-hoc" class="left-midcard">
+  <h2>Post-hoc Testing</h2>
+  <p>By conducting post-hoc tests or planned comparisons it allows one to see which group(s) significantly
+      differ from each other; remember that the ANOVA is an omnibus test! There
+      are a few different approaches that can be taken while conducting these
+      tests, ones that are implemented in StatsModels currently are:
+  </p>
+
+  <ul>
+    <li style= "font-weight: bold;">Tukey Honestly Significant Difference (HSD)</li>
+      <ul>
+        <li>Tests all pairwise group comparisons while controlling for the
+          multiple comparisons which protects the familywise error rate and from
+          making a Type I error</li>
+        <li>Not technically a "post-hoc" test since this test can be used as a
+          test independently of the ANOVA and can be planned before hand</li>
+        <li>More in-depth information about this statistical method can be found
+        <a href="https://methods.sagepub.com/reference/encyc-of-research-design/n478.xml" target="_blank">here</a></li>
+      </ul>
+    <br>
+
+    <li style= "font-weight: bold;">Bonferroni</li>
+      <ul>
+        <li>Tests groups for a diffence while controlling for the multiple comparisons
+          which protects the familywise
+          error rate and from making a Type I error. It should be noted that
+          some statistical software reports the Bonferroni adjusted
+          confidence interval, however this
+          is not the case in Python at this time (unless one were to program a function to do so)</li>
+        <li>This method is common because it is fast to calculate - take the number
+          of groups to be compared and divide that by the initial alpha value
+          $\alpha_{Bonf}= \frac{\text{Number of groups}}{\alpha}$. In the current example there
+          are 3 groups being compared (placebo vs. low, placebo vs. high, and low vs. high)
+          which had $\alpha$= 0.05 making the equation become $\alpha_{Bonf}= \frac{\text{3}}{0.05}= 0.0167$.
+          Thus, in order for a comparison to be considered significant a p-value would
+          need to be < 0.0167 in order to be considered statistically significant.</li>
+        <li>More in-depth information about this statistical method can be found
+          <a href="https://methods.sagepub.com/reference/encyc-of-research-design/n33.xml" target="_blank">here</a></li>
+      </ul>
+    <br>
+
+    <li style= "font-weight: bold;">&#352;id&#225;k (a.k.a. Dunn-&#352;id&#225;k)</li>
+      <ul>
+        <li>Tests groups for a diffence while controlling for the multiple comparisons
+          which protects the familywise
+          error rate and from making a Type I error. It should be noted that
+          some statistical software reports the &#352;id&#225;k adjusted
+          confidence interval, however this
+          is not the case in StatsModels at this time (unless one were to program a function to do so)</li>
+        <li>This method is common because it is pretty fast to calculate, the formula is
+          $\alpha_{Sid}= 1 - (1 - \alpha)^{\frac{1}{\text{Number of groups}}}$.
+          In the current example there are 3 groups being compared (placebo vs. low, placebo vs. high, and low vs. high)
+          which had $\alpha$= 0.05 making the equation become $\alpha_{Sid}= 1 - (1 - 0.05)^{\frac{1}{3}}= 0.0170$.
+          Thus, in order for a comparison to be considered significant a p-value would need to be
+          < 0.0170 to be considered statistically significant.</li>
+        <li>More in-depth information about this statistical method can be found
+        <a href="https://methods.sagepub.com/reference/the-sage-dictionary-of-statistics/n166.xml?fromsearch=true" target="_blank">here</a>.</li>
+      </ul>
+  </ul>
+
+
+  <h3>Tukey Honestly Significant Difference (HSD)</h3>
+  <p>Have to use a library that has not been imported yet; please see the
+    <a href="http://www.statsmodels.org/devel/generated/statsmodels.sandbox.stats.multicomp.MultiComparison.html" target="_blank">official documentation</a>
+    about this method for more information if interested.
+  </p>
+
+  <div class="code"><code>import statsmodels.stats.multicomp as mc
+
+comp = mc.MultiComparison(df['libido'], df['dose'])
+post_hoc_res = comp.tukeyhsd()
+post_hoc_res.summary()</code></div>
+
+  <div class="output">
+    <table>
+    <caption style="text-align: left;">Multiple Comparison of Means - Tukey HSD, FWER=0.05</caption>
+    <tr>
+      <th>group1</th> <th>group2</th>  <th>meandiff</th>  <th>p-adj</th>  <th>lower</th>   <th>upper</th>  <th>reject</th>
+    </tr>
+    <tr>
+       <td>high</td>    <td>low</td>     <td>-1.8</td>   <td>0.1472</td> <td>-4.1651</td> <td>0.5651</td>   <td>False</td>
+    </tr>
+    <tr>
+       <td>high</td>  <td>placebo</td>   <td>-2.8</td>   <td>0.0209</td> <td>-5.1651</td> <td>-0.4349</td>  <td>True</td>
+    </tr>
+    <tr>
+        <td>low</td>  <td>placebo</td>   <td>-1.0</td>   <td>0.5171</td> <td>-3.3651</td> <td>1.3651</td>   <td>False</td>
+    </tr>
+    </table>
+  </div>
+
+  <p>Now to make sense of the table. </p>
+
+  <ul>
+    <li>At the top the table testing information is provided</li>
+      <ul>
+        <li><span style= "font-weight: bold;">FWER</span> is the familywise error
+          rate, i.e. what $\alpha$ is being set to and controlled at
+        </li>
+      </ul>
+    <li><span style= "font-weight: bold;">group1</span> and <span style= "font-weight: bold;">group2</span>
+      columns are the groups being compared
+    </li>
+    <li><span style= "font-weight: bold;">meandiff</span> is the difference between
+      the group means
+    </li>
+    <li><span style= "font-weight: bold;">p-adj</span> is the corrected p-value which
+      takes into account the multiple comparisons being conducted
+    </li>
+    <li><span style= "font-weight: bold;">lower</span> is the lower band of the
+      confidence interval. In the current example the confidence interval at the
+      95% level since $\alpha$= 0.05.
+    </li>
+    <li><span style= "font-weight: bold;">upper</span> is the upper band of the
+      confidence interval. In the current example the confidence interval at the
+      95% level since $\alpha$= 0.05.
+    </li>
+    <li><span style= "font-weight: bold;">reject</span> is the decision rule based
+      on the corrected p-value
+    </li>
+  </ul>
+
+  <p>It is possible to plot the difference using this method as well!</p>
+
+  <div class="code"><code>post_hoc_res.plot_simultaneous(ylabel= "Drug Dose", xlabel= "Score Difference")</code></div>
+
+  <div class="output">
+    <img src="/static/images/One_Way_ANOVA/tukey_post_hoc_comparison.png" alt= "python tukey hsd honest significant difference statistics anova analysis of variance researchpy post-hoc post hoc test">
+  </div>
+
+  <p>Using Tukey HSD to test for differences between groups indicates that there is
+    a statistically significant difference in libido score between those who
+    took the placebo and those who took the high dosage of the medication, no other
+    groups differed significantly. What this indicates is that the high dosage of the
+    medication is effective at increasing libido, but the low dosage is not.
+  </p>
+
+
+
+  <h3>Bonferroni Correction</h3>
+  <p>Have to use a library that has not been imported yet (if you didn't do the
+      Tukey HSD example above); please see the
+      <a href="http://www.statsmodels.org/devel/generated/statsmodels.sandbox.stats.multicomp.MultiComparison.html" target="_blank">official documentation</a>
+      about this method for more information if interested. <br>
+      <br>
+      The documentation for <a href="http://www.statsmodels.org/devel/generated/generated/statsmodels.sandbox.stats.multicomp.MultiComparison.allpairtest.html#statsmodels.sandbox.stats.multicomp.MultiComparison.allpairtest" target="_blank">allpairtest</a>
+      is not in the best shape at the time of writing this. The method returns 3
+      objects, one is a completed table object, the second is the data of the table, and the third
+      is the data of the table with the table headings - it is not understood why
+      the developers of StatsModels did this. All that is needed is the first object. <br>
+      <br>
+      Before jumping into the code, let's take a look at pseudo code to make sense
+      of this method.
+  </p>
+
+  <div class="code">allpairtest(statistical_test_method, method= "correction_method")</div>
+
+  <p>The documentation shows one needs to supply this method with a statistical test method,
+      which can either be a user defined function or a function from another Python
+      library - in this case independent sample t-tests will be conducted. One also has to
+      state the correction method to be applied to the p-value to adjust for the
+      multiple comparisons taking place. Now to see the method in action.
+  </p>
+
+  <div class="code"><code>import statsmodels.stats.multicomp as mc
+
+comp = mc.MultiComparison(df['libido'], df['dose'])
+tbl, a1, a2 = comp.allpairtest(stats.ttest_ind, method= "bonf")
+
+tbl</code></div>
+
+  <div class="output">
+    <table>
+    <caption style="text-align: left;">Test Multiple Comparison ttest_ind FWER=0.05 <br>
+    method=bonf alphacSidak=0.02, alphacBonf=0.017</caption>
+    <tr>
+      <th>group1</th> <th>group2</th>   <th>stat</th>   <th>pval</th>  <th>pval_corr</th> <th>reject</th>
+    </tr>
+    <tr>
+       <td>high</td>    <td>low</td>    <td>1.964</td> <td>0.0851</td>  <td>0.2554</td>    <td>False</td>
+    </tr>
+    <tr>
+       <td>high</td>  <td>placebo</td> <td>3.0551</td> <td>0.0157</td>  <td>0.0471</td>    <td>True</td>
+    </tr>
+    <tr>
+        <td>low</td>  <td>placebo</td> <td>1.2127</td> <td>0.2598</td>  <td>0.7795</td>    <td>False</td>
+    </tr>
+    </table>
+  </div>
+
+  <p>Now to make sense of the table. </p>
+
+  <ul>
+    <li>At the top the table testing information is provided</li>
+      <ul>
+        <li><span style= "font-weight: bold;">FWER</span> is the familywise error
+          rate, i.e. what $\alpha$ is being set to and controlled at
+        </li>
+        <li><span style= "font-weight: bold;">method</span> is the correction method
+          that is being applied to the p-values
+        </li>
+        <li>Then there is the adjusted p-value (adjusted $\alpha$) for both the Sidak and Bonferroni correction methods</li>
+      </ul>
+    <li><span style= "font-weight: bold;">group1</span> and <span style= "font-weight: bold;">group2</span>
+      columns are the groups being compared
+    </li>
+    <li><span style= "font-weight: bold;">stat</span> is the test statistic value;
+      in this case it would be the t statistic
+    </li>
+    <li><span style= "font-weight: bold;">pval</span> is the uncorrected p-value returned from
+      the supplied "statistical_test_method"
+    </li>
+    <li><span style= "font-weight: bold;">pval_corr</span> is the corrected p-value which
+      has been corrected using whichever "correction_method" was supplied
+    </li>
+    <li><span style= "font-weight: bold;">reject</span> is the decision rule based
+      on the corrected p-value
+    </li>
+  </ul>
+
+  <p>Conducting comparisons using the Bonferroni correction indicates that the only
+    groups that differed significantly are those who took the high dose
+    and the placebo dose.
+  </p>
+
+
+
+  <h3>&#352;id&#193;k Correction (a.k.a. Dunn-&#352;id&#193;k Correction)</h3>
+  <p>Have to use a library that has not been imported yet (if you didn't do the
+      Tukey HSD or Bonferroni examples above); please see the
+      <a href="http://www.statsmodels.org/devel/generated/statsmodels.sandbox.stats.multicomp.MultiComparison.html" target="_blank">official documentation</a>
+      about this method for more information if interested. <br>
+      <br>
+      The documentation for <a href="http://www.statsmodels.org/devel/generated/generated/statsmodels.sandbox.stats.multicomp.MultiComparison.allpairtest.html#statsmodels.sandbox.stats.multicomp.MultiComparison.allpairtest" target="_blank">allpairtest</a>
+      is not in the best shape at the time of writing this. The method returns 3
+      objects, one is a completed table object, the second is the data of the table, and the third
+      is the data of the table with the table headings - it is not understood why
+      the developers of StatsModels did this. All that is needed is the first object. <br>
+      <br>
+      Before jumping into the code, let's take a look at pseudo code to make sense
+      of this method.
+  </p>
+
+  <div class="code">allpairtest(statistical_test_method, method= "correction_method")</div>
+
+  <p>The documentation shows one needs to supply this method with a statistical test method,
+      which can either be a user defined function or a function from another Python
+      library - in this case independent sample t-tests will be conducted. One also has to
+      state the correction method to be applied to the p-value to adjust for the
+      multiple comparisons taking place. Now to see the method in action.
+  </p>
+
+  <div class="code"><code>import statsmodels.stats.multicomp as mc
+
+comp = mc.MultiComparison(df['libido'], df['dose'])
+tbl, a1, a2 = comp.allpairtest(stats.ttest_ind, method= "sidak")
+
+tbl</code></div>
+
+  <div class="output"><table class="simpletable">
+    <caption style="text-align: left;">Test Multiple Comparison ttest_ind FWER=0.05 <br>
+    method=sidak alphacSidak=0.02, alphacBonf=0.017</caption>
+      <tr>
+        <th>group1</th> <th>group2</th>   <th>stat</th>   <th>pval</th>  <th>pval_corr</th> <th>reject</th>
+      </tr>
+      <tr>
+        <td>high</td>    <td>low</td>    <td>1.964</td> <td>0.0851</td>  <td>0.2343</td>    <td>False</td>
+      </tr>
+      <tr>
+        <td>high</td>  <td>placebo</td> <td>3.0551</td> <td>0.0157</td>  <td>0.0464</td>    <td>True</td>
+      </tr>
+      <tr>
+        <td>low</td>  <td>placebo</td> <td>1.2127</td> <td>0.2598</td>  <td>0.5945</td>    <td>False</td>
+      </tr>
+    </table>
+  </div>
+
+  <p>Now to make sense of the table. </p>
+
+  <ul>
+    <li>At the top the table testing information is provided</li>
+      <ul>
+        <li><span style= "font-weight: bold;">FWER</span> is the familywise error
+          rate, i.e. what $\alpha$ is being set to and controlled at
+        </li>
+        <li><span style= "font-weight: bold;">method</span> is the correction method
+          that is being applied to the p-values
+        </li>
+        <li>Then there is the adjusted p-value (adjusted $\alpha$) for both the Sidak and Bonferroni correction methods</li>
+      </ul>
+    <li><span style= "font-weight: bold;">group1</span> and <span style= "font-weight: bold;">group2</span>
+      columns are the groups being compared
+    </li>
+    <li><span style= "font-weight: bold;">stat</span> is the test statistic value;
+      in this case it would be the t statistic
+    </li>
+    <li><span style= "font-weight: bold;">pval</span> is the uncorrected p-value returned from
+      the supplied "statistical_test_method"
+    </li>
+    <li><span style= "font-weight: bold;">pval_corr</span> is the corrected p-value which
+      has been corrected using whichever "correction_method" was supplied
+    </li>
+    <li><span style= "font-weight: bold;">reject</span> is the decision rule based
+      on the corrected p-value
+    </li>
+  </ul>
+
+  <p>Conducting comparisons using the &#352;id&#225;k correction indicates that the only
+    groups that differed significantly are those who took the high dose
+    and the placebo dose.
+  </p>
+
+</article>
+
+
+
+<article id="references" class="left-endcard">
+  <h2><a name= "ref" style="color: black">References</a></h2>
+  Kutner, M. H., Nachtsheim, C. J., Neter, J., and Li, W. (2004). <i>Applied linear statistical models</i> (5<sup>th</sup>). New York, NY: McGraw-Hill Irwin. <br>
+  Rosner, B. (2015). <i>Fundamentals of Biostatistics</i> (8<sup>th</sup>). Boston, MA: Cengage Learning. <br>
+  Ott, R. L., and Longnecker, M. (2010). <i>An introduction to statistical methods and data analysis.</i> Belmon, CA: Brooks/Cole.
+
+</article>
+
+
+
+
+
+  	</main>
+
+
+
+  	<aside id="sidebar" class="right-section">
+      <div class="fixed">
+
+
+
+      <!-- NOTE: Don't know if I want to keep this or not
+
+    	<div class= "right-topcard">
+      	<h3>Top Statistic Packages</h3>
+      	<a href= "https://pandas.pydata.org/" target= "_blank">Pandas</a> <br>
+      	<a href= "https://www.scipy.org/" target= "_blank">Scipy</a> <br>
+      	<a href= "https://www.statsmodels.org/stable/index.html" target= "_blank">Statmodels</a> <br>
+      	<a href= "https://scikit-learn.org/stable/" target= "_blank">Scikit-learn</a> <br>
+      	<a href= "https://researchpy.readthedocs.io/en/latest/" target= "_blank">Researchpy</a> <br>
+    	</div>
+
+      -->
+
+
+
+			<section class= "right-topcard">
+      	<p>Advertisement</p>
+        
+          <!-- Right-side bar Ad (2) -->
+          <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-4223724781688322"
+            data-ad-slot="4367884291"
+            data-ad-format="auto"
+            data-full-width-responsive="true">
+          </ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+    	</section>
+
+
+			<section class= "right-midcard">
+      	<h3>Math Symbols</h3>
+        		<table class="table-divided">
+							<thead>
+								<tr>
+									<th>Symbol</th>
+									<th>Meaning</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>$n$</td>
+									<td>Sample size</td>
+								</tr>
+								<tr>
+									<td>$N$</td>
+									<td>Population size</td>
+								</tr>
+								<tr>
+									<td>$s^2$</td>
+									<td>Sample variance</td>
+								</tr>
+								<tr>
+									<td>$\sigma^2$</td>
+									<td>Population variance</td>
+								</tr>
+								<tr>
+									<td>$s$</td>
+									<td>Sample standard deviation</td>
+								</tr>
+								<tr>
+									<td>$\sigma$</td>
+									<td>Population standard deviation</td>
+								</tr>
+								<tr>
+									<td>$\mu$</td>
+									<td>Mean</td>
+								</tr>
+								<tr>
+									<td>$\bar{x}$</td>
+									<td>Sample or group mean</td>
+								</tr>
+								<tr>
+									<td>symbol$_1$</td>
+									<td>Subscript represents a group, i.e. symbol$_1$ group 1 while symbol$_2$ is group 2</td>
+								</tr>
+								<tr>
+									<td>$\alpha$</td>
+									<td>Alpha value, statistical significance threshold</td>
+								</tr>
+							</tbody>
+        		</table>
+    	</section>
+
+
+			<section class= "endcard">
+      	<p>Advertisement</p>
+          
+            <ins class="adsbygoogle"
+              style="display:block; text-align:center;"
+              data-ad-layout="in-article"
+              data-ad-format="fluid"
+              data-ad-client="ca-pub-4223724781688322"
+              data-ad-slot="5978514400">
+            </ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    	</section>
+
+
+      <section class= "right-midcard">
+      	<h3>Donation for Support</h3>
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="YQCVTAGEKZUW8" />
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+            
+          </form>
+    	</section>
+
+      </div>
+  	</aside>
+	</div>
+
+
+
+
+
+
+
+	<footer>
+    <table>
+
+      <tr>
+        Copyright by Python for Data Science, LLC 2018 - 2020
+      </tr>
+
+      <tr>
+        <address>
+            <a href="mailto:opensourcefordatascience@gmail.com" style="color: #ffffff;">Contact</a>
+        </address>
+      </tr>
+
+    </table>
+  </footer>
+
+
+  <script>
+  function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
+  </script>
+  <script type=text/javascript src="/static/js/sticky_home.js"></script>
+
+</body>
+</html>

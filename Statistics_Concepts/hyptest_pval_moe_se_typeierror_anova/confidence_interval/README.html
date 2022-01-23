@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+<li><a href="#references">References</a></li>
+<li><a href="#confidence-interval">Confidence interval</a></li>
+<li><a href="#confidence-interval-using-python-vs-r">Confidence interval using Python vs R</a></li>
+<li><a href="#bootstrapping-for-confidence-interval">Bootstrapping for confidence interval</a></li>
+<li><a href="#z-critical">Z critical</a></li>
+<li><a href="#confidence-interval-for-t-distribution">Confidence interval for t-distribution</a></li>
+<li><a href="#confidence-interval-for-z-distribution">Confidence interval for z-distribution</a></li>
+<li><a href="#confidence-interval-example">Confidence interval example</a></li>
+<li><a href="#confidence-interval-example-1">Confidence interval example</a></li>
+<li><a href="#ci-using-bootstrapping">CI using bootstrapping</a></li>
+<li><a href="#ci-using-bootstrapping-for-two-groups">CI using bootstrapping for two groups</a></li>
+<li><a href="#images">Images</a></li>
+<li><a href="#questions">Questions</a></li>
+</ul>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html">scipy stats</a> (Note: in scipy stats t interval alpha actually means confidence level)</li>
+</ul>
+<h1 id="confidence-interval">Confidence interval</h1>
+<p>A confidence interval for a mean is a range of values that is likely to contain a population mean with a certain level of confidence.</p>
+<p>It is calculated as:</p>
+<pre class="hljs"><code><div>Confidence Interval = xbar  +/-  t_crit * (s/√n) <span class="hljs-keyword">for</span> small sample size n&lt;<span class="hljs-number">30</span>
+Confidence Interval = xbar  +/-  z_crit * (s/√n) <span class="hljs-keyword">for</span> larger sample size n&gt;=<span class="hljs-number">30</span>
+
+where:
+
+xbar: sample mean
+t_crit : t-value that corresponds to the confidence level
+z_crit : z-value at corresponds to the confidence level, z_crit = <span class="hljs-number">1.96</span> <span class="hljs-keyword">for</span> <span class="hljs-number">5</span>% significance level two tailed normal distribution.
+s: sample standard deviation (unbiased)
+n: sample size
+sem = s/sqrt(n) <span class="hljs-comment"># <span class="hljs-doctag">NOTE:</span> np.std np.nanstd uses biased ddof=0 but stats.sem uses unbiased ddof=1 by default.</span>
+</div></code></pre>
+<p><img src="images/formulas.png" alt=""></p>
+<pre class="hljs"><code><div>ci = (phat - margin_of_error, phat + margin_of_error)
+
+moe = z_crit * standard_error
+
+z_crit = 1.96 for two-tailed test at 5% significance level.
+se = sigma / sqrt(n)
+
+For coin toss:
+Z = (phat - p0) / sqrt(p0q0/n)
+pval = 1 - stats.norm.cdf(Z)
+
+if pval &lt; alpha:
+    Reject Null Hypothesis that coin is unbiased and say it maybe biased.
+</div></code></pre>
+<p><img src="images/moe.png" alt=""></p>
+<p>The confidence level tells you how sure you can be and is expressed as a percentage.</p>
+<ul>
+<li>The 95% confidence level means you can be 95% certain.</li>
+<li>The 99% confidence level means you can be 99% certain.</li>
+</ul>
+<p>α (Alpha) is called the significance level, and is the probability of rejecting the null hypothesis when it is true.</p>
+<ul>
+<li>
+<p>It is usually set at or below 5%.</p>
+</li>
+<li>
+<p>If your significance level is 0.05, the corresponding confidence level is 95%.</p>
+</li>
+<li>
+<p>If your significance level of 0.05, there’s a 5% risk of concluding that a difference exists when there is no actual difference.</p>
+</li>
+</ul>
+<h1 id="confidence-interval-using-python-vs-r">Confidence interval using Python vs R</h1>
+<ul>
+<li><a href="https://stackoverflow.com/questions/28242593/correct-way-to-obtain-confidence-interval-with-scipy">reference</a></li>
+<li><a href="https://stackoverflow.com/questions/15033511/compute-a-confidence-interval-from-sample-data/15034143#15034143">reference</a></li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np, scipy.stats <span class="hljs-keyword">as</span> st
+
+<span class="hljs-comment"># returns confidence interval of mean</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">confIntMean</span><span class="hljs-params">(a, conf=<span class="hljs-number">0.95</span>)</span>:</span>
+  mean, sem, m = np.mean(a), st.sem(a), st.t.ppf((<span class="hljs-number">1</span>+conf)/<span class="hljs-number">2.</span>, len(a)<span class="hljs-number">-1</span>)
+  <span class="hljs-keyword">return</span> mean - m*sem, mean + m*sem
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mean_confidence_interval</span><span class="hljs-params">(data, confidence=<span class="hljs-number">0.95</span>)</span>:</span>
+    a = <span class="hljs-number">1.0</span> * np.array(data)
+    n = len(a)
+    m, se = np.mean(a), scipy.stats.sem(a)
+    h = se * scipy.stats.t.ppf((<span class="hljs-number">1</span> + confidence) / <span class="hljs-number">2.</span>, n<span class="hljs-number">-1</span>)
+    <span class="hljs-keyword">return</span> m, m-h, m+h
+
+a = np.array([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>])
+
+<span class="hljs-comment"># better method</span>
+confIntMean(a, <span class="hljs-number">0.68</span>) <span class="hljs-comment"># (3.9974214366806184, 4.877578563319382)</span>
+
+<span class="hljs-comment"># scipy method</span>
+st.norm.interval(<span class="hljs-number">0.68</span>, loc=np.mean(a), scale=st.sem(a))
+<span class="hljs-comment">#(4.0120010966037407, 4.8629989033962593)</span>
+
+<span class="hljs-comment"># ====================== Example 02 ============================</span>
+<span class="hljs-comment"># using statsmodels</span>
+<span class="hljs-comment"># https://stackoverflow.com/questions/15033511/compute-a-confidence-interval-from-sample-data/15034143#15034143</span>
+<span class="hljs-keyword">import</span> statsmodels.stats.api <span class="hljs-keyword">as</span> sms
+sms.DescrStatsW(a).tconfint_mean()
+
+a = list(range(<span class="hljs-number">10</span>,<span class="hljs-number">14</span>))
+
+mean_confidence_interval(a)
+<span class="hljs-comment"># (11.5, 9.4457397432391215, 13.554260256760879)</span>
+
+st.t.interval(<span class="hljs-number">0.95</span>, len(a)<span class="hljs-number">-1</span>, loc=np.mean(a), scale=st.sem(a))
+<span class="hljs-comment"># (9.4457397432391215, 13.554260256760879)</span>
+
+<span class="hljs-comment"># sms.DescrStatsW(a).tconfint_mean()</span>
+<span class="hljs-comment"># (9.4457397432391197, 13.55426025676088)</span>
+
+<span class="hljs-comment"># And finally, the incorrect result using st.norm.interval():</span>
+st.norm.interval(<span class="hljs-number">0.95</span>, loc=np.mean(a), scale=st.sem(a))
+<span class="hljs-comment"># (10.23484868811834, 12.76515131188166)</span>
+</div></code></pre>
+<h1 id="bootstrapping-for-confidence-interval">Bootstrapping for confidence interval</h1>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> tqdm
+<span class="hljs-keyword">from</span> scipy <span class="hljs-keyword">import</span> stats
+
+alpha = <span class="hljs-number">0.05</span>
+a = np.array([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>])
+
+
+reps = <span class="hljs-number">1</span>_000
+
+sample = a <span class="hljs-comment"># suppose that a is sample drawn from big population</span>
+ci_points = [] <span class="hljs-comment"># point estimate</span>
+<span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> tqdm.trange(reps):
+    bootsample = np.random.choice(sample, size=len(sample),replace=<span class="hljs-literal">True</span>)
+
+    <span class="hljs-comment"># make sure to use bootsample, not sample!</span>
+    ci_lo, ci_hi = stats.t.interval(<span class="hljs-number">1</span>-alpha,
+                                    df = len(bootsample)<span class="hljs-number">-1</span>,
+                                    loc=np.mean(bootsample),
+                                    scale=stats.sem(bootsample))
+    ci_point = (ci_lo+ci_hi)/<span class="hljs-number">2</span>
+    ci_points.append(ci_point)
+
+ci_point = np.mean(ci_points)
+ci_lo, ci_hi = np.percentile(ci_points, [alpha/<span class="hljs-number">2</span>*<span class="hljs-number">100</span>,<span class="hljs-number">100</span>-alpha/<span class="hljs-number">2</span>*<span class="hljs-number">100</span>]) <span class="hljs-comment"># alpha/2*100 is 2.5</span>
+</div></code></pre>
+<h1 id="z-critical">Z critical</h1>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> scipy <span class="hljs-keyword">import</span> stats
+
+<span class="hljs-comment"># alpha to critical</span>
+alpha = <span class="hljs-number">0.05</span>
+n_sided = <span class="hljs-number">2</span> <span class="hljs-comment"># 2-sided test</span>
+z_crit = stats.norm.ppf(<span class="hljs-number">1</span>-alpha/n_sided)
+print(z_crit) <span class="hljs-comment"># 1.959963984540054</span>
+
+<span class="hljs-comment"># critical to alpha</span>
+alpha = stats.norm.sf(z_crit) * n_sided
+print(alpha) <span class="hljs-comment"># 0.05</span>
+</div></code></pre>
+<h1 id="confidence-interval-for-t-distribution">Confidence interval for t-distribution</h1>
+<ul>
+<li><a href="https://www.statology.org/confidence-intervals-python/">statology</a></li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> scipy scipy <span class="hljs-keyword">import</span> stats
+
+<span class="hljs-comment"># define sample data</span>
+data = [<span class="hljs-number">12</span>, <span class="hljs-number">12</span>, <span class="hljs-number">13</span>, <span class="hljs-number">13</span>, <span class="hljs-number">15</span>, <span class="hljs-number">16</span>, <span class="hljs-number">17</span>, <span class="hljs-number">22</span>, <span class="hljs-number">23</span>, <span class="hljs-number">25</span>, <span class="hljs-number">26</span>, <span class="hljs-number">27</span>, <span class="hljs-number">28</span>, <span class="hljs-number">28</span>, <span class="hljs-number">29</span>]
+
+<span class="hljs-comment"># create 95% confidence interval for population mean weight</span>
+<span class="hljs-comment"># sem is standard error of mean</span>
+<span class="hljs-comment"># significance level alpha = 0.05 and confidence level gamma = 0.95</span>
+<span class="hljs-comment"># even though scipy stats t interval has first parameter called alpha it is 1-alpha</span>
+alpha = <span class="hljs-number">0.05</span>
+stats.t.interval(<span class="hljs-number">1</span>-alpha, df=len(data)<span class="hljs-number">-1</span>, loc=np.mean(data), scale=st.sem(data))
+<span class="hljs-comment"># (17.40, 21.08)</span>
+
+<span class="hljs-comment"># create 99% confidence interval for same sample</span>
+alpha = <span class="hljs-number">0.01</span>
+stats.norm.interval(<span class="hljs-number">1</span>-alpha, loc=np.mean(data), scale=st.sem(data))
+<span class="hljs-comment"># (16.82, 21.66)</span>
+<span class="hljs-comment"># if confidence level is high, confidence level is wider</span>
+</div></code></pre>
+<h1 id="confidence-interval-for-z-distribution">Confidence interval for z-distribution</h1>
+<ul>
+<li><a href="https://www.statology.org/confidence-intervals-python/">statology</a></li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> scipy.stats <span class="hljs-keyword">as</span> stats
+
+<span class="hljs-comment">#define sample data</span>
+np.random.seed(<span class="hljs-number">0</span>)
+data = np.random.randint(<span class="hljs-number">10</span>, <span class="hljs-number">30</span>, <span class="hljs-number">50</span>)
+
+<span class="hljs-comment">#create 95% confidence interval for population mean weight</span>
+<span class="hljs-comment"># significance level alpha = 0.05 and confidence level gamma = 0.95</span>
+stats.norm.interval(alpha=<span class="hljs-number">0.95</span>, loc=np.mean(data), scale=st.sem(data))
+</div></code></pre>
+<h1 id="confidence-interval-example">Confidence interval example</h1>
+<ul>
+<li>https://vedexcel.com/how-to-calculate-confidence-intervals-in-python/</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> scipy <span class="hljs-keyword">import</span> stats
+
+<span class="hljs-comment"># define given sample data</span>
+data = [<span class="hljs-number">45</span>, <span class="hljs-number">55</span>, <span class="hljs-number">67</span>, <span class="hljs-number">45</span>, <span class="hljs-number">68</span>, <span class="hljs-number">79</span>, <span class="hljs-number">98</span>, <span class="hljs-number">87</span>, <span class="hljs-number">84</span>, <span class="hljs-number">82</span>]
+
+<span class="hljs-comment"># Calculate the sample parameters</span>
+significanceLevel   alpha = <span class="hljs-number">0.05</span>          <span class="hljs-comment"># 5%</span>
+confidenceLevel     CL    = <span class="hljs-number">0.95</span>          <span class="hljs-comment"># 95% CI given</span>
+degrees_freedom     df    = len(data)<span class="hljs-number">-1</span>   <span class="hljs-comment"># degree of freedom = sample size-1</span>
+sampleMean          xbar  = np.mean(data) <span class="hljs-comment"># sample mean</span>
+sampleStandardError sem   = stats.sem(data,ddof=<span class="hljs-number">1</span>)  <span class="hljs-comment"># sample standard error (default is already ddof=1 unlike numpy)</span>
+
+<span class="hljs-comment"># create 95% confidence interval for the population mean</span>
+<span class="hljs-comment"># scipy stats interval function has parameter alpha actually equal to 1-alpha</span>
+confidenceInterval = stats.t.interval(alpha=confidenceLevel, df=degrees_freedom, loc=sampleMean, scale=sampleStandardError)
+
+<span class="hljs-comment"># print the 95% confidence interval for the population mean</span>
+print(<span class="hljs-string">'The 95% confidence interval for the population mean :'</span>,confidenceInterval)
+</div></code></pre>
+<h1 id="confidence-interval-example">Confidence interval example</h1>
+<ul>
+<li>https://vedexcel.com/how-to-calculate-confidence-intervals-in-python/</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> scipy.stats <span class="hljs-keyword">as</span> st
+
+<span class="hljs-comment"># define given sample data</span>
+data = [<span class="hljs-number">87</span>,<span class="hljs-number">80</span>,<span class="hljs-number">68</span>,<span class="hljs-number">72</span>,<span class="hljs-number">56</span>,<span class="hljs-number">58</span>,<span class="hljs-number">60</span>,<span class="hljs-number">63</span>,<span class="hljs-number">82</span>,<span class="hljs-number">70</span>,<span class="hljs-number">58</span>,<span class="hljs-number">55</span>,<span class="hljs-number">48</span>,<span class="hljs-number">50</span>,<span class="hljs-number">77</span>]
+
+<span class="hljs-comment"># Calculate the sample parameters</span>
+confidenceLevel     = <span class="hljs-number">0.98</span>          <span class="hljs-comment"># 98% CI given</span>
+degrees_freedom     = len(data)<span class="hljs-number">-1</span>   <span class="hljs-comment"># degree of freedom = sample size-1</span>
+sampleMean          = np.mean(data) <span class="hljs-comment"># sample mean</span>
+sampleStandardError = st.sem(data)  <span class="hljs-comment"># sample standard error</span>
+
+<span class="hljs-comment">#create 98% confidence interval for the population mean</span>
+confidenceInterval = st.t.interval(alpha=confidenceLevel, df=degrees_freedom, loc=sampleMean, scale=sampleStandardError)
+
+<span class="hljs-comment">#print the 98% confidence interval for the population mean</span>
+print(<span class="hljs-string">'The 98% confidence interval for the population mean weight :'</span>,confidenceInterval)
+</div></code></pre>
+<h1 id="ci-using-bootstrapping">CI using bootstrapping</h1>
+<ul>
+<li>https://stackoverflow.com/questions/44392978/compute-a-confidence-interval-from-sample-data-assuming-unknown-distribution/66008548#66008548</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bootstrap_ci</span><span class="hljs-params">(
+    data,
+    statfunction=np.average,
+    alpha = <span class="hljs-number">0.05</span>,
+    n_samples = <span class="hljs-number">100</span>)</span>:</span>
+
+    <span class="hljs-string">"""inspired by https://github.com/cgevans/scikits-bootstrap"""</span>
+    <span class="hljs-keyword">import</span> warnings
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bootstrap_ids</span><span class="hljs-params">(data, n_samples=<span class="hljs-number">100</span>)</span>:</span>
+        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(n_samples):
+            <span class="hljs-keyword">yield</span> np.random.randint(data.shape[<span class="hljs-number">0</span>], size=(data.shape[<span class="hljs-number">0</span>],))
+
+    alphas = np.array([alpha/<span class="hljs-number">2</span>, <span class="hljs-number">1</span> - alpha/<span class="hljs-number">2</span>])
+    nvals = np.round((n_samples - <span class="hljs-number">1</span>) * alphas).astype(int)
+    <span class="hljs-keyword">if</span> np.any(nvals &lt; <span class="hljs-number">10</span>) <span class="hljs-keyword">or</span> np.any(nvals &gt;= n_samples<span class="hljs-number">-10</span>):
+        warnings.warn(<span class="hljs-string">"Some values used extremal samples; results are probably unstable. "</span>
+                      <span class="hljs-string">"Try to increase n_samples"</span>)
+
+    data = np.array(data)
+    <span class="hljs-keyword">if</span> np.prod(data.shape) != max(data.shape):
+        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">"Data must be 1D"</span>)
+    data = data.ravel()
+
+    boot_indexes = bootstrap_ids(data, n_samples)
+    stat = np.asarray([statfunction(data[_ids]) <span class="hljs-keyword">for</span> _ids <span class="hljs-keyword">in</span> boot_indexes])
+    stat.sort(axis=<span class="hljs-number">0</span>)
+
+    <span class="hljs-keyword">return</span> stat[nvals]
+
+<span class="hljs-comment"># usage</span>
+<span class="hljs-comment"># simulate some data from a pareto distribution</span>
+
+np.random.seed(<span class="hljs-number">33</span>)
+data = np.random.pareto(a=<span class="hljs-number">1</span>, size=<span class="hljs-number">111</span>)
+sample_mean = np.mean(data)
+
+plt.hist(data, bins=<span class="hljs-number">25</span>)
+plt.axvline(sample_mean, c=<span class="hljs-string">'red'</span>, label=<span class="hljs-string">'sample mean'</span>); plt.legend()
+
+<span class="hljs-comment"># generate confidence intervals for the SAMPLE MEAN with bootstrapping</span>
+low_ci, up_ci = bootstrap_ci(data, np.mean, n_samples=<span class="hljs-number">1000</span>)
+<span class="hljs-comment">#plot the resuts</span>
+
+plt.hist(data, bins=<span class="hljs-number">25</span>)
+plt.axvline(low_ci, c=<span class="hljs-string">'orange'</span>, label=<span class="hljs-string">'low_ci mean'</span>)
+plt.axvline(up_ci, c=<span class="hljs-string">'magenta'</span>, label=<span class="hljs-string">'up_ci mean'</span>)
+plt.axvline(sample_mean, c=<span class="hljs-string">'red'</span>, label=<span class="hljs-string">'sample mean'</span>); plt.legend()
+
+<span class="hljs-comment">#generate confidence intervals for the DISTRIBUTION PARAMETERS with bootstrapping</span>
+<span class="hljs-keyword">from</span> scipy.stats <span class="hljs-keyword">import</span> pareto
+
+true_params = pareto.fit(data)
+low_ci, up_ci = bootstrap_ci(data, pareto.fit, n_samples=<span class="hljs-number">1000</span>)
+<span class="hljs-comment"># low_ci[0] and up_ci[0] are the confidence intervals for the shape param</span>
+<span class="hljs-comment"># low_ci[0], true_params[0], up_ci[0] ---&gt; (0.8786, 1.0983, 1.4599)</span>
+</div></code></pre>
+<h1 id="ci-using-bootstrapping-for-two-groups">CI using bootstrapping for two groups</h1>
+<ul>
+<li>https://github.com/SUN-Wenjun/bootstrapping</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bootstrap_ci_two_groups</span><span class="hljs-params">(df, variable, classes, repetitions = <span class="hljs-number">1000</span>, alpha = <span class="hljs-number">0.05</span>, random_state=None)</span>:</span>
+    <span class="hljs-comment"># df: a data frame that includes observations of the two sample</span>
+    <span class="hljs-comment"># variable: the column name of the column that includes observations</span>
+    <span class="hljs-comment"># classes: the column name of the column that includes group assignment (This column should contain two different group names)</span>
+    <span class="hljs-comment"># repetitions: number of times you want the bootstrapping to repeat. Default is 1000.</span>
+    <span class="hljs-comment"># alpha: likelihood that the true population parameter lies outside the confidence interval. Default is 0.05.</span>
+    <span class="hljs-comment"># random_stata: enable users to set their own random_state, default is None.</span>
+
+    df = df[[variable, classes]]
+    bootstrap_sample_size = len(df)
+
+    mean_diffs = []
+
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(repetitions):
+        bootstrap_sample = df.sample(n = bootstrap_sample_size, replace = <span class="hljs-literal">True</span>, random_state = random_state)
+        mean_diff = bootstrap_sample.groupby(classes).mean().iloc[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>] - bootstrap_sample.groupby(classes).mean().iloc[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]
+        mean_diffs.append(mean_diff)
+
+    <span class="hljs-comment"># confidence interval</span>
+    left = np.percentile(mean_diffs, alpha/<span class="hljs-number">2</span>*<span class="hljs-number">100</span>)
+    right = np.percentile(mean_diffs, <span class="hljs-number">100</span>-alpha/<span class="hljs-number">2</span>*<span class="hljs-number">100</span>)
+
+    <span class="hljs-comment"># point estimate</span>
+    point_est = df.groupby(classes).mean().iloc[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>] - df.groupby(classes).mean().iloc[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]
+
+    print(<span class="hljs-string">'Point estimate of difference between means:'</span>, round(point_est,<span class="hljs-number">2</span>))
+    print((<span class="hljs-number">1</span>-alpha)*<span class="hljs-number">100</span>,<span class="hljs-string">'%'</span>,<span class="hljs-string">'confidence interval for the difference between means:'</span>, (round(left,<span class="hljs-number">2</span>), round(right,<span class="hljs-number">2</span>)))
+</div></code></pre>
+<h1 id="images">Images</h1>
+<p><img src="images/ci.png" alt="">
+<img src="images/ci2.png" alt="">
+<img src="images/ci_01.png" alt="">
+<img src="images/ci_formulas.png" alt="">
+<img src="images/ci_misunderstandings.png" alt="">
+<img src="images/ci_outliers.png" alt="">
+<img src="images/moe.png" alt="">
+<img src="images/poisson_ci.png" alt="">
+<img src="images/qn_39.png" alt="">
+<img src="images/qn_40.png" alt="">
+<img src="images/sigmazone.png" alt="">
+<img src="images/two_sample_t_df.png" alt="">
+<img src="images/two_sample_t_test.png" alt="">
+<img src="images/z_for_prop.jpeg" alt=""></p>
+<h1 id="questions">Questions</h1>
+<p><img src="questions/qn_01.png" alt="">
+<img src="questions/qn_02.png" alt="">
+<img src="questions/qn_03.png" alt=""></p>
+
+</body>
+</html>

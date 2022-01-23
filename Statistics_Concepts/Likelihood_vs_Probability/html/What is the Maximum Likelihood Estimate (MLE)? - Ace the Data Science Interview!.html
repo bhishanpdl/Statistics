@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head class="no-js">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" nonce="3e62f6317e7149f1a2c883f5fdb" src="//local.adguard.org?ts=1617801928522&amp;type=content-script&amp;dmn=machinelearninginterview.com&amp;css=1&amp;js=1&amp;gcss=1&amp;rel=1&amp;rji=1&amp;stealth=1&amp;uag="></script>
+<script type="text/javascript" nonce="3e62f6317e7149f1a2c883f5fdb" src="//local.adguard.org?ts=1617801928522&amp;name=AdGuard%20Extra%20Beta&amp;type=user-script"></script><link rel="profile" href="https://gmpg.org/xfn/11">
+	        <link rel="pingback" href="https://machinelearninginterview.com/xmlrpc.php">
+	    <script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
+<title>What is the Maximum Likelihood Estimate (MLE)? - Ace the Data Science Interview!</title>
+<script>window._wca = window._wca || [];</script>
+
+<!-- This site is optimized with the Yoast SEO plugin v9.5 - https://yoast.com/wordpress/plugins/seo/ -->
+<link rel="canonical" href="https://machinelearninginterview.com/topics/machine-learning/maximum-likelihood-estimate/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="What is the Maximum Likelihood Estimate (MLE)? - Ace the Data Science Interview!" />
+<meta property="og:description" content="Probabilistic Models help us capture the inherant uncertainity in real life situations. Examples of probabilistic models are Logistic Regression, Naive Bayes Classifier and so on..  Typically we fit (find parameters) of such probabilistic models from the training data, and estimate the parameters. The learnt model can then be used on unseen data to make predictions...." />
+<meta property="og:url" content="https://machinelearninginterview.com/topics/machine-learning/maximum-likelihood-estimate/" />
+<meta property="og:site_name" content="Ace the Data Science Interview!" />
+<meta property="article:tag" content="log likelihood" />
+<meta property="article:tag" content="maximum likelihood estimate" />
+<meta property="article:tag" content="MLE" />
+<meta property="article:tag" content="parameter estimation" />
+<meta property="article:tag" content="probabistic models" />
+<meta property="article:section" content="Machine Learning" />
+<meta property="article:published_time" content="2021-03-22T05:38:25+00:00" />
+<meta property="article:modified_time" content="2021-03-22T11:51:15+00:00" />
+<meta property="og:updated_time" content="2021-03-22T11:51:15+00:00" />
+<meta property="og:image" content="https://machinelearninginterview.com/wp-content/uploads/2021/03/MLE_Estimate_Thumbnail.png" />
+<meta property="og:image:secure_url" content="https://machinelearninginterview.com/wp-content/uploads/2021/03/MLE_Estimate_Thumbnail.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="Probabilistic Models help us capture the inherant uncertainity in real life situations. Examples of probabilistic models are Logistic Regression, Naive Bayes Classifier and so on..  Typically we fit (find parameters) of such probabilistic models from the training data, and estimate the parameters. The learnt model can then be used on unseen data to make predictions...." />
+<meta name="twitter:title" content="What is the Maximum Likelihood Estimate (MLE)? - Ace the Data Science Interview!" />
+<meta name="twitter:image" content="https://machinelearninginterview.com/wp-content/uploads/2021/03/MLE_Estimate_Thumbnail.png" />
+<script type='application/ld+json'>{"@context":"https://schema.org","@type":"Organization","url":"https://machinelearninginterview.com/","sameAs":[],"@id":"https://machinelearninginterview.com/#organization","name":"MachineLearningInterview.com","logo":"https://machinelearninginterview.com/wp-content/uploads/2019/06/ML_Interview_res_Logo_solo.png"}</script>
+<!-- / Yoast SEO plugin. -->
+
+<link rel='dns-prefetch' href='//machinelearninginterview.com' />
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel='dns-prefetch' href='//secure.gravatar.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Ace the Data Science Interview! &raquo; Feed" href="https://machinelearninginterview.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Ace the Data Science Interview! &raquo; Comments Feed" href="https://machinelearninginterview.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Ace the Data Science Interview! &raquo; What is the Maximum Likelihood Estimate (MLE)? Comments Feed" href="https://machinelearninginterview.com/topics/machine-learning/maximum-likelihood-estimate/feed/" />
+<link rel='stylesheet' id='wp-quicklatex-format-css'  href='https://machinelearninginterview.com/wp-content/plugins/wp-quicklatex/css/quicklatex-format.css?ver=4.9.16' type='text/css' media='all' />
+<link rel='stylesheet' id='dynamic-fluxvidcss-css'  href='https://machinelearninginterview.com/wp-content/plugins/fluxlive/css/fluxvid.css?ver=4.9.16' type='text/css' media='all' />
+<link rel='stylesheet' id='dynamic-cssfontawsome-css'  href='https://machinelearninginterview.com/wp-content/plugins/fluxlive/js/ckeditor/plugins/fontawesome/font-awesome/css/font-awesome.min.css?ver=4.9.16' type='text/css' media='all' />
+<link rel='stylesheet' id='dynamic-cssfluxfixed-css'  href='https://machinelearninginterview.com/wp-content/plugins/fluxlive/css/fixed.css?ver=4.9.16' type='text/css' media='all' />
+<link rel='stylesheet' id='dynamic-fluxtranscss-css'  href='https://machinelearninginterview.com/wp-content/plugins/fluxlive/css/transitions.css?ver=4.9.16' type='text/css' media='all' />
+<link rel='stylesheet' id='pnestylesflux-css'  href='https://machinelearninginterview.com/wp-content/plugins/fluxlive/css/fluxstyle.css?ver=4.9.16' type='text/css' media='all' />
+<link rel='stylesheet' id='woocommerce-layout-css'  href='https://machinelearninginterview.com/wp-content/plugins/woocommerce/assets/css/woocommerce-layout.css?ver=3.5.4' type='text/css' media='all' />
+<style id='woocommerce-layout-inline-css' type='text/css'>
+
+	.infinite-scroll .woocommerce-pagination {
+		display: none;
+	}
+</style>
+<link rel='stylesheet' id='woocommerce-smallscreen-css'  href='https://machinelearninginterview.com/wp-content/plugins/woocommerce/assets/css/woocommerce-smallscreen.css?ver=3.5.4' type='text/css' media='only screen and (max-width: 768px)' />
+<link rel='stylesheet' id='woocommerce-general-css'  href='https://machinelearninginterview.com/wp-content/plugins/woocommerce/assets/css/woocommerce.css?ver=3.5.4' type='text/css' media='all' />
+<style id='woocommerce-inline-inline-css' type='text/css'>
+.woocommerce form .form-row .required { visibility: visible; }
+</style>
+<link rel='stylesheet' id='wpProQuiz_front_style-css'  href='https://machinelearninginterview.com/wp-content/plugins/wp-pro-quiz/css/wpProQuiz_front.min.css?ver=0.37' type='text/css' media='all' />
+<link rel='stylesheet' id='inbound-shortcodes-css'  href='https://machinelearninginterview.com/wp-content/plugins/landing-pages//shared/shortcodes/css/frontend-render.css?ver=4.9.16' type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css'  href='https://machinelearninginterview.com/wp-includes/css/dashicons.min.css?ver=4.9.16' type='text/css' media='all' />
+<style id='dashicons-inline-css' type='text/css'>
+[data-font="Dashicons"]:before {font-family: 'Dashicons' !important;content: attr(data-icon) !important;speak: none !important;font-weight: normal !important;font-variant: normal !important;text-transform: none !important;line-height: 1 !important;font-style: normal !important;-webkit-font-smoothing: antialiased !important;-moz-osx-font-smoothing: grayscale !important;}
+</style>
+<link rel='stylesheet' id='bootstrap-css'  href='https://machinelearninginterview.com/wp-content/themes/thesimplest/assets/css/bootstrap.min.css?ver=3.3.7' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css'  href='https://machinelearninginterview.com/wp-content/themes/thesimplest/assets/css/font-awesome.min.css?ver=4.7.0' type='text/css' media='all' />
+<style id='font-awesome-inline-css' type='text/css'>
+[data-font="FontAwesome"]:before {font-family: 'FontAwesome' !important;content: attr(data-icon) !important;speak: none !important;font-weight: normal !important;font-variant: normal !important;text-transform: none !important;line-height: 1 !important;font-style: normal !important;-webkit-font-smoothing: antialiased !important;-moz-osx-font-smoothing: grayscale !important;}
+</style>
+<link rel='stylesheet' id='chld_thm_cfg_parent-css'  href='https://machinelearninginterview.com/wp-content/themes/thesimplest/style.css?ver=4.9.16' type='text/css' media='all' />
+<link rel='stylesheet' id='thesimplest-style-css'  href='https://machinelearninginterview.com/wp-content/themes/thesimplest-childMLNerds/style.css?ver=1.0.0.1550650311' type='text/css' media='all' />
+<link rel='stylesheet' id='chld_thm_cfg_separate-css'  href='https://machinelearninginterview.com/wp-content/themes/thesimplest-childMLNerds/ctc-style.css?ver=1.0.0.1550650311' type='text/css' media='all' />
+<link rel='stylesheet' id='thesimplest-google-fonts-css'  href='https://fonts.googleapis.com/css?family=Poppins%3A300%2C400%2C500%2C600%2C700%2C800%7CPT+Serif%3A400%2C400i%2C700%2C700i&#038;ver=4.9.16' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack-widget-social-icons-styles-css'  href='https://machinelearninginterview.com/wp-content/plugins/jetpack/modules/widgets/social-icons/social-icons.css?ver=20170506' type='text/css' media='all' />
+<link rel='stylesheet' id='popup-maker-site-css'  href='//machinelearninginterview.com/wp-content/uploads/pum/pum-site-styles.css?generated=1605436100&#038;ver=1.13.1' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css'  href='https://machinelearninginterview.com/wp-content/plugins/jetpack/css/jetpack.css?ver=6.3.4' type='text/css' media='all' />
+<script>if (document.location.protocol != "https:") {document.location = document.URL.replace(/^http:/i, "https:");}</script><script type='text/javascript' src='https://machinelearninginterview.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var inbound_settings = {"post_id":"3347","post_type":"post","variation_id":"0","ip_address":"75.188.96.136","wp_lead_data":{"lead_id":null,"lead_email":null,"lead_uid":null,"lead_nonce":null},"admin_url":"https:\/\/machinelearninginterview.com\/wp-admin\/admin-ajax.php","track_time":"2021\/04\/07 19:08:19","page_tracking":"off","search_tracking":"off","comment_tracking":"off","custom_mapping":[],"is_admin":"","ajax_nonce":"204a3e6bf9"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/landing-pages//shared/assets/js/frontend/analytics/inboundAnalytics.min.js'></script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/wp-quicklatex/js/wp-quicklatex-frontend.js?ver=1.0'></script>
+<link rel='https://api.w.org/' href='https://machinelearninginterview.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://machinelearninginterview.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 4.9.16" />
+<meta name="generator" content="WooCommerce 3.5.4" />
+<link rel='shortlink' href='https://wp.me/paJyfS-RZ' />
+<link rel="alternate" type="application/json+oembed" href="https://machinelearninginterview.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearninginterview.com%2Ftopics%2Fmachine-learning%2Fmaximum-likelihood-estimate%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://machinelearninginterview.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmachinelearninginterview.com%2Ftopics%2Fmachine-learning%2Fmaximum-likelihood-estimate%2F&#038;format=xml" />
+
+ <!-- OneAll.com / Social Login for WordPress / v5.6 -->
+<script data-cfasync="false" type="text/javascript">
+ (function() {
+  var oa = document.createElement('script'); oa.type = 'text/javascript';
+  oa.async = true; oa.src = 'https://mlinterview.api.oneall.com/socialize/library.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(oa, s);
+ })();
+</script>
+<style>.oneall_social_login + p.comment-notes{margin-top: 10px !important;}#login #loginform .oneall_social_login{background-color: rgba(0, 0, 0, 0.04);padding: 10px 10px 0 10px;margin-bottom: 10px;border: 1px solid rgba(0, 0, 0, 0.06);border-radius: 4px;}</style>
+<link rel='dns-prefetch' href='//v0.wordpress.com'/>
+	<noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
+	<link rel="icon" href="https://machinelearninginterview.com/wp-content/uploads/2019/06/cropped-MLInterviewLogoTrans-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://machinelearninginterview.com/wp-content/uploads/2019/06/cropped-MLInterviewLogoTrans-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://machinelearninginterview.com/wp-content/uploads/2019/06/cropped-MLInterviewLogoTrans-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://machinelearninginterview.com/wp-content/uploads/2019/06/cropped-MLInterviewLogoTrans-2-270x270.png" />
+			<style type="text/css" id="wp-custom-css">
+				.lcp_catlist{
+	font-size:small;
+	box-sizing:content-box;
+	
+}
+.lcp_catlist li{
+  font-size:larger;
+	padding-bottom:25px;
+	font-family:verdana;
+}
+
+.site-header{
+	margin-bottom:1em;
+}
+.widget {
+    margin-bottom: 1em;
+}
+.entry-title {
+    font-size: 1.0rem;
+}
+
+.site-description {
+    font-size: 16px;
+}
+.main-navigation a {
+    padding: 0em .875em;
+	  
+}
+li.premium-color > a {
+	color:#DD0000;
+	/*border: 1px;*/	
+	
+  /*border-style: solid;
+	margin: 0 auto 16px 55px;*/
+	
+}
+
+/*.post p{line-height: 1em}*/
+
+.widget .widget-title {
+	margin: 0 0 0.5em;
+}
+
+/* Changes on 29th June*/
+.site-header-main {
+    background-color: #222;
+}
+.site-branding .site-title a {
+    color: white;
+}
+.site-description {
+    color: white;
+}
+.main-navigation a {
+    padding: 0 .875em;
+    color: white;	
+	  /*border-style:solid;
+	  border-width:thin;
+	  border-color:gray
+	  */
+}
+.site-title {
+    font-size: 52px;
+    font-size: 1.7rem;
+	  margin-bottom: 0em;
+		margin-top: 1em;	
+}
+.site-header {
+	  background-color: #222;
+}
+li.premium-color>a {
+    margin-bottom: 0.5em;
+	  margin-top: 0.5em;
+	  background-color: black;
+	  color:white;
+	  border-style:solid;
+	  border-width:thin;
+		bordr-color:red;
+	  
+}
+
+/*Get image into header*/
+#leftbox {                 	    float:left;   
+   width:5%; 
+	 height: 50px;
+	 padding-right: 10px;
+} 
+#middlebox{ 
+   float:right;  
+   width: 95%; 
+} 
+
+/*Get posts close to each other on category pages*/
+.site-main > article{
+	    margin-bottom: 0em;
+    padding-bottom: 1rem;
+	   padding-top: 1rem;
+}
+.entry-footer{
+    margin: 0px 0 0 0;
+	  line-height: 1em;
+	  margin-bottom: 0em;
+	  margin-top: 0em;
+}
+.entry-header {
+    margin-bottom: 0em;
+	  margin-top: 0em;
+	  line-height:1.5em;
+	  margin: 0px 0 0 0;
+}
+.entry-title {
+    font-size: 25px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.2em;
+    margin-top: 0em;
+}
+.boxed {
+  border: 1px solid red ;
+}
+
+			</style>
+		
+<script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/c5e24e31aa25c9c0c46b3c80f/d5b70fa19ae28187488d06122.js");</script>
+</head>
+<body data-rsssl=1 class="post-template-default single single-post postid-3347 single-format-standard wp-custom-logo woocommerce-no-js">
+    <div class="search-popup">
+        <span class="search-popup-close"><i class="fa fa-times"></i></span>
+        
+<form action="https://machinelearninginterview.com/" method="get" role="search" id="searchform_topbar" class="search-top-bar-popup search-form">
+	<label>
+		<span class="screen-reader-text">Search for:</span>
+		<input type="search" class="search-field-top-bar" id="search-field-top-bar" placeholder="Search &hellip;" value="" name="s" />
+	</label>
+	<button type="submit" class="search-submit search-top-bar-submit" id="search-top-bar-submit">
+        <span class="fa fa-search header-search-icon"></span>
+        <span class="screen-reader-text">
+            Search        </span>
+    </button>
+</form>
+    </div><!-- .search-popup -->
+
+<div id="page" class="site">
+    <div class="site-inner">
+        <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+        <header id="masthead" class="site-header" role="banner">
+
+        
+		
+        <div class="site-header-main">
+            <div class="site-branding">
+				<div class="container">	 
+					<div id="leftbox">	 
+                <a href="https://machinelearninginterview.com/" class="custom-logo-link" rel="home" itemprop="url"><img width="100" height="100" src="https://machinelearninginterview.com/wp-content/uploads/2019/07/MLInterviewLogoSoloREVERSE.png" class="custom-logo" alt="Ace the Data Science Interview!" itemprop="logo" /></a>					</div><!-- .leftbox -->
+					<div id="middlebox">	
+                                    <p class="site-title">
+                        <a href="https://machinelearninginterview.com/" rel="home">
+                            Ace the Data Science Interview!                        </a>
+                    </p>
+                				</div><!-- .middlebox -->
+             </div><!-- .container -->
+            </div><!-- .site-branding -->
+
+                        <div class="menu-wrapper">
+                <button id="menu-toggle" class="menu-toggle toggled-on" aria-expanded="true" aria-controls="site-navigation social-navigation">Menu</button>
+                <div id="site-header-menu" class="site-header-menu clearfix">
+
+                        <nav id="site-navigation" class="main-navigation container" role="navigation" aria-label="Primary Menu">
+				            <div class="menu-primarymenu-container"><ul id="menu-primarymenu" class="primary-menu"><li id="menu-item-1586" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1586"><a href="https://machinelearninginterview.com/machine-learning-interview-questions/">Interview Questions &#038; Answers</a>
+<ul class="sub-menu">
+	<li id="menu-item-173" class="premium-color menu-item menu-item-type-post_type menu-item-object-page menu-item-173"><a href="https://machinelearninginterview.com/machine-learning-interview-questions/">Machine Learning</a></li>
+	<li id="menu-item-115" class="premium-color menu-item menu-item-type-post_type menu-item-object-page menu-item-115"><a href="https://machinelearninginterview.com/natural-language-processing-interview-questions/">NLP</a></li>
+	<li id="menu-item-174" class="premium-color menu-item menu-item-type-post_type menu-item-object-page menu-item-174"><a href="https://machinelearninginterview.com/deep-learning-interview-questions/">Deep Learning</a></li>
+	<li id="menu-item-1248" class="premium-color menu-item menu-item-type-custom menu-item-object-custom menu-item-1248"><a href="https://machinelearninginterview.com/data-analytics/">Data Analytics</a></li>
+</ul>
+</li>
+<li id="menu-item-1574" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1574"><a href="https://machinelearninginterview.com/premium-tools/">Our Interview Prep Tools</a>
+<ul class="sub-menu">
+	<li id="menu-item-1531" class="premium-color menu-item menu-item-type-custom menu-item-object-custom menu-item-1531"><a href="https://machinelearninginterview.com/interview-preparation-tool-pro/">Prep Tool Pro</a></li>
+	<li id="menu-item-1525" class="premium-color menu-item menu-item-type-custom menu-item-object-custom menu-item-1525"><a href="https://machinelearninginterview.com/interview-preparation-tool/%20">Prep Tool Basic</a></li>
+	<li id="menu-item-1526" class="premium-color menu-item menu-item-type-custom menu-item-object-custom menu-item-1526"><a href="https://machinelearninginterview.com/interview-preparation-package/">Prep Tool Premium</a></li>
+	<li id="menu-item-1543" class="premium-color menu-item menu-item-type-custom menu-item-object-custom menu-item-1543"><a href="https://machinelearninginterview.com/interview-preparation-book/">Interview Prep Book</a></li>
+</ul>
+</li>
+<li id="menu-item-1438" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1438"><a href="https://machinelearninginterview.com/topics/resources/learn-from-scratch/">Learn More</a>
+<ul class="sub-menu">
+	<li id="menu-item-1653" class="premium-color menu-item menu-item-type-custom menu-item-object-custom menu-item-1653"><a href="https://machinelearninginterview.com/blog/">Blog</a></li>
+	<li id="menu-item-1558" class="premium-color menu-item menu-item-type-custom menu-item-object-custom menu-item-1558"><a href="https://machinelearninginterview.com/topics/resources/learn-from-scratch/https://machinelearninginterview.com/topics/resources/learn-from-scratch/">Learn Data Science</a></li>
+	<li id="menu-item-1557" class="premium-color menu-item menu-item-type-post_type menu-item-object-page menu-item-1557"><a href="https://machinelearninginterview.com/faq-data-scientist/">FAQ : Data Scientist Jobs</a></li>
+	<li id="menu-item-1637" class="premium-color menu-item menu-item-type-custom menu-item-object-custom menu-item-1637"><a href="https://www.youtube.com/channel/UCC6S9DRZEEl_J0_U6lbxn0A/videos">Youtube Channel</a></li>
+	<li id="menu-item-1261" class="premium-color menu-item menu-item-type-custom menu-item-object-custom menu-item-1261"><a href="https://machinelearninginterview.com/about">About Us</a></li>
+	<li id="menu-item-1115" class="premium-color menu-item menu-item-type-post_type menu-item-object-page menu-item-1115"><a href="https://machinelearninginterview.com/contact-us/">Ask Us!</a></li>
+</ul>
+</li>
+<li id="menu-item-1669" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1669"><a href="https://machinelearninginterview.com/corporate/">For Companies</a></li>
+<li id="menu-item-1180" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1180"><a href="https://machinelearninginterview.com/wp-login.php?redirect_to=%2520">Log In</a></li>
+</ul></div>                        </nav><!-- .main-navigation -->
+                </div><!-- .site-header-menu -->
+            </div><!-- .menu-wrapper -->
+                        
+        </div><!-- .site-header-main -->
+
+
+    
+</header>
+
+		        <div id="content" class="site-content container">
+
+	<div id="primary" class="content-area row">
+		<main id="main" class="site-main col-md-8 col-sm-12" role="main">
+
+			
+<article id="post-3347" class="post-3347 post type-post status-publish format-standard hentry category-machine-learning tag-log-likelihood tag-maximum-likelihood-estimate tag-mle tag-parameter-estimation tag-probabistic-models">
+
+	<header class="entry-header">
+		<h1 class="entry-title">What is the Maximum Likelihood Estimate (MLE)?</h1>
+		<div class="entry-info">
+			<span class="posted-on">Posted on <time class="entry-date published" datetime="2021-03-22T05:38:25+00:00">March 22, 2021</time><time class="updated" datetime="2021-03-22T11:51:15+00:00">March 22, 2021</time></span><span class="author-info"> by <a href="https://machinelearninginterview.com/topics/author/mlnaiadmin/">MLNerds</a></span>		</div>
+	</header>
+
+	
+	<div class="entry-content">
+		<p><span class="embed-youtube" style="text-align:center; display: block;"><iframe class='youtube-player' type='text/html' width='640' height='390' src='https://www.youtube.com/embed/-FZXoizSj-o?version=3&#038;rel=1&#038;fs=1&#038;autohide=2&#038;showsearch=0&#038;showinfo=1&#038;iv_load_policy=1&#038;wmode=transparent' allowfullscreen='true' style='border:0;'></iframe></span></p>
+<p>Probabilistic Models help us capture the inherant uncertainity in real life situations. Examples of probabilistic models are Logistic Regression, Naive Bayes Classifier and so on..  Typically we fit (find parameters) of such probabilistic models from the training data, and estimate the parameters. The learnt model can then be used on unseen data to make predictions.</p>
+<p>One way to find the parameters of a probabilistic model (learn the model) is to use the MLE estimate or the maximum likelihood estimate.</p>
+<p><strong>Maximum likelihood estimate is that value for the parameters that maximizes the likelihood of the data. </strong></p>
+<p>What are some examples of the parameters of models we want to find? What exactly is the likelihood? How do we find parameters that maximize the likelihood? These are some questions answered by the video.<a href="https://www.youtube.com/watch?v=-FZXoizSj-o"><img class="aligncenter size-full wp-image-3350" src="https://machinelearninginterview.com/wp-content/uploads/2021/03/MLE_Estimate_Thumbnail.png" alt="" width="20" height="10" srcset="https://machinelearninginterview.com/wp-content/uploads/2021/03/MLE_Estimate_Thumbnail.png 658w, https://machinelearninginterview.com/wp-content/uploads/2021/03/MLE_Estimate_Thumbnail-300x166.png 300w, https://machinelearninginterview.com/wp-content/uploads/2021/03/MLE_Estimate_Thumbnail-600x332.png 600w" sizes="(max-width: 20px) 100vw, 20px" /></a></p>
+<h5>What are some examples of parameters we might want to estimate?</h5>
+<p>Consider the <strong>Gaussian distribution.</strong> The mathematical form of the pdf is shown below. The parameters of the Gaussian distribution are the mean and the variance (or the standard deviation). Given a set of points, the MLE estimate can be used to estimate the parameters of the Gaussian distribution. <a href="https://machinelearninginterview.com/wp-content/uploads/2021/03/normal_dist_formula.jpg"><br />
+</a><a href="https://machinelearninginterview.com/wp-content/uploads/2021/03/normal_dist_formula.jpg"><img class="aligncenter wp-image-3352 size-medium" src="https://machinelearninginterview.com/wp-content/uploads/2021/03/normal_dist_formula-e1616395155211-300x172.jpg" alt="" width="300" height="172" srcset="https://machinelearninginterview.com/wp-content/uploads/2021/03/normal_dist_formula-e1616395155211-300x172.jpg 300w, https://machinelearninginterview.com/wp-content/uploads/2021/03/normal_dist_formula-e1616395155211-768x440.jpg 768w, https://machinelearninginterview.com/wp-content/uploads/2021/03/normal_dist_formula-e1616395155211-1024x587.jpg 1024w, https://machinelearninginterview.com/wp-content/uploads/2021/03/normal_dist_formula-e1616395155211-600x344.jpg 600w, https://machinelearninginterview.com/wp-content/uploads/2021/03/normal_dist_formula-e1616395155211.jpg 1485w" sizes="(max-width: 300px) 100vw, 300px" /></a><a href="https://machinelearninginterview.com/wp-content/uploads/2021/03/normal-distribution-probability.jpg"><img class="aligncenter wp-image-3353 size-medium" src="https://machinelearninginterview.com/wp-content/uploads/2021/03/normal-distribution-probability-300x108.jpg" alt="" width="300" height="108" srcset="https://machinelearninginterview.com/wp-content/uploads/2021/03/normal-distribution-probability-300x108.jpg 300w, https://machinelearninginterview.com/wp-content/uploads/2021/03/normal-distribution-probability.jpg 526w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+<p>Consider the <strong>Bernoulli distribution</strong>. A good example to relate to the Bernoulli distribution is modeling the probability of heads (p) when we toss a coin. The probability of heads is p, the probability of tails is (1-p). By observing a bunch of coin tosses, one can use the maximum likelihood estimate to find the value of p.</p>
+<h5>What is the likelihood of a probabilistic model?</h5>
+<p>The likelihood is the joined probability distribution of the observed data given the parameters.</p>
+<p>For instance, if we consider the Bernoulli distribution for a coin toss with probability of heads as p. Suppose we toss the coin four times, and get H, T, T, H.</p>
+<p>The likelihood of the observed data is the joint probability distribution of the observed data. Hence:</p>
+<p><a href="https://machinelearninginterview.com/wp-content/uploads/2021/03/bernoulli_distribution.png"><img class="aligncenter size-full wp-image-3358" src="https://machinelearninginterview.com/wp-content/uploads/2021/03/bernoulli_distribution.png" alt="" width="512" height="262" srcset="https://machinelearninginterview.com/wp-content/uploads/2021/03/bernoulli_distribution.png 512w, https://machinelearninginterview.com/wp-content/uploads/2021/03/bernoulli_distribution-300x154.png 300w" sizes="(max-width: 512px) 100vw, 512px" /></a></p>
+<h5>How do we find the parameter that maximizes likelihood?</h5>
+<p>The MLE estimator is that value of the parameter which maximizes likelihood of the data. This is an optimization problem.</p>
+<p><a href="https://machinelearninginterview.com/wp-content/uploads/2021/03/picture_mle.jpeg"><img class="aligncenter size-full wp-image-3359" src="https://machinelearninginterview.com/wp-content/uploads/2021/03/picture_mle.jpeg" alt="" width="1280" height="982" srcset="https://machinelearninginterview.com/wp-content/uploads/2021/03/picture_mle.jpeg 1280w, https://machinelearninginterview.com/wp-content/uploads/2021/03/picture_mle-300x230.jpeg 300w, https://machinelearninginterview.com/wp-content/uploads/2021/03/picture_mle-768x589.jpeg 768w, https://machinelearninginterview.com/wp-content/uploads/2021/03/picture_mle-1024x786.jpeg 1024w, https://machinelearninginterview.com/wp-content/uploads/2021/03/picture_mle-600x460.jpeg 600w" sizes="(max-width: 1280px) 100vw, 1280px" /></a><span style="color: #000000;">For instance for the coin toss example, the MLE estimate would be to find that p such that  p (1-p) (1-p) p is maximized.</span></p>
+<p><a href="https://machinelearninginterview.com/wp-content/uploads/2021/03/finding_MLE_coin_toss.png"><img class="aligncenter size-full wp-image-3360" src="https://machinelearninginterview.com/wp-content/uploads/2021/03/finding_MLE_coin_toss.png" alt="" width="512" height="243" srcset="https://machinelearninginterview.com/wp-content/uploads/2021/03/finding_MLE_coin_toss.png 512w, https://machinelearninginterview.com/wp-content/uploads/2021/03/finding_MLE_coin_toss-300x142.png 300w" sizes="(max-width: 512px) 100vw, 512px" /></a></p>
+<h5>Summary</h5>
+<ul>
+<li>In this article, we learnt about estimating parameters of a probabilistic model</li>
+<li>We specifically learnt about the maximum likelihood estimate</li>
+<li>We learnt how to write down the likelihood function given a set of data points</li>
+<li>We saw how to maximize likelihood to find the MLE estimate.</li>
+</ul>
+<p>The MLE estimate is one of the most popular ways of finding parameters for probabilistic models. However, it suffers from some drawbacks &#8211; specially when where is not enough data to learn from. This can be solved by Bayesian modeling, which we will see in the next article.</p>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer clearfix"><span class="cat-tags-links"><span class="cat-links"><span class="cat-icon"><i class="fa fa-folder-open"></i></span><span class="screen-reader-text">Categories</span><a href="https://machinelearninginterview.com/category/machine-learning/" rel="category tag">Machine Learning</a></span><span class="tags-links"><span class="tags-icon"><i class="fa fa-hashtag" aria-hidden="true"></i></span><span class="screen-reader-text">Tags</span><a href="https://machinelearninginterview.com/topics/tag/log-likelihood/" rel="tag">log likelihood</a>, <a href="https://machinelearninginterview.com/topics/tag/maximum-likelihood-estimate/" rel="tag">maximum likelihood estimate</a>, <a href="https://machinelearninginterview.com/topics/tag/mle/" rel="tag">MLE</a>, <a href="https://machinelearninginterview.com/topics/tag/parameter-estimation/" rel="tag">parameter estimation</a>, <a href="https://machinelearninginterview.com/topics/tag/probabistic-models/" rel="tag">probabistic models</a></span></span></footer></article>
+
+	<nav class="navigation post-navigation" role="navigation">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://machinelearninginterview.com/topics/machine-learning/bias-in-machine-learning-how-to-measure-fairness-based-on-confusion-matrix/" rel="prev"><span class="meta-nav" aria-hidden="true">Previous</span><span class="screen-reader-text">Previous post:</span> <span class="post-title">Bias in Machine Learning : How to measure Fairness based on Confusion Matrix ?</span></a></div><div class="nav-next"><a href="https://machinelearninginterview.com/topics/blog/why-do-we-need-learn-probability-and-statistics-for-machine-learning/" rel="next"><span class="meta-nav" aria-hidden="true">Next</span><span class="screen-reader-text">Next post:</span> <span class="post-title">Why do we need learn Probability and Statistics for Machine Learning?</span></a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/topics/machine-learning/maximum-likelihood-estimate/#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="https://machinelearninginterview.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+				<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required='required' /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required='required' /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='3347' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="7fc2d17c86" /></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="4"/></p>			</form>
+			</div><!-- #respond -->
+	
+</div><!-- .comments-area -->
+		</main><!-- .site-main -->
+		
+<aside id="secondary" class="sidebar widget-area col-md-4 col-sm-12" role="complementary">
+	<section id="search-6" class="widget widget_search">
+<form action="https://machinelearninginterview.com/" method="get" role="search" id="searchform_topbar" class="search-top-bar-popup search-form">
+	<label>
+		<span class="screen-reader-text">Search for:</span>
+		<input type="search" class="search-field-top-bar" id="search-field-top-bar" placeholder="Search &hellip;" value="" name="s" />
+	</label>
+	<button type="submit" class="search-submit search-top-bar-submit" id="search-top-bar-submit">
+        <span class="fa fa-search header-search-icon"></span>
+        <span class="screen-reader-text">
+            Search        </span>
+    </button>
+</form>
+</section><section id="custom_html-4" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><center><b>For more FREE Interview prep material: Subscribe with LinkedIn or Google</b></center>
+<div id='child' style='width: 180px; margin-left: auto; margin-right: auto'><p> <!-- OneAll.com / Social Login for WordPress / v5.6 -->
+<div class="oneall_social_login">
+ <div class="oneall_social_login_providers" id="oneall_social_login_providers_1235192"></div>
+ <script data-cfasync="false" type="text/javascript">
+  var _oneall = _oneall || [];
+  _oneall.push(['social_login', 'set_providers', ['google','linkedin']]);
+  _oneall.push(['social_login', 'set_callback_uri', (window.location.href + ((window.location.href.split('?')[1] ? '&amp;': '?') + "oa_social_login_source=shortcode"))]);
+  _oneall.push(['social_login', 'set_custom_css_uri', 'https://secure.oneallcdn.com/css/api/socialize/themes/wordpress/modern.css']);
+  _oneall.push(['social_login', 'do_render_ui', 'oneall_social_login_providers_1235192']);
+ </script>
+</div></p></div></div></section><section id="custom_html-3" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><a href="https://machinelearninginterview.com/interview-preparation-tool-pro/"><img class=" wp-image-1521 aligncenter" src=" https://machinelearninginterview.com/wp-content/uploads/2020/11/promo.png" alt="" width="200" height="283" />  </a></div></section><section id="tag_cloud-5" class="widget widget_tag_cloud"><h4 class="widget-title">Tags</h4><div class="tagcloud"><a href="https://machinelearninginterview.com/topics/tag/acid-properties/" class="tag-cloud-link tag-link-262 tag-link-position-1" style="font-size: 8pt;" aria-label="ACID properties (1 item)">ACID properties</a>
+<a href="https://machinelearninginterview.com/topics/tag/activation-function/" class="tag-cloud-link tag-link-78 tag-link-position-2" style="font-size: 10.377358490566pt;" aria-label="activation function (2 items)">activation function</a>
+<a href="https://machinelearninginterview.com/topics/tag/analytics/" class="tag-cloud-link tag-link-271 tag-link-position-3" style="font-size: 10.377358490566pt;" aria-label="analytics (2 items)">analytics</a>
+<a href="https://machinelearninginterview.com/topics/tag/atomicity/" class="tag-cloud-link tag-link-263 tag-link-position-4" style="font-size: 8pt;" aria-label="atomicity (1 item)">atomicity</a>
+<a href="https://machinelearninginterview.com/topics/tag/bi-grams/" class="tag-cloud-link tag-link-52 tag-link-position-5" style="font-size: 13.283018867925pt;" aria-label="bi-grams (4 items)">bi-grams</a>
+<a href="https://machinelearninginterview.com/topics/tag/bias-in-ml/" class="tag-cloud-link tag-link-293 tag-link-position-6" style="font-size: 10.377358490566pt;" aria-label="bias in ML (2 items)">bias in ML</a>
+<a href="https://machinelearninginterview.com/topics/tag/classification/" class="tag-cloud-link tag-link-24 tag-link-position-7" style="font-size: 10.377358490566pt;" aria-label="classification (2 items)">classification</a>
+<a href="https://machinelearninginterview.com/topics/tag/consistency/" class="tag-cloud-link tag-link-265 tag-link-position-8" style="font-size: 8pt;" aria-label="consistency (1 item)">consistency</a>
+<a href="https://machinelearninginterview.com/topics/tag/decision-boundary/" class="tag-cloud-link tag-link-76 tag-link-position-9" style="font-size: 10.377358490566pt;" aria-label="decision boundary (2 items)">decision boundary</a>
+<a href="https://machinelearninginterview.com/topics/tag/deep-learning/" class="tag-cloud-link tag-link-77 tag-link-position-10" style="font-size: 13.283018867925pt;" aria-label="deep learning (4 items)">deep learning</a>
+<a href="https://machinelearninginterview.com/topics/tag/durability/" class="tag-cloud-link tag-link-264 tag-link-position-11" style="font-size: 8pt;" aria-label="durability (1 item)">durability</a>
+<a href="https://machinelearninginterview.com/topics/tag/embeddings/" class="tag-cloud-link tag-link-18 tag-link-position-12" style="font-size: 15.264150943396pt;" aria-label="embeddings (6 items)">embeddings</a>
+<a href="https://machinelearninginterview.com/topics/tag/gradient-descent/" class="tag-cloud-link tag-link-90 tag-link-position-13" style="font-size: 10.377358490566pt;" aria-label="gradient descent (2 items)">gradient descent</a>
+<a href="https://machinelearninginterview.com/topics/tag/hmm/" class="tag-cloud-link tag-link-102 tag-link-position-14" style="font-size: 15.924528301887pt;" aria-label="hmm (7 items)">hmm</a>
+<a href="https://machinelearninginterview.com/topics/tag/inner-join/" class="tag-cloud-link tag-link-258 tag-link-position-15" style="font-size: 8pt;" aria-label="inner join (1 item)">inner join</a>
+<a href="https://machinelearninginterview.com/topics/tag/isolation/" class="tag-cloud-link tag-link-266 tag-link-position-16" style="font-size: 8pt;" aria-label="isolation (1 item)">isolation</a>
+<a href="https://machinelearninginterview.com/topics/tag/join/" class="tag-cloud-link tag-link-257 tag-link-position-17" style="font-size: 8pt;" aria-label="join (1 item)">join</a>
+<a href="https://machinelearninginterview.com/topics/tag/language-model/" class="tag-cloud-link tag-link-42 tag-link-position-18" style="font-size: 15.264150943396pt;" aria-label="language model (6 items)">language model</a>
+<a href="https://machinelearninginterview.com/topics/tag/left-join/" class="tag-cloud-link tag-link-260 tag-link-position-19" style="font-size: 8pt;" aria-label="left join (1 item)">left join</a>
+<a href="https://machinelearninginterview.com/topics/tag/maximum-likelihood-estimate/" class="tag-cloud-link tag-link-319 tag-link-position-20" style="font-size: 10.377358490566pt;" aria-label="maximum likelihood estimate (2 items)">maximum likelihood estimate</a>
+<a href="https://machinelearninginterview.com/topics/tag/metrics/" class="tag-cloud-link tag-link-23 tag-link-position-21" style="font-size: 10.377358490566pt;" aria-label="metrics (2 items)">metrics</a>
+<a href="https://machinelearninginterview.com/topics/tag/missing-data/" class="tag-cloud-link tag-link-219 tag-link-position-22" style="font-size: 10.377358490566pt;" aria-label="missing data (2 items)">missing data</a>
+<a href="https://machinelearninginterview.com/topics/tag/mle/" class="tag-cloud-link tag-link-215 tag-link-position-23" style="font-size: 10.377358490566pt;" aria-label="MLE (2 items)">MLE</a>
+<a href="https://machinelearninginterview.com/topics/tag/model-complexity/" class="tag-cloud-link tag-link-147 tag-link-position-24" style="font-size: 10.377358490566pt;" aria-label="model complexity (2 items)">model complexity</a>
+<a href="https://machinelearninginterview.com/topics/tag/natural-language-processing/" class="tag-cloud-link tag-link-7 tag-link-position-25" style="font-size: 10.377358490566pt;" aria-label="Natural Language Processing (2 items)">Natural Language Processing</a>
+<a href="https://machinelearninginterview.com/topics/tag/nlp/" class="tag-cloud-link tag-link-5 tag-link-position-26" style="font-size: 22pt;" aria-label="NLP (22 items)">NLP</a>
+<a href="https://machinelearninginterview.com/topics/tag/nlp-knowledge-graphs/" class="tag-cloud-link tag-link-13 tag-link-position-27" style="font-size: 8pt;" aria-label="nlp knowledge-graphs (1 item)">nlp knowledge-graphs</a>
+<a href="https://machinelearninginterview.com/topics/tag/nlp-naive-bayes/" class="tag-cloud-link tag-link-11 tag-link-position-28" style="font-size: 8pt;" aria-label="NLP naive-bayes (1 item)">NLP naive-bayes</a>
+<a href="https://machinelearninginterview.com/topics/tag/optimization/" class="tag-cloud-link tag-link-139 tag-link-position-29" style="font-size: 10.377358490566pt;" aria-label="optimization (2 items)">optimization</a>
+<a href="https://machinelearninginterview.com/topics/tag/outer-join/" class="tag-cloud-link tag-link-259 tag-link-position-30" style="font-size: 8pt;" aria-label="outer join (1 item)">outer join</a>
+<a href="https://machinelearninginterview.com/topics/tag/overfitting/" class="tag-cloud-link tag-link-81 tag-link-position-31" style="font-size: 11.962264150943pt;" aria-label="overfitting (3 items)">overfitting</a>
+<a href="https://machinelearninginterview.com/topics/tag/pareto-chart/" class="tag-cloud-link tag-link-269 tag-link-position-32" style="font-size: 8pt;" aria-label="pareto chart (1 item)">pareto chart</a>
+<a href="https://machinelearninginterview.com/topics/tag/parsing-nlp/" class="tag-cloud-link tag-link-12 tag-link-position-33" style="font-size: 8pt;" aria-label="parsing nlp (1 item)">parsing nlp</a>
+<a href="https://machinelearninginterview.com/topics/tag/recall/" class="tag-cloud-link tag-link-38 tag-link-position-34" style="font-size: 10.377358490566pt;" aria-label="recall (2 items)">recall</a>
+<a href="https://machinelearninginterview.com/topics/tag/right-join/" class="tag-cloud-link tag-link-261 tag-link-position-35" style="font-size: 8pt;" aria-label="right join (1 item)">right join</a>
+<a href="https://machinelearninginterview.com/topics/tag/search/" class="tag-cloud-link tag-link-14 tag-link-position-36" style="font-size: 10.377358490566pt;" aria-label="search (2 items)">search</a>
+<a href="https://machinelearninginterview.com/topics/tag/sigmoid/" class="tag-cloud-link tag-link-79 tag-link-position-37" style="font-size: 10.377358490566pt;" aria-label="sigmoid (2 items)">sigmoid</a>
+<a href="https://machinelearninginterview.com/topics/tag/smoothing/" class="tag-cloud-link tag-link-168 tag-link-position-38" style="font-size: 11.962264150943pt;" aria-label="smoothing (3 items)">smoothing</a>
+<a href="https://machinelearninginterview.com/topics/tag/speaker-segmentation/" class="tag-cloud-link tag-link-68 tag-link-position-39" style="font-size: 10.377358490566pt;" aria-label="speaker segmentation (2 items)">speaker segmentation</a>
+<a href="https://machinelearninginterview.com/topics/tag/speech/" class="tag-cloud-link tag-link-69 tag-link-position-40" style="font-size: 10.377358490566pt;" aria-label="speech (2 items)">speech</a>
+<a href="https://machinelearninginterview.com/topics/tag/sql/" class="tag-cloud-link tag-link-256 tag-link-position-41" style="font-size: 10.377358490566pt;" aria-label="sql (2 items)">sql</a>
+<a href="https://machinelearninginterview.com/topics/tag/tanh/" class="tag-cloud-link tag-link-80 tag-link-position-42" style="font-size: 10.377358490566pt;" aria-label="tanh (2 items)">tanh</a>
+<a href="https://machinelearninginterview.com/topics/tag/text-generation/" class="tag-cloud-link tag-link-162 tag-link-position-43" style="font-size: 10.377358490566pt;" aria-label="text generation (2 items)">text generation</a>
+<a href="https://machinelearninginterview.com/topics/tag/topic-modeling/" class="tag-cloud-link tag-link-70 tag-link-position-44" style="font-size: 10.377358490566pt;" aria-label="topic modeling (2 items)">topic modeling</a>
+<a href="https://machinelearninginterview.com/topics/tag/viterbi/" class="tag-cloud-link tag-link-101 tag-link-position-45" style="font-size: 10.377358490566pt;" aria-label="viterbi (2 items)">viterbi</a></div>
+</section></aside><!-- .sidebar .widget-area -->
+	</div><!-- content-area -->
+
+        </div><!-- .site-content -->
+        
+                <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="site-info container">
+                            <a href="https://machinelearninginterview.com/">Go to Home Page</a>
+            </div>
+        </footer>
+        
+    </div><!-- site-inner -->
+</div><!-- site -->
+
+<!-- Flux Footer --><input type="hidden" id="FluxErrorData" value="No Permissions! Permit False."><div id="pum-1210" class="pum pum-overlay pum-theme-1205 pum-theme-lightbox popmake-overlay auto_open click_open" data-popmake="{&quot;id&quot;:1210,&quot;slug&quot;:&quot;login-to-see-more-questions&quot;,&quot;theme_id&quot;:1205,&quot;cookies&quot;:[{&quot;event&quot;:&quot;on_popup_close&quot;,&quot;settings&quot;:{&quot;name&quot;:&quot;pum-1210&quot;,&quot;key&quot;:&quot;&quot;,&quot;session&quot;:false,&quot;time&quot;:&quot;1 month&quot;,&quot;path&quot;:&quot;1&quot;}}],&quot;triggers&quot;:[{&quot;type&quot;:&quot;auto_open&quot;,&quot;settings&quot;:{&quot;cookie_name&quot;:[&quot;pum-1210&quot;],&quot;delay&quot;:&quot;10000&quot;}},{&quot;type&quot;:&quot;click_open&quot;,&quot;settings&quot;:{&quot;extra_selectors&quot;:&quot;&quot;,&quot;cookie_name&quot;:null}}],&quot;mobile_disabled&quot;:null,&quot;tablet_disabled&quot;:null,&quot;meta&quot;:{&quot;display&quot;:{&quot;stackable&quot;:false,&quot;overlay_disabled&quot;:false,&quot;scrollable_content&quot;:false,&quot;disable_reposition&quot;:false,&quot;size&quot;:&quot;medium&quot;,&quot;responsive_min_width&quot;:&quot;0%&quot;,&quot;responsive_min_width_unit&quot;:false,&quot;responsive_max_width&quot;:&quot;100%&quot;,&quot;responsive_max_width_unit&quot;:false,&quot;custom_width&quot;:&quot;640px&quot;,&quot;custom_width_unit&quot;:false,&quot;custom_height&quot;:&quot;380px&quot;,&quot;custom_height_unit&quot;:false,&quot;custom_height_auto&quot;:false,&quot;location&quot;:&quot;center&quot;,&quot;position_from_trigger&quot;:false,&quot;position_top&quot;:&quot;100&quot;,&quot;position_left&quot;:&quot;0&quot;,&quot;position_bottom&quot;:&quot;0&quot;,&quot;position_right&quot;:&quot;0&quot;,&quot;position_fixed&quot;:false,&quot;animation_type&quot;:&quot;fade&quot;,&quot;animation_speed&quot;:&quot;350&quot;,&quot;animation_origin&quot;:&quot;center top&quot;,&quot;overlay_zindex&quot;:false,&quot;zindex&quot;:&quot;1999999999&quot;},&quot;close&quot;:{&quot;text&quot;:&quot;&quot;,&quot;button_delay&quot;:&quot;0&quot;,&quot;overlay_click&quot;:false,&quot;esc_press&quot;:false,&quot;f4_press&quot;:&quot;1&quot;},&quot;click_open&quot;:[]}}" role="dialog" aria-hidden="true" >
+
+	<div id="popmake-1210" class="pum-container popmake theme-1205 pum-responsive pum-responsive-medium responsive size-medium">
+
+				
+
+				
+
+		
+
+				<div class="pum-content popmake-content">
+			<h2 style="text-align: center;">Sign-In With Your Social ID</h2>
+<p style="text-align: center;">We hope you enjoy going through our content as much as we enjoy making it !</p>
+<h5 style="text-align: center;">More high-quality content once you subscribe</h5>
+<div style="text-align:center">
+<div id='child' style='width: 100px; height: 100px; margin-left: auto; margin-right: auto'>
+ <!-- OneAll.com / Social Login for WordPress / v5.6 -->
+<div class="oneall_social_login">
+ <div class="oneall_social_login_providers" id="oneall_social_login_providers_2498618"></div>
+ <script data-cfasync="false" type="text/javascript">
+  var _oneall = _oneall || [];
+  _oneall.push(['social_login', 'set_providers', ['google','linkedin']]);
+  _oneall.push(['social_login', 'set_callback_uri', (window.location.href + ((window.location.href.split('?')[1] ? '&amp;': '?') + "oa_social_login_source=shortcode"))]);
+  _oneall.push(['social_login', 'set_custom_css_uri', 'https://secure.oneallcdn.com/css/api/socialize/themes/wordpress/modern.css']);
+  _oneall.push(['social_login', 'do_render_ui', 'oneall_social_login_providers_2498618']);
+ </script>
+</div>
+</div>
+</div>
+		</div>
+
+
+				
+
+				            <button type="button" class="pum-close popmake-close" aria-label="Close">
+			&times;            </button>
+		
+	</div>
+
+</div>
+	<div style="display:none">
+	</div>
+	<script type="text/javascript">
+		var c = document.body.className;
+		c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+		document.body.className = c;
+	</script>
+	<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/landing-pages//shared//shortcodes/js/spin.min.js'></script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/fluxlive/js/lightbox.js?ver=1.0'></script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/fluxlive/js/transitions.js?ver=1.0'></script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/fluxlive/js/fluxpearl.js?ver=1.0'></script>
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=202114'></script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.70'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wc_add_to_cart_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","i18n_view_cart":"View cart","cart_url":"https:\/\/machinelearninginterview.com\/pre-order\/","is_cart":"","cart_redirect_after_add":"yes"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=3.5.4'></script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var woocommerce_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=3.5.4'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wc_cart_fragments_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","cart_hash_key":"wc_cart_hash_a4f4f74d1d895d0def874cb6263f7ab7","fragment_name":"wc_fragments_a4f4f74d1d895d0def874cb6263f7ab7"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/woocommerce/assets/js/frontend/cart-fragments.min.js?ver=3.5.4'></script>
+<script type='text/javascript' src='https://secure.gravatar.com/js/gprofiles.js?ver=2021Apraa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/jetpack/modules/wpgroho.js?ver=4.9.16'></script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/themes/thesimplest/assets/js/skip-link-focus-fix.js?ver=1.0'></script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/themes/thesimplest/assets/js/bootstrap.min.js?ver=3.3.7'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var thesimplest_screenReaderText = {"expand":"expand child menu","collapse":"collapse child menu"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-content/themes/thesimplest/assets/js/main.js?ver=1.0'></script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-includes/js/jquery/ui/core.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='https://machinelearninginterview.com/wp-includes/js/jquery/ui/position.min.js?ver=1.11.4'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var pum_vars = {"version":"1.13.1","pm_dir_url":"https:\/\/machinelearninginterview.com\/wp-content\/plugins\/popup-maker\/","ajaxurl":"https:\/\/machinelearninginterview.com\/wp-admin\/admin-ajax.php","restapi":"https:\/\/machinelearninginterview.com\/wp-json\/pum\/v1","rest_nonce":null,"default_theme":"1204","debug_mode":"","disable_tracking":"","home_url":"\/","message_position":"top","core_sub_forms_enabled":"1","popups":[],"analytics_route":"analytics","analytics_api":"https:\/\/machinelearninginterview.com\/wp-json\/pum\/v1"};
+var ajaxurl = "https:\/\/machinelearninginterview.com\/wp-admin\/admin-ajax.php";
+var pum_sub_vars = {"ajaxurl":"https:\/\/machinelearninginterview.com\/wp-admin\/admin-ajax.php","message_position":"top"};
+var pum_popups = {"pum-1210":{"disable_on_mobile":false,"disable_on_tablet":false,"custom_height_auto":false,"scrollable_content":false,"position_from_trigger":false,"position_fixed":false,"overlay_disabled":false,"stackable":false,"disable_reposition":false,"close_on_form_submission":false,"close_on_overlay_click":false,"close_on_esc_press":false,"close_on_f4_press":true,"disable_form_reopen":false,"disable_accessibility":false,"triggers":[{"type":"auto_open","settings":{"cookie_name":["pum-1210"],"delay":"10000"}}],"cookies":[{"event":"on_popup_close","settings":{"name":"pum-1210","key":"","session":false,"time":"1 month","path":"1"}}],"theme_id":"1205","size":"medium","responsive_min_width":"0%","responsive_max_width":"100%","custom_width":"640px","custom_height":"380px","animation_type":"fade","animation_speed":"350","animation_origin":"center top","open_sound":"none","custom_sound":"","location":"center","position_top":"100","position_bottom":"0","position_left":"0","position_right":"0","zindex":"1999999999","close_button_delay":"0","close_on_form_submission_delay":"0","theme_slug":"lightbox","id":1210,"slug":"login-to-see-more-questions"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='//machinelearninginterview.com/wp-content/uploads/pum/pum-site-scripts.js?defer&#038;generated=1605436100&#038;ver=1.13.1'></script>
+<script async="async" type='text/javascript' src='https://machinelearninginterview.com/wp-content/plugins/akismet/_inc/form.js?ver=4.0.8'></script>
+
+<script type='text/javascript'>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:6.3.4',blog:'158619800',post:'3347',tz:'0',srv:'machinelearninginterview.com'} ]);
+	_stq.push([ 'clickTrackerInit', '158619800', '3347' ]);
+</script>
+</body>
+</html>

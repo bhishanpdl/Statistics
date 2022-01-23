@@ -1,0 +1,2079 @@
+<!doctype html>
+<head lang="en-US">
+
+<meta name="google-play-app" content="app-id=com.analyticsvidhya.android">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<script type="text/javascript" nonce="0fead6a709154d9db15da4a8f7c" src="//local.adguard.org?ts=1617109008433&amp;type=content-script&amp;dmn=www.analyticsvidhya.com&amp;css=1&amp;js=1&amp;gcss=1&amp;rel=1&amp;rji=1&amp;stealth=1&amp;uag="></script>
+<script type="text/javascript" nonce="0fead6a709154d9db15da4a8f7c" src="//local.adguard.org?ts=1617109008433&amp;name=AdGuard%20Extra%20Beta&amp;type=user-script"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="pingback" href="https://www.analyticsvidhya.com/xmlrpc.php">
+<link rel='icon' id='favicon' type='image/png' href='https://www.analyticsvidhya.com/wp-content/uploads/2015/02/logo_square_v2.jpg'><link rel='apple-touch-icon' href='https://www.analyticsvidhya.com/wp-content/uploads/2015/02/logo_square_v2.jpg'><link rel='apple-touch-icon' sizes='76x76' href='https://www.analyticsvidhya.com/wp-content/uploads/2015/02/logo_square_v2.jpg'><link rel='apple-touch-icon' sizes='114x114' href='https://www.analyticsvidhya.com/wp-content/uploads/2015/02/logo_square_v2.jpg'><link rel='apple-touch-icon' sizes='144x144' href='https://www.analyticsvidhya.com/wp-content/uploads/2015/02/logo_square_v2.jpg'><link href="https://www.analyticsvidhya.com/wp-content/themes/Curated/custom/custom_style.css?ver=4.9.8.3" rel="preload stylesheet" as=style>
+<link href="https://www.analyticsvidhya.com/wp-content/themes/Curated/custom/footer_style.css?ver=1.1.1" rel="preload stylesheet" as=style>
+<link href="https://www.analyticsvidhya.com/wp-content/themes/Curated/custom/special-offer-strip-2.css?ver=2.3.1" rel="preload stylesheet" as=style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="preload stylesheet" as=style>
+<link href="https://www.analyticsvidhya.com/wp-content/themes/Curated/static/css/bootstrap-responsive.css?ver=1.0" rel="preload stylesheet" as=style>
+<link href="https://www.analyticsvidhya.com/wp-content/themes/Curated/static/css/font-tm.css?ver=1.0" rel="preload stylesheet" as=style>
+<link href="https://www.analyticsvidhya.com/wp-content/themes/Curated/static/css/basix.css?ver=1.0" rel="preload stylesheet" as=style>
+<link href="https://www.analyticsvidhya.com/wp-content/themes/Curated/static/css/basix-responsive.css?ver=1.0" rel="preload stylesheet" as=style>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" id='jquery-core-js'></script>
+<script>
+                            /* You can add more configuration options to webfontloader by previously defining the WebFontConfig with your options */
+                            if ( typeof WebFontConfig === "undefined" ) {
+                                WebFontConfig = new Object();
+                            }
+                            WebFontConfig['google'] = {families: ['Open+Sans:700', 'Raleway:600', 'Roboto:400&amp;subset=latin']};
+
+                            (function() {
+                                var wf = document.createElement( 'script' );
+                                wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.5.3/webfont.js';
+                                wf.type = 'text/javascript';
+                                wf.async = 'true';
+                                var s = document.getElementsByTagName( 'script' )[0];
+                                s.parentNode.insertBefore( wf, s );
+                            })();
+                        </script>
+<style>
+.stb-container-css {margin: 10px 10px 10px 10px;}.stb-box {}.stb-caption-box {}.stb-body-box {}
+/* Class Dependent Parameters */
+.stb-border.stb-alert-container {border: 1px none #FF4F4A;}.stb-side.stb-alert-container {background: #FF4F4A;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FF4F4A', endColorstr='#504848',GradientType=0 );background: -moz-linear-gradient(top,  #FF4F4A 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#FF4F4A), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #FF4F4A 30%,#504848 90%);background: -o-linear-gradient(top,  #FF4F4A 30%,#504848 90%);background: -ms-linear-gradient(top,  #FF4F4A 30%,#504848 90%);background: linear-gradient(#FF4F4A 30%, #504848 90%);}.stb-side-none.stb-alert-container {background: #FFE7E6;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFE7E6', endColorstr='#fb7d78',GradientType=0 );background: -moz-linear-gradient(top,  #FFE7E6 30%, #fb7d78 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#FFE7E6), color-stop(90%,#fb7d78));background: -webkit-linear-gradient(top,  #FFE7E6 30%,#fb7d78 90%);background: -o-linear-gradient(top,  #FFE7E6 30%,#fb7d78 90%);background: -ms-linear-gradient(top,  #FFE7E6 30%,#fb7d78 90%);background: linear-gradient(#FFE7E6 30%, #fb7d78 90%);}.stb-alert_box {background: #FFE7E6;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFE7E6', endColorstr='#fb7d78',GradientType=0 );background: -moz-linear-gradient(top,  #FFE7E6 30%, #fb7d78 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#FFE7E6), color-stop(90%,#fb7d78));background: -webkit-linear-gradient(top,  #FFE7E6 30%,#fb7d78 90%);background: -o-linear-gradient(top,  #FFE7E6 30%,#fb7d78 90%);background: -ms-linear-gradient(top,  #FFE7E6 30%,#fb7d78 90%);background: linear-gradient(#FFE7E6 30%, #fb7d78 90%);color: #000000;}.stb-alert-caption_box {background: #FF4F4A;background: -moz-linear-gradient(top,  #FF4F4A 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#FF4F4A), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #FF4F4A 30%,#504848 90%);background: -o-linear-gradient(top,  #FF4F4A 30%,#504848 90%);background: -ms-linear-gradient(top,  #FF4F4A 30%,#504848 90%);background: linear-gradient(#FF4F4A 30%, #504848 90%);color: #FFFFFF;}.stb-alert-body_box {background: #FFE7E6;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFE7E6', endColorstr='#fb7d78',GradientType=0 );background: -moz-linear-gradient(top,  #FFE7E6 30%, #fb7d78 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#FFE7E6), color-stop(90%,#fb7d78));background: -webkit-linear-gradient(top,  #FFE7E6 30%,#fb7d78 90%);background: -o-linear-gradient(top,  #FFE7E6 30%,#fb7d78 90%);background: -ms-linear-gradient(top,  #FFE7E6 30%,#fb7d78 90%);background: linear-gradient(#FFE7E6 30%, #fb7d78 90%);color: #000000;}.stb-border.stb-black-container {border: 1px none #6E6E6E;}.stb-side.stb-black-container {background: #333333;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#504848',GradientType=0 );background: -moz-linear-gradient(top,  #333333 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#333333), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #333333 30%,#504848 90%);background: -o-linear-gradient(top,  #333333 30%,#504848 90%);background: -ms-linear-gradient(top,  #333333 30%,#504848 90%);background: linear-gradient(#333333 30%, #504848 90%);}.stb-side-none.stb-black-container {background: #000000;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=0 );background: -moz-linear-gradient(top,  #000000 30%, #000000 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#000000), color-stop(90%,#000000));background: -webkit-linear-gradient(top,  #000000 30%,#000000 90%);background: -o-linear-gradient(top,  #000000 30%,#000000 90%);background: -ms-linear-gradient(top,  #000000 30%,#000000 90%);background: linear-gradient(#000000 30%, #000000 90%);}.stb-black_box {background: #000000;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=0 );background: -moz-linear-gradient(top,  #000000 30%, #000000 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#000000), color-stop(90%,#000000));background: -webkit-linear-gradient(top,  #000000 30%,#000000 90%);background: -o-linear-gradient(top,  #000000 30%,#000000 90%);background: -ms-linear-gradient(top,  #000000 30%,#000000 90%);background: linear-gradient(#000000 30%, #000000 90%);color: #FFFFFF;}.stb-black-caption_box {background: #333333;background: -moz-linear-gradient(top,  #333333 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#333333), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #333333 30%,#504848 90%);background: -o-linear-gradient(top,  #333333 30%,#504848 90%);background: -ms-linear-gradient(top,  #333333 30%,#504848 90%);background: linear-gradient(#333333 30%, #504848 90%);color: #FFFFFF;}.stb-black-body_box {background: #000000;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=0 );background: -moz-linear-gradient(top,  #000000 30%, #000000 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#000000), color-stop(90%,#000000));background: -webkit-linear-gradient(top,  #000000 30%,#000000 90%);background: -o-linear-gradient(top,  #000000 30%,#000000 90%);background: -ms-linear-gradient(top,  #000000 30%,#000000 90%);background: linear-gradient(#000000 30%, #000000 90%);color: #FFFFFF;}.stb-border.stb-custom-container {border: 1px none #f844ee;}.stb-side.stb-custom-container {background: #f844ee;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f844ee', endColorstr='#504848',GradientType=0 );background: -moz-linear-gradient(top,  #f844ee 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#f844ee), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #f844ee 30%,#504848 90%);background: -o-linear-gradient(top,  #f844ee 30%,#504848 90%);background: -ms-linear-gradient(top,  #f844ee 30%,#504848 90%);background: linear-gradient(#f844ee 30%, #504848 90%);}.stb-side-none.stb-custom-container {background: #f7cdf5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7cdf5', endColorstr='#f77df1',GradientType=0 );background: -moz-linear-gradient(top,  #f7cdf5 30%, #f77df1 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#f7cdf5), color-stop(90%,#f77df1));background: -webkit-linear-gradient(top,  #f7cdf5 30%,#f77df1 90%);background: -o-linear-gradient(top,  #f7cdf5 30%,#f77df1 90%);background: -ms-linear-gradient(top,  #f7cdf5 30%,#f77df1 90%);background: linear-gradient(#f7cdf5 30%, #f77df1 90%);}.stb-custom_box {background: #f7cdf5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7cdf5', endColorstr='#f77df1',GradientType=0 );background: -moz-linear-gradient(top,  #f7cdf5 30%, #f77df1 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#f7cdf5), color-stop(90%,#f77df1));background: -webkit-linear-gradient(top,  #f7cdf5 30%,#f77df1 90%);background: -o-linear-gradient(top,  #f7cdf5 30%,#f77df1 90%);background: -ms-linear-gradient(top,  #f7cdf5 30%,#f77df1 90%);background: linear-gradient(#f7cdf5 30%, #f77df1 90%);color: #000000;}.stb-custom-caption_box {background: #f844ee;background: -moz-linear-gradient(top,  #f844ee 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#f844ee), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #f844ee 30%,#504848 90%);background: -o-linear-gradient(top,  #f844ee 30%,#504848 90%);background: -ms-linear-gradient(top,  #f844ee 30%,#504848 90%);background: linear-gradient(#f844ee 30%, #504848 90%);color: #ffffff;}.stb-custom-body_box {background: #f7cdf5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7cdf5', endColorstr='#f77df1',GradientType=0 );background: -moz-linear-gradient(top,  #f7cdf5 30%, #f77df1 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#f7cdf5), color-stop(90%,#f77df1));background: -webkit-linear-gradient(top,  #f7cdf5 30%,#f77df1 90%);background: -o-linear-gradient(top,  #f7cdf5 30%,#f77df1 90%);background: -ms-linear-gradient(top,  #f7cdf5 30%,#f77df1 90%);background: linear-gradient(#f7cdf5 30%, #f77df1 90%);color: #000000;}.stb-border.stb-download-container {border: 1px none #65ADFE;}.stb-side.stb-download-container {background: #65ADFE;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#65ADFE', endColorstr='#504848',GradientType=0 );background: -moz-linear-gradient(top,  #65ADFE 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#65ADFE), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #65ADFE 30%,#504848 90%);background: -o-linear-gradient(top,  #65ADFE 30%,#504848 90%);background: -ms-linear-gradient(top,  #65ADFE 30%,#504848 90%);background: linear-gradient(#65ADFE 30%, #504848 90%);}.stb-side-none.stb-download-container {background: #DFF0FF;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#DFF0FF', endColorstr='#2e7cb9',GradientType=0 );background: -moz-linear-gradient(top,  #DFF0FF 30%, #2e7cb9 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#DFF0FF), color-stop(90%,#2e7cb9));background: -webkit-linear-gradient(top,  #DFF0FF 30%,#2e7cb9 90%);background: -o-linear-gradient(top,  #DFF0FF 30%,#2e7cb9 90%);background: -ms-linear-gradient(top,  #DFF0FF 30%,#2e7cb9 90%);background: linear-gradient(#DFF0FF 30%, #2e7cb9 90%);}.stb-download_box {background: #DFF0FF;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#DFF0FF', endColorstr='#2e7cb9',GradientType=0 );background: -moz-linear-gradient(top,  #DFF0FF 30%, #2e7cb9 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#DFF0FF), color-stop(90%,#2e7cb9));background: -webkit-linear-gradient(top,  #DFF0FF 30%,#2e7cb9 90%);background: -o-linear-gradient(top,  #DFF0FF 30%,#2e7cb9 90%);background: -ms-linear-gradient(top,  #DFF0FF 30%,#2e7cb9 90%);background: linear-gradient(#DFF0FF 30%, #2e7cb9 90%);color: #000000;}.stb-download-caption_box {background: #65ADFE;background: -moz-linear-gradient(top,  #65ADFE 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#65ADFE), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #65ADFE 30%,#504848 90%);background: -o-linear-gradient(top,  #65ADFE 30%,#504848 90%);background: -ms-linear-gradient(top,  #65ADFE 30%,#504848 90%);background: linear-gradient(#65ADFE 30%, #504848 90%);color: #FFFFFF;}.stb-download-body_box {background: #DFF0FF;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#DFF0FF', endColorstr='#2e7cb9',GradientType=0 );background: -moz-linear-gradient(top,  #DFF0FF 30%, #2e7cb9 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#DFF0FF), color-stop(90%,#2e7cb9));background: -webkit-linear-gradient(top,  #DFF0FF 30%,#2e7cb9 90%);background: -o-linear-gradient(top,  #DFF0FF 30%,#2e7cb9 90%);background: -ms-linear-gradient(top,  #DFF0FF 30%,#2e7cb9 90%);background: linear-gradient(#DFF0FF 30%, #2e7cb9 90%);color: #000000;}.stb-border.stb-grey-container {border: 1px none #BBBBBB;}.stb-side.stb-grey-container {background: #BBBBBB;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#BBBBBB', endColorstr='#6e6e6e',GradientType=0 );background: -moz-linear-gradient(top,  #BBBBBB 30%, #6e6e6e 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#BBBBBB), color-stop(90%,#6e6e6e));background: -webkit-linear-gradient(top,  #BBBBBB 30%,#6e6e6e 90%);background: -o-linear-gradient(top,  #BBBBBB 30%,#6e6e6e 90%);background: -ms-linear-gradient(top,  #BBBBBB 30%,#6e6e6e 90%);background: linear-gradient(#BBBBBB 30%, #6e6e6e 90%);}.stb-side-none.stb-grey-container {background: #EEEEEE;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EEEEEE', endColorstr='#ababab',GradientType=0 );background: -moz-linear-gradient(top,  #EEEEEE 30%, #ababab 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#EEEEEE), color-stop(90%,#ababab));background: -webkit-linear-gradient(top,  #EEEEEE 30%,#ababab 90%);background: -o-linear-gradient(top,  #EEEEEE 30%,#ababab 90%);background: -ms-linear-gradient(top,  #EEEEEE 30%,#ababab 90%);background: linear-gradient(#EEEEEE 30%, #ababab 90%);}.stb-grey_box {background: #EEEEEE;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EEEEEE', endColorstr='#ababab',GradientType=0 );background: -moz-linear-gradient(top,  #EEEEEE 30%, #ababab 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#EEEEEE), color-stop(90%,#ababab));background: -webkit-linear-gradient(top,  #EEEEEE 30%,#ababab 90%);background: -o-linear-gradient(top,  #EEEEEE 30%,#ababab 90%);background: -ms-linear-gradient(top,  #EEEEEE 30%,#ababab 90%);background: linear-gradient(#EEEEEE 30%, #ababab 90%);color: #000000;}.stb-grey-caption_box {background: #BBBBBB;background: -moz-linear-gradient(top,  #BBBBBB 30%, #6e6e6e 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#BBBBBB), color-stop(90%,#6e6e6e));background: -webkit-linear-gradient(top,  #BBBBBB 30%,#6e6e6e 90%);background: -o-linear-gradient(top,  #BBBBBB 30%,#6e6e6e 90%);background: -ms-linear-gradient(top,  #BBBBBB 30%,#6e6e6e 90%);background: linear-gradient(#BBBBBB 30%, #6e6e6e 90%);color: #FFFFFF;}.stb-grey-body_box {background: #EEEEEE;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EEEEEE', endColorstr='#ababab',GradientType=0 );background: -moz-linear-gradient(top,  #EEEEEE 30%, #ababab 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#EEEEEE), color-stop(90%,#ababab));background: -webkit-linear-gradient(top,  #EEEEEE 30%,#ababab 90%);background: -o-linear-gradient(top,  #EEEEEE 30%,#ababab 90%);background: -ms-linear-gradient(top,  #EEEEEE 30%,#ababab 90%);background: linear-gradient(#EEEEEE 30%, #ababab 90%);color: #000000;}.stb-border.stb-info-container {border: 1px none #7AD975;}.stb-side.stb-info-container {background: #7AD975;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7AD975', endColorstr='#504848',GradientType=0 );background: -moz-linear-gradient(top,  #7AD975 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#7AD975), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #7AD975 30%,#504848 90%);background: -o-linear-gradient(top,  #7AD975 30%,#504848 90%);background: -ms-linear-gradient(top,  #7AD975 30%,#504848 90%);background: linear-gradient(#7AD975 30%, #504848 90%);}.stb-side-none.stb-info-container {background: #E2F8DE;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E2F8DE', endColorstr='#79b06e',GradientType=0 );background: -moz-linear-gradient(top,  #E2F8DE 30%, #79b06e 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#E2F8DE), color-stop(90%,#79b06e));background: -webkit-linear-gradient(top,  #E2F8DE 30%,#79b06e 90%);background: -o-linear-gradient(top,  #E2F8DE 30%,#79b06e 90%);background: -ms-linear-gradient(top,  #E2F8DE 30%,#79b06e 90%);background: linear-gradient(#E2F8DE 30%, #79b06e 90%);}.stb-info_box {background: #E2F8DE;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E2F8DE', endColorstr='#79b06e',GradientType=0 );background: -moz-linear-gradient(top,  #E2F8DE 30%, #79b06e 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#E2F8DE), color-stop(90%,#79b06e));background: -webkit-linear-gradient(top,  #E2F8DE 30%,#79b06e 90%);background: -o-linear-gradient(top,  #E2F8DE 30%,#79b06e 90%);background: -ms-linear-gradient(top,  #E2F8DE 30%,#79b06e 90%);background: linear-gradient(#E2F8DE 30%, #79b06e 90%);color: #000000;}.stb-info-caption_box {background: #7AD975;background: -moz-linear-gradient(top,  #7AD975 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#7AD975), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #7AD975 30%,#504848 90%);background: -o-linear-gradient(top,  #7AD975 30%,#504848 90%);background: -ms-linear-gradient(top,  #7AD975 30%,#504848 90%);background: linear-gradient(#7AD975 30%, #504848 90%);color: #FFFFFF;}.stb-info-body_box {background: #E2F8DE;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E2F8DE', endColorstr='#79b06e',GradientType=0 );background: -moz-linear-gradient(top,  #E2F8DE 30%, #79b06e 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#E2F8DE), color-stop(90%,#79b06e));background: -webkit-linear-gradient(top,  #E2F8DE 30%,#79b06e 90%);background: -o-linear-gradient(top,  #E2F8DE 30%,#79b06e 90%);background: -ms-linear-gradient(top,  #E2F8DE 30%,#79b06e 90%);background: linear-gradient(#E2F8DE 30%, #79b06e 90%);color: #000000;}.stb-border.stb-section-container {border: 1px none #2982C5;}.stb-side.stb-section-container {background: #2982C5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2982C5', endColorstr='#2944f2',GradientType=0 );background: -moz-linear-gradient(top,  #2982C5 30%, #2944f2 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#2982C5), color-stop(90%,#2944f2));background: -webkit-linear-gradient(top,  #2982C5 30%,#2944f2 90%);background: -o-linear-gradient(top,  #2982C5 30%,#2944f2 90%);background: -ms-linear-gradient(top,  #2982C5 30%,#2944f2 90%);background: linear-gradient(#2982C5 30%, #2944f2 90%);}.stb-side-none.stb-section-container {background: #2982C5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2982C5', endColorstr='#294ee3',GradientType=0 );background: -moz-linear-gradient(top,  #2982C5 30%, #294ee3 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#2982C5), color-stop(90%,#294ee3));background: -webkit-linear-gradient(top,  #2982C5 30%,#294ee3 90%);background: -o-linear-gradient(top,  #2982C5 30%,#294ee3 90%);background: -ms-linear-gradient(top,  #2982C5 30%,#294ee3 90%);background: linear-gradient(#2982C5 30%, #294ee3 90%);}.stb-section_box {background: #2982C5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2982C5', endColorstr='#294ee3',GradientType=0 );background: -moz-linear-gradient(top,  #2982C5 30%, #294ee3 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#2982C5), color-stop(90%,#294ee3));background: -webkit-linear-gradient(top,  #2982C5 30%,#294ee3 90%);background: -o-linear-gradient(top,  #2982C5 30%,#294ee3 90%);background: -ms-linear-gradient(top,  #2982C5 30%,#294ee3 90%);background: linear-gradient(#2982C5 30%, #294ee3 90%);color: #000000;}.stb-section-caption_box {background: #2982C5;background: -moz-linear-gradient(top,  #2982C5 30%, #2944f2 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#2982C5), color-stop(90%,#2944f2));background: -webkit-linear-gradient(top,  #2982C5 30%,#2944f2 90%);background: -o-linear-gradient(top,  #2982C5 30%,#2944f2 90%);background: -ms-linear-gradient(top,  #2982C5 30%,#2944f2 90%);background: linear-gradient(#2982C5 30%, #2944f2 90%);color: #FFFFFF;}.stb-section-body_box {background: #2982C5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2982C5', endColorstr='#294ee3',GradientType=0 );background: -moz-linear-gradient(top,  #2982C5 30%, #294ee3 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#2982C5), color-stop(90%,#294ee3));background: -webkit-linear-gradient(top,  #2982C5 30%,#294ee3 90%);background: -o-linear-gradient(top,  #2982C5 30%,#294ee3 90%);background: -ms-linear-gradient(top,  #2982C5 30%,#294ee3 90%);background: linear-gradient(#2982C5 30%, #294ee3 90%);color: #000000;}.stb-border.stb-warning-container {border: 1px none #FE9A05;}.stb-side.stb-warning-container {background: #FE9A05;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FE9A05', endColorstr='#504848',GradientType=0 );background: -moz-linear-gradient(top,  #FE9A05 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#FE9A05), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #FE9A05 30%,#504848 90%);background: -o-linear-gradient(top,  #FE9A05 30%,#504848 90%);background: -ms-linear-gradient(top,  #FE9A05 30%,#504848 90%);background: linear-gradient(#FE9A05 30%, #504848 90%);}.stb-side-none.stb-warning-container {background: #FEFFD5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FEFFD5', endColorstr='#f0d208',GradientType=0 );background: -moz-linear-gradient(top,  #FEFFD5 30%, #f0d208 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#FEFFD5), color-stop(90%,#f0d208));background: -webkit-linear-gradient(top,  #FEFFD5 30%,#f0d208 90%);background: -o-linear-gradient(top,  #FEFFD5 30%,#f0d208 90%);background: -ms-linear-gradient(top,  #FEFFD5 30%,#f0d208 90%);background: linear-gradient(#FEFFD5 30%, #f0d208 90%);}.stb-warning_box {background: #FEFFD5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FEFFD5', endColorstr='#f0d208',GradientType=0 );background: -moz-linear-gradient(top,  #FEFFD5 30%, #f0d208 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#FEFFD5), color-stop(90%,#f0d208));background: -webkit-linear-gradient(top,  #FEFFD5 30%,#f0d208 90%);background: -o-linear-gradient(top,  #FEFFD5 30%,#f0d208 90%);background: -ms-linear-gradient(top,  #FEFFD5 30%,#f0d208 90%);background: linear-gradient(#FEFFD5 30%, #f0d208 90%);color: #000000;}.stb-warning-caption_box {background: #FE9A05;background: -moz-linear-gradient(top,  #FE9A05 30%, #504848 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#FE9A05), color-stop(90%,#504848));background: -webkit-linear-gradient(top,  #FE9A05 30%,#504848 90%);background: -o-linear-gradient(top,  #FE9A05 30%,#504848 90%);background: -ms-linear-gradient(top,  #FE9A05 30%,#504848 90%);background: linear-gradient(#FE9A05 30%, #504848 90%);color: #FFFFFF;}.stb-warning-body_box {background: #FEFFD5;filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FEFFD5', endColorstr='#f0d208',GradientType=0 );background: -moz-linear-gradient(top,  #FEFFD5 30%, #f0d208 90%);background: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#FEFFD5), color-stop(90%,#f0d208));background: -webkit-linear-gradient(top,  #FEFFD5 30%,#f0d208 90%);background: -o-linear-gradient(top,  #FEFFD5 30%,#f0d208 90%);background: -ms-linear-gradient(top,  #FEFFD5 30%,#f0d208 90%);background: linear-gradient(#FEFFD5 30%, #f0d208 90%);color: #000000;}</style>
+
+<title>Introduction to Conditional Probability and Bayes theorem for data science professionals</title>
+<meta name="description" content="This article provides an introduction to conditional probability &amp; Bayes Theorem. This explains dependent, independent, exclusive &amp; exhaustive events" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<link rel="canonical" href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Introduction to Conditional Probability and Bayes theorem for data science professionals" />
+<meta property="og:description" content="This article provides an introduction to conditional probability &amp; Bayes Theorem. This explains dependent, independent, exclusive &amp; exhaustive events" />
+<meta property="og:url" content="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/" />
+<meta property="og:site_name" content="Analytics Vidhya" />
+<meta property="article:publisher" content="https://www.facebook.com/AnalyticsVidhya/" />
+<meta property="article:published_time" content="2017-03-14T02:16:21+00:00" />
+<meta property="article:modified_time" content="2019-07-11T11:54:32+00:00" />
+<meta property="og:image" content="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13122136/venn-diagram.png" />
+<meta property="og:image:width" content="500" />
+<meta property="og:image:height" content="454" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="@analyticsvidhya" />
+<meta name="twitter:site" content="@analyticsvidhya" />
+<meta name="twitter:label1" content="Written by">
+<meta name="twitter:data1" content="Dishashree Gupta">
+<meta name="twitter:label2" content="Est. reading time">
+<meta name="twitter:data2" content="16 minutes">
+<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.analyticsvidhya.com/#website","url":"https://www.analyticsvidhya.com/","name":"Analytics Vidhya","description":"Learn everything about Analytics","potentialAction":[{"@type":"SearchAction","target":"https://www.analyticsvidhya.com/?s={search_term_string}","query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id":"https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#primaryimage","inLanguage":"en-US","url":"https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13122136/venn-diagram.png","width":500,"height":454},{"@type":"WebPage","@id":"https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#webpage","url":"https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/","name":"Introduction to Conditional Probability and Bayes theorem for data science professionals","isPartOf":{"@id":"https://www.analyticsvidhya.com/#website"},"primaryImageOfPage":{"@id":"https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#primaryimage"},"datePublished":"2017-03-14T02:16:21+00:00","dateModified":"2019-07-11T11:54:32+00:00","author":{"@id":"https://www.analyticsvidhya.com/#/schema/person/7d19b10abcf362c55ee32483c3c283cc"},"description":"This article provides an introduction to conditional probability & Bayes Theorem. This explains dependent, independent, exclusive & exhaustive events","breadcrumb":{"@id":"https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/"]}]},{"@type":"BreadcrumbList","@id":"https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"WebPage","@id":"https://www.analyticsvidhya.com/","url":"https://www.analyticsvidhya.com/","name":"Home"}},{"@type":"ListItem","position":2,"item":{"@type":"WebPage","@id":"https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/","url":"https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/","name":"Introduction to Conditional Probability and Bayes theorem in R for data science professionals"}}]},{"@type":"Person","@id":"https://www.analyticsvidhya.com/#/schema/person/7d19b10abcf362c55ee32483c3c283cc","name":"Dishashree Gupta","image":{"@type":"ImageObject","@id":"https://www.analyticsvidhya.com/#personlogo","inLanguage":"en-US","url":"https://secure.gravatar.com/avatar/3a42e5a1ae793593b7804ac61e5753c2?s=96&d=mm&r=g","caption":"Dishashree Gupta"},"description":"Dishashree is passionate about statistics and is a machine learning enthusiast. She has an experience of 1.5 years of Market Research using R, advanced Excel, Azure ML."}]}</script>
+
+<link rel='dns-prefetch' href='//www.analyticsvidhya.com' />
+<link rel='dns-prefetch' href='//cdnjs.cloudflare.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.analyticsvidhya.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.6"}};
+			!function(e,a,t){var r,n,o,i,p=a.createElement("canvas"),s=p.getContext&&p.getContext("2d");function c(e,t){var a=String.fromCharCode;s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,e),0,0);var r=p.toDataURL();return s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,t),0,0),r===p.toDataURL()}function l(e){if(!s||!s.fillText)return!1;switch(s.textBaseline="top",s.font="600 32px Arial",e){case"flag":return!c([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])&&(!c([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!c([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]));case"emoji":return!c([55357,56424,8205,55356,57212],[55357,56424,8203,55356,57212])}return!1}function d(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(i=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},o=0;o<i.length;o++)t.supports[i[o]]=l(i[o]),t.supports.everything=t.supports.everything&&t.supports[i[o]],"flag"!==i[o]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[i[o]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(r=t.source||{}).concatemoji?d(r.concatemoji):r.wpemoji&&r.twemoji&&(d(r.twemoji),d(r.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='jetpack_related-posts-css' href='https://www.analyticsvidhya.com/wp-content/plugins/jetpack/modules/related-posts/related-posts.css?ver=20201207' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css' href='https://www.analyticsvidhya.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.3.2' type='text/css' media='all' />
+<style id='contact-form-7-inline-css' type='text/css'>
+.wpcf7 .wpcf7-recaptcha iframe {margin-bottom: 0;}.wpcf7 .wpcf7-recaptcha[data-align="center"] > div {margin: 0 auto;}.wpcf7 .wpcf7-recaptcha[data-align="right"] > div {margin: 0 0 0 auto;}
+</style>
+<link rel='stylesheet' id='dgd-scrollbox-plugin-core-css' href='https://www.analyticsvidhya.com/wp-content/plugins/dreamgrow-scroll-triggered-box/css/style.css?ver=2.3' type='text/css' media='all' />
+<link rel='stylesheet' id='stbCoreCSS-css' href='https://www.analyticsvidhya.com/wp-content/plugins/wp-special-textboxes/css/stb-core.css?ver=5.9.109' type='text/css' media='all' />
+<link rel='stylesheet' id='wpss-style-css' href='https://www.analyticsvidhya.com/wp-content/plugins/wordpress-simple-survey/assets/build/css/wpss-pkg.min.css?ver=5.6' type='text/css' media='all' />
+<link rel='stylesheet' id='wpss-custom-db-style-css' href='https://www.analyticsvidhya.com/wp-content/plugins/wordpress-simple-survey/assets/css/custom-performance.css?ver=5.6' type='text/css' media='all' />
+<script type='text/javascript' id='jetpack_related-posts-js-extra'>
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-content/plugins/jetpack/_inc/build/related-posts/related-posts.min.js?ver=20201207' defer='defer' id='jetpack_related-posts-js'></script>
+<script type='text/javascript' id='dgd-scrollbox-plugin-js-extra'>
+/* <![CDATA[ */
+var $DGD = {"ajaxurl":"\/wp-admin\/admin-ajax.php","nonce":"b9fdbff029","debug":"","permalink":"https:\/\/www.analyticsvidhya.com\/blog\/2017\/03\/conditional-probability-bayes-theorem\/","title":"Introduction to Conditional Probability and Bayes theorem in R for data science professionals","thumbnail":"https:\/\/cdn.analyticsvidhya.com\/wp-content\/uploads\/2017\/03\/13122136\/venn-diagram.png","scripthost":"\/wp-content\/plugins\/dreamgrow-scroll-triggered-box\/","scrollboxes":[{"trigger":{"action":"scroll","scroll":"0","delaytime":"0","element":""},"vpos":"center","hpos":"center","cookieLifetime":"0","hide_mobile":"1","receiver_email":"1","thankyou":"You are subscribed. Thank You!","submit_auto_close":"5","hide_submitted":"1","delay_auto_close":"0","lightbox":{"color":"#000000","opacity":"0.7","blur":"2"},"theme":"","widget_enabled":"1","height":"500","width":"800","jsCss":{"padding":"0","margin":"0","backgroundColor":"","boxShadow":"0px","borderColor":"","borderWidth":"0px","borderRadius":"0px","backgroundImageUrl":""},"closeImageUrl":"","transition":{"from":"b","effect":"none","speed":"400"},"social":{"facebook":"","twitter":"","google":"","pinterest":"","stumbleupon":"","linkedin":""},"id":"dgd_scrollbox-75110","mode":"stb","voff":0,"hoff":0}]};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-content/plugins/dreamgrow-scroll-triggered-box/js/script.js?ver=2.3' defer='defer' id='dgd-scrollbox-plugin-js'></script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-content/plugins/wordpress-simple-survey/assets/build/js/wpss-pkg.min.js?ver=3.0.0' defer='defer' id='wpss-pkg-js'></script>
+<link rel="https://api.w.org/" href="https://www.analyticsvidhya.com/wp-json/" /><link rel="alternate" type="application/json" href="https://www.analyticsvidhya.com/wp-json/wp/v2/posts/33873" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.analyticsvidhya.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.analyticsvidhya.com/wp-includes/wlwmanifest.xml" />
+<meta name="generator" content="WordPress 5.6" />
+<link rel='shortlink' href='https://www.analyticsvidhya.com/?p=33873' />
+<link rel="alternate" type="application/json+oembed" href="https://www.analyticsvidhya.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2017%2F03%2Fconditional-probability-bayes-theorem%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.analyticsvidhya.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.analyticsvidhya.com%2Fblog%2F2017%2F03%2Fconditional-probability-bayes-theorem%2F&#038;format=xml" />
+<script type="text/javascript"><!--
+function powerpress_pinw(pinw_url){window.open(pinw_url, 'PowerPressPlayer','toolbar=0,status=0,resizable=1,width=460,height=320');	return false;}
+//-->
+</script>
+<script type="text/javascript">/* <![CDATA[ */ jQuery.post("https://www.analyticsvidhya.com/wp-admin/admin-ajax.php", { action: "wmp_update", id: 33873, token: "230213fda6" }); /* ]]> */</script>
+<style type="text/css">
+
+
+
+                #yith-topbar-countdown.topbar-countdown-container{
+
+                    
+                                            background-color: #ee3d24;
+                    
+                    
+                    background-repeat:repeat;
+                    background-position:top left;
+                    background-attachment:scroll;
+                }
+
+                #yith-topbar-countdown .countdown_slogan{
+                    color: #FFFFFF;
+font-size: 14px;
+font-family: 'Roboto';
+font-weight: 400;
+font-style: normal;
+                }
+
+                #yith-topbar-countdown .countdown_information .countdown .num {color: #ffffff;
+font-size: 14px;
+font-family: 'Roboto';
+font-weight: 700;
+font-style: normal;
+}
+
+                #yith-topbar-countdown .countdown_information .countdown_slogan strong{
+                    color: #ffffff;
+font-size: 14px;
+font-family: 'Roboto';
+font-weight: 700;
+font-style: normal;
+                }
+
+                #yith-topbar-countdown .countdown_information .message,
+                #yith-topbar-countdown .countdown_information .countdown-label{
+                    color: #FFFFFF;
+font-size: 14px;
+font-family: 'Roboto';
+font-weight: 400;
+font-style: normal;
+                }
+
+                #yith-topbar-countdown .countdown_button {
+
+                                            background-color: #ee3d24;
+                    
+                    color: #FFFFFF;
+font-size: 14px;
+font-family: 'Roboto';
+font-weight: 700;
+font-style: normal;
+                }
+
+                #yith-topbar-countdown .countdown_button a{color: #FFFFFF;
+font-size: 14px;
+font-family: 'Roboto';
+font-weight: 700;
+font-style: normal;
+}
+
+                #yith-topbar-countdown .countdown_button:hover {
+                                            background-color: #821919;
+                                    }
+
+            </style>
+
+<meta property="og:url" content="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/" />
+<meta property="og:title" content="Introduction to Conditional Probability and Bayes theorem in R for data science professionals" />
+<meta property="og:description" content="Introduction Understanding of probability is must for a data science professional. Solutions to many data science problems are often probabilistic in nature. Hence, a better understanding of probability will help you understand &amp; implement these algorithms more efficiently. In this article, I will focus on conditional probability. For beginners in probability, I would strongly recommend that" />
+<meta property="og:image" content="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13122136/venn-diagram-200x200.png" />
+
+<link rel='canonical' href='https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/' />
+<style type="text/css"></style>
+
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MPSM42V');</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40101183-1', 'auto');
+  ga('require', 'GTM-PBZGQJ4');
+  //ga('send', 'pageview');
+  ga('send', 'pageview', {
+     'dimension1': 'Dishashree Gupta',
+     'dimension2': 'Business Analytics'
+     });
+</script>
+<meta property="fb:pages" content="452065408218678" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+    var truepush = window.truepush || [];
+    truepush.push(function(){
+      truepush.Init({
+        id: "5f2968e91e8ca92c6cc55c46"
+      },
+        function(error){
+        if(error) console.log(error);
+})
+    })
+</script>
+</head>
+<body class="post-template-default single single-post postid-33873 single-format-standard mh-body chrome">
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPSM42V"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="sale-strip" id="sale-strip" style="display:none;">
+<p></p>
+<a id="href_id" class="btn strip-btn"></a>
+<div id="clockdiv" style="display:none;">
+<span>
+<h4 class="days" id="day"></h4>
+<sup>D</sup>
+</span>
+<span>
+<h4 class="hours" id="hour"></h4>
+<sup>H</sup>
+</span>
+<span>
+<h4 class="minutes" id="minute"></h4>
+<sup>M</sup>
+</span>
+<span>
+<h4 class="seconds" id="second"></h4>
+<sup>S</sup>
+</span>
+</div>
+</div>
+<div id="body-maha" class="body-maha" data-tmloader="https://www.analyticsvidhya.com/wp-content/themes/Curated/images/ellipsis.gif">
+<nav id="mobile-bar-sticky" role="navigation" class="mobile-bar bar-sticky">
+<div id="close-mobile-bar"><i class="tm-cancel"></i></div>
+<div id="search-mobile-bar"><form action="https://www.analyticsvidhya.com/" class="searchform" method="get">
+<button class="search-button"><i class="tm-search"></i></button>
+<input type="text" name="s" class="search-input" value="Search" onfocus="if(this.value=='Search')this.value='';" onblur="if(this.value=='')this.value='Search';" autocomplete="off" />
+</form></div>
+<ul id="menu-main-menu" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/blog/?utm_source=home_blog_navbar">Blog</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/blog-archive/">Blog Archive</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category mh-navcat-2498"><span></span><a href="https://www.analyticsvidhya.com/blog/category/machine-learning/">Machine Learning</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category mh-navcat-3761"><span></span><a href="https://www.analyticsvidhya.com/blog/category/deep-learning/">Deep Learning</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category mh-navcat-4121"><span></span><a href="https://www.analyticsvidhya.com/blog/category/career/">Career</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category mh-navcat-3118"><span></span><a href="https://www.analyticsvidhya.com/blog/category/stories/">Stories</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/blog/category/podcast/">DataHack Radio</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/">Learning Paths</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/learning-path-business-analyst-sas/">SAS Business Analyst</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/learning-path-r-data-science/">LeaRn Data Science on R</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/learning-path-data-science-python/">Data Science in Python</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/weka-gui-learn-machine-learning/">DATA SCIENCE IN WEKA</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/tableau-learning-path/">Data Visualization with Tableau</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/qlikview-learning-path/">Data Visualization with QlikView</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/newbie-d3-js-expert-complete-path-create-interactive-visualization-d3-js/">Interactive Data Stories with D3.js</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/glossary-of-common-statistics-and-machine-learning-terms/">Glossary</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children mh-navcat-5288"><span></span><a href="https://courses.analyticsvidhya.com">Courses</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><span></span><a href="https://courses.analyticsvidhya.com/courses/applied-machine-learning-beginner-to-professional?utm_source=home_blog_navbar">Applied Machine Learning &#8211; Beginner to Professional</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><span></span><a href="https://courses.analyticsvidhya.com/courses/introduction-to-data-science-2?utm_source=home_blog_navbar">INTRODUCTION TO DATA SCIENCE</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><span></span><a href="https://courses.analyticsvidhya.com/courses/natural-language-processing-nlp?utm_source=home_blog_navbar">Natural Language Processing (NLP) Using Python</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><span></span><a href="https://courses.analyticsvidhya.com/courses/computer-vision-using-deep-learning-version2?utm_source=home_blog_navbar">Computer Vision using Deep Learning 2.0</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><span></span><a href="https://courses.analyticsvidhya.com/collections/?utm_source=blog-navbar">More Courses</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><span></span><a href="https://datahack.analyticsvidhya.com/contest/all">Hackathons</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-170"><span></span><a href="https://jobs.analyticsvidhya.com/?utm_source=home_blog_navbar">Jobs</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><span></span><a href="https://blackbelt.analyticsvidhya.com/?utm_source=Blog&amp;utm_medium=Navbar&amp;utm_campaign=BB">AI &#038; ML BlackBelt</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/ascend-pro/?utm_source=blog&amp;utm_medium=navbar&amp;utm_campaign=ascend_pro"><span style='color:#EE3D24'>Ascend Pro</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><span></span><a href="https://datahack.analyticsvidhya.com/contest/data-science-blogathon-6/?utm_source=blog&amp;utm_medium=menubar">Write for Us</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/contact/">Contact</a></li>
+</ul> </nav>
+
+<div id='body-background'>
+
+<div id="off-canvas-body" class="off-canvas-body animati-on">
+
+<div id="top-bar-sticky" class="bar-sticky">
+<div class="top-bar">
+
+<div class="container">
+<div class="row">
+<div class="col-sm-12">
+<div id="top-right-nav">
+<div class="social-top">
+<ul><li><a target="_blank" href="https://www.facebook.com/AnalyticsVidhya"><i class="tm-facebook"></i></a></li><li><a target="_blank" href="https://twitter.com/analyticsvidhya"><i class="tm-twitter"></i></a></li><li><a target="_blank" href="https://plus.google.com/+Analyticsvidhya/posts"><i class="tm-googleplus"></i></a></li><li><a target="_blank" href="https://in.linkedin.com/company/analytics-vidhya"><i class="tm-linkedin"></i></a></li></ul>
+</div>
+<div class="top-user">
+<i class='tm-user'></i>
+<a class="login-modal-closer" data-reveal-id="cur-register" data-animation="fade" data-dismissmodalclass="register-reveal-modal" id="login1"></a><span id="regiter1"></span>
+</div>
+</div>
+<nav id="top-nav-wrapper" class="ul-nav">
+<ul id="menu-top" class="menu"><li id="menu-item-42575" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-42575 mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com">Home</a></li>
+<li id="menu-item-64144" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-64144 mh-navcat-0"><span></span><a href="https://datahack.analyticsvidhya.com/contest/data-science-blogathon-6/?utm_source=blog&#038;utm_medium=feed">Feed</a></li>
+<li id="menu-item-12992" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12992 mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/blog-archive/">Blog Archive</a></li>
+<li id="menu-item-12952" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12952 mh-navcat-0"><span></span><a href="https://discuss.analyticsvidhya.com">Discuss</a></li>
+<li id="menu-item-39605" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-39605 mh-navcat-0"><span></span><a href="https://www.analyticsvidhya.com/corporate/">Corporate</a></li>
+</ul> </nav>
+<nav id="top-mobile-wrapper" class="ul-nav">
+<ul><li><a><i class="tm-menu"></i></a></li></ul>
+</nav>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+
+<div class="main-logo-ads-wrap">
+<div class="main-logo-ads">
+
+<div class="container">
+<div class="row ">
+<div class="col-sm-12">
+
+<div id="thelogo" class="logo ">
+<a href="https://www.analyticsvidhya.com/blog/">
+<img alt="Analytics Vidhya - Learn everything about Analytics" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/06/Av-Logo-250x71-1.jpg" data-retina="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/06/Av-Logo-250x71-1.jpg" data-first="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/06/Av-Logo-250x71-1.jpg" />
+</a>
+</div>
+<h2 class='site-outline'>Learn everything about Analytics</h2>
+
+<div id="main-ads" class="main-ads-right">
+<div><a href="https://www.analyticsvidhya.com/back-channel/download-starter-kit.php?utm_source=ml-interview-guide&id=10"><img src="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/08/Machine-Learning-Interview-Guide.png"></a></div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+
+<div id="main-nav">
+<div id="main-nav-bar" class="main-nav-bar clearfix ">
+<div id="main-search" class=" clearfix">
+<div id="con-search">
+<div class="container">
+<div class="cols-sm12">
+<div id="main-search-form">
+<span class="close-search-form"><i class="tm-cancel"></i></span>
+<span class="loading-search-result"><img src="https://www.analyticsvidhya.com/wp-content/themes/Curated/images/ellipsis.gif" alt=""></span>
+<form action="https://www.analyticsvidhya.com/" class="searchform" method="get">
+<button class="search-button"><i class="tm-search"></i></button>
+<input type="text" name="s" class="search-input" value="Search" onfocus="if(this.value=='Search')this.value='';" onblur="if(this.value=='')this.value='Search';" autocomplete="off" />
+</form> <div class="search-result">
+<div class="container search-result-content"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='maha-notification container'><div id="main-notif"></div></div>
+<div class="container clearfix">
+</div>
+
+<div class="container clearfix">
+<div class="row clearfix">
+<div class="col-sm-12 clearfix">
+
+
+<div id="search-nav" class="search-nav clearfix">
+<span class="open-search-form"><i class="tm-search"></i></span>
+</div>
+
+
+<nav id="main-nav-wrapper" class="main-ul-nav clearfix">
+<div id="thelogosmall" class="logo">
+<a href="https://www.analyticsvidhya.com/blog/">
+<img alt="Analytics Vidhya - Learn everything about Analytics" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/06/Av-logo-138x40-1.jpg" data-retina="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/06/Av-logo-319x90-1.jpg" data-first="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/06/Av-logo-138x40-1.jpg" />
+</a>
+</div>
+<ul id="menu-main-menu-1" class="menu"><li id="menu-item-37781" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children mh-navcat-0"><a href="https://www.analyticsvidhya.com/blog/?utm_source=home_blog_navbar">Blog</a><div class="nav-sub-wrap container"><div class="nsw clearfix row">
+<div class="nav-sub-menus"><ul>
+<li id="menu-item-55484" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children mh-navcat-0"><a href="https://www.analyticsvidhya.com/blog-archive/">Blog Archive</a><div class="nav-sub-wrap container"><div class="nsw clearfix row">
+<div class="nav-sub-menus"><ul>
+<li id="menu-item-47251" class="menu-item menu-item-type-taxonomy menu-item-object-category mh-navcat-2498"><a href="https://www.analyticsvidhya.com/blog/category/machine-learning/">Machine Learning</a></li>
+<li id="menu-item-47265" class="menu-item menu-item-type-taxonomy menu-item-object-category mh-navcat-3761"><a href="https://www.analyticsvidhya.com/blog/category/deep-learning/">Deep Learning</a></li>
+<li id="menu-item-47191" class="menu-item menu-item-type-taxonomy menu-item-object-category mh-navcat-4121"><a href="https://www.analyticsvidhya.com/blog/category/career/">Career</a></li>
+<li id="menu-item-27174" class="menu-item menu-item-type-taxonomy menu-item-object-category mh-navcat-3118"><a href="https://www.analyticsvidhya.com/blog/category/stories/">Stories</a></li>
+<li id="menu-item-45209" class="menu-item menu-item-type-taxonomy menu-item-object-category mh-navcat-0"><a href="https://www.analyticsvidhya.com/blog/category/podcast/">DataHack Radio</a></li>
+</ul></div>
+</div></div>
+</li>
+<li id="menu-item-12170" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children mh-navcat-0"><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/">Learning Paths</a><div class="nav-sub-wrap container"><div class="nsw clearfix row">
+<div class="nav-sub-menus"><ul>
+<li id="menu-item-12503" class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/learning-path-business-analyst-sas/">SAS Business Analyst</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-14416" class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/learning-path-r-data-science/">LeaRn Data Science on R</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-12171" class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/learning-path-data-science-python/">Data Science in Python</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-13207" class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/weka-gui-learn-machine-learning/">DATA SCIENCE IN WEKA</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-23077" class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/tableau-learning-path/">Data Visualization with Tableau</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-12320" class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/qlikview-learning-path/">Data Visualization with QlikView</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-23078" class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><a href="https://www.analyticsvidhya.com/learning-paths-data-science-business-analytics-business-intelligence-big-data/newbie-d3-js-expert-complete-path-create-interactive-visualization-d3-js/">Interactive Data Stories with D3.js</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+</ul></div>
+</div></div>
+</li>
+<li id="menu-item-55487" class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><a href="https://www.analyticsvidhya.com/glossary-of-common-statistics-and-machine-learning-terms/">Glossary</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+</ul></div>
+</div></div>
+</li>
+<li id="menu-item-44643" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children mh-navcat-5288"><a href="https://courses.analyticsvidhya.com">Courses</a><div class="nav-sub-wrap container"><div class="nsw clearfix row">
+<div class="nav-sub-menus"><ul>
+<li id="menu-item-53978" class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><a href="https://courses.analyticsvidhya.com/courses/applied-machine-learning-beginner-to-professional?utm_source=home_blog_navbar">Applied Machine Learning &#8211; Beginner to Professional</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-44644" class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><a href="https://courses.analyticsvidhya.com/courses/introduction-to-data-science-2?utm_source=home_blog_navbar">INTRODUCTION TO DATA SCIENCE</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-48965" class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><a href="https://courses.analyticsvidhya.com/courses/natural-language-processing-nlp?utm_source=home_blog_navbar">Natural Language Processing (NLP) Using Python</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-48964" class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><a href="https://courses.analyticsvidhya.com/courses/computer-vision-using-deep-learning-version2?utm_source=home_blog_navbar">Computer Vision using Deep Learning 2.0</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-44646" class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><a href="https://courses.analyticsvidhya.com/collections/?utm_source=blog-navbar">More Courses</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+</ul></div>
+</div></div>
+</li>
+<li id="menu-item-24638" class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><a href="https://datahack.analyticsvidhya.com/contest/all">Hackathons</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-55521" class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-170"><a href="https://jobs.analyticsvidhya.com/?utm_source=home_blog_navbar">Jobs</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-75150" class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><a href="https://blackbelt.analyticsvidhya.com/?utm_source=Blog&amp;utm_medium=Navbar&amp;utm_campaign=BB">AI &#038; ML BlackBelt</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-69325" class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><a href="https://www.analyticsvidhya.com/ascend-pro/?utm_source=blog&amp;utm_medium=navbar&amp;utm_campaign=ascend_pro"><span style='color:#EE3D24'>Ascend Pro</span></a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-74215" class="menu-item menu-item-type-custom menu-item-object-custom mh-navcat-0"><a href="https://datahack.analyticsvidhya.com/contest/data-science-blogathon-6/?utm_source=blog&amp;utm_medium=menubar">Write for Us</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+<li id="menu-item-24641" class="menu-item menu-item-type-post_type menu-item-object-page mh-navcat-0"><a href="https://www.analyticsvidhya.com/contact/">Contact</a><div class="nav-sub-wrap container"><div class="nsw clearfix row"></div></div>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+
+<div class="page-wrapper">
+
+<div class="mh-el page-sidebar single-regular" itemscope itemtype="https://schema.org/Article">
+
+<div class="container">
+<div class="row">
+
+<div class="col-sm-8">
+<div class="main-content">
+
+<div class="maha-crumbs"><span><span><a href="https://www.analyticsvidhya.com/">Home</a> » <span class="breadcrumb_last" aria-current="page">Introduction to Conditional Probability and Bayes theorem in R for data science professionals</span></span></span></div>
+<article id="post-33873" class="main-content single-post-box">
+<header>
+<meta itemprop="headline" content="Introduction to Conditional Probability and Bayes theorem in R for data science professionals">
+<meta itemprop="datecreated" content="2017-03-14T02:16:21+05:30">
+<meta itemprop="datePublished" content="2017-03-14T02:16:21+05:30">
+<meta itemprop="dateModified" content="2019-07-11T17:24:32+05:30">
+<meta itemscope itemprop="mainEntityOfPage" itemType="https://schema.org/WebPage" itemid="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/" />
+<span class="hidden" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+<meta itemprop="url" content="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13122136/venn-diagram.png">
+<meta itemprop="width" content="454">
+<meta itemprop="height" content="454">
+</span>
+<span class="hidden" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+<span class="hidden" itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+<meta itemprop="url" content="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/06/Av-Logo-250x71-1.jpg">
+</span>
+<meta itemprop="name" content="Analytics Vidhya">
+</span>
+<div class="meta-count">
+<span class="i-category"><span class="mh-cat-item"><a class="mh-elcat-5" href="https://www.analyticsvidhya.com/blog/category/business-analytics/" title="Business Analytics" rel="category">Business Analytics</a></span><span class="mh-cat-item"><a class="mh-elcat-5386" href="https://www.analyticsvidhya.com/blog/category/intermediate/" title="Intermediate" rel="category">Intermediate</a></span><span class="mh-cat-item"><a class="mh-elcat-396" href="https://www.analyticsvidhya.com/blog/category/python-2/" title="Python" rel="category">Python</a></span><span class="mh-cat-item"><a class="mh-elcat-4087" href="https://www.analyticsvidhya.com/blog/category/statistics/" title="Statistics" rel="category">Statistics</a></span><span class="mh-cat-item"><a class="mh-elcat-5307" href="https://www.analyticsvidhya.com/blog/category/technique/" title="Technique" rel="category">Technique</a></span></span>
+</div>
+<h1 itemprop="name" class="entry-title">Introduction to Conditional Probability and Bayes theorem in R for data science professionals</h1>
+<div class="meta-info">
+<span class="entry-author">
+<a href="https://www.analyticsvidhya.com/blog/author/dishashree26/"><span>Dishashree Gupta</span></a>,
+</span>
+<time class="entry-date" content="2017-03-14" datetime="2017-03-14T02:16:21+05:30">
+March 14, 2017 </time>
+<div class="count-data right">
+</div>
+<span class="save-for-later"></span>
+<span class="download-pdf"></span>
+</div>
+</header>
+<div class="text-content">
+<div class="assess-button-flex-container"><button class="assess-tab-button assess-tab-button-active" id="assess-button-1">Article</button><button class="assess-tab-button" id="assess-button-2"><img src="https://www.analyticsvidhya.com//wp-content/themes/Curated/custom/lock.svg" class="lock-icon">Video Book</button></p>
+<div id="assess-video-data" style="width:100%"></div>
+<div id="assess-data"></div>
+<div id="article-data">
+<h2>Introduction</h2>
+<p style="text-align: justify;">Understanding of <a href="https://www.analyticsvidhya.com/blog/2017/09/6-probability-distributions-data-science/?utm_source=blog&amp;utm_medium=ConditionalProbabilityBayesTheoremarticle" target="_blank" rel="noopener noreferrer">probability</a> is must for a <a href="https://courses.analyticsvidhya.com/courses/introduction-to-data-science-2?utm_source=blog&amp;utm_medium=ConditionalProbabilityBayesTheoremarticle" target="_blank" rel="noopener noreferrer">data science</a> professional. Solutions to many data science problems are often probabilistic in nature. Hence, a better understanding of probability will help you understand &amp; implement these algorithms more efficiently.</p>
+<p style="text-align: justify;">In this article, I will focus on conditional probability. For <a href="https://courses.analyticsvidhya.com/courses/introduction-to-data-science-2?utm_source=blog&amp;utm_medium=ConditionalProbabilityBayesTheoremarticle" target="_blank" rel="noopener noreferrer">beginners in probability</a>, I would strongly recommend that you go through <a href="https://www.analyticsvidhya.com/blog/2017/02/basic-probability-data-science-with-examples/?utm_source=blog&amp;utm_medium=ConditionalProbabilityBayesTheoremarticle" target="_blank" rel="nofollow noopener noreferrer">this article</a> before proceeding further.</p>
+<p style="text-align: justify;">A predictive model can easily be understood as a statement of conditional probability. For example, the probability of a customer from segment A buying a product of category Z in next 10 days is 0.80. In other words, the probability of a customer buying product from Category Z, given that the customer is from Segment A is 0.80.</p>
+<p>In this article, I will walk you through conditional probability in detail. I&#8217;ll be using examples &amp; real-life scenarios to help you improve your understanding.</p>
+<p><strong>You can also check out our <a href="https://www.analyticsvidhya.com/blog/2019/06/introduction-powerful-bayes-theorem-data-science/" target="_blank" rel="noopener noreferrer">new article on Bayes&#8217; Theorem</a> here. It contains a ton of examples and real-world applications &#8211; something every data science professional must be aware of.</strong></p>
+<p>&nbsp;</p>
+<h2>Table of Contents</h2>
+<ol>
+<li>Events – Union, Intersection &amp; Disjoint events</li>
+<li>Independent, Dependent and Exclusive events (with implementation in R)</li>
+<li>Conditional Probability (with implementation in R)</li>
+<li>Bayes Theorem (with implementation in R)</li>
+<li>Probability trees</li>
+<li>Frequentist vs Bayesian definitions of probability</li>
+<li>Open Challenges</li>
+</ol>
+<p>&nbsp;</p>
+<h2>1. Events – Union, Intersection &amp; Disjoint events</h2>
+<p style="text-align: justify;">Before we explore conditional probability, let us define some basic common terminologies:</p>
+<p>&nbsp;</p>
+<h3 style="text-align: justify;">1.1 EVENTS</h3>
+<p style="text-align: justify;">An event is simply the outcome of a random experiment. Getting a heads when we toss a coin is an event. Getting a 6 when we roll a fair die is an event. We associate probabilities to these events by defining the event and the sample space.</p>
+<p style="text-align: justify;">The <strong>sample space</strong> is nothing but the collection of all possible outcomes of an experiment. This means that if we perform a particular task again and again, all the possible results of the task are listed in the sample space.</p>
+<p style="text-align: justify;">For example: A sample space for a single throw of a die will be {1,2,3,4,5,6}. One of these is bound to occur if we throw a die. The sample space exhausts all the possibilities that can happen when that experiment is performed.</p>
+<p>An event can also be a combination of different events.</p>
+<p>&nbsp;</p>
+<h3>1.2 Union of Events</h3>
+<p>We can define an event (C) of getting a 4 or 6 when we roll a fair die. Here event C is a <strong>union</strong> of two events:</p>
+<p style="text-align: justify; padding-left: 30px;">Event A = Getting a 4</p>
+<p style="text-align: justify; padding-left: 30px;">Event B = Getting a 6</p>
+<p style="padding-left: 30px;">P (C) = P (A ꓴ B)</p>
+<p><img loading="lazy" class="aligncenter wp-image-33874 size-full" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13105413/CP1.png" width="194" height="115" /></p>
+<p style="text-align: justify;">In simple words we can say that we should consider the probability of (A ꓴ B) when we are interested in combined probability of two (or more) events.</p>
+<p>&nbsp;</p>
+<h3 style="text-align: justify;">1.3. Intersection of Events</h3>
+<p style="text-align: justify;">Let&#8217;s look at another example.</p>
+<p style="text-align: justify;">Let C be the event of getting a multiple of 2 and 3 when you throw a fair die.</p>
+<p style="text-align: justify; padding-left: 30px;">Event A = Getting a multiple of 2 when you throw a fair die</p>
+<p style="text-align: justify; padding-left: 30px;">Event B = Getting a multiple of 3 when you throw a fair die</p>
+<p style="text-align: justify; padding-left: 30px;">Event C = Getting a multiple of 2 and 3</p>
+<p style="text-align: justify;">Event C is an intersection of event A &amp; B.</p>
+<p style="text-align: justify;">Probabilities are then defined as follows.</p>
+<p style="padding-left: 30px;">P (C) = P (A ꓵ B)</p>
+<p><img loading="lazy" class="aligncenter wp-image-33875 size-full" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13105419/CP2.png" width="191" height="112" /></p>
+<p>We can now say that the shaded region is the probability of both events A and B occurring together.</p>
+<p>&nbsp;</p>
+<h3>1.4 Disjoint Events</h3>
+<p style="text-align: justify;">What if, you come across a case when any two particular events cannot occur at the same time.</p>
+<p style="text-align: justify;">For example: Let&#8217;s say you have a fair die and you have only one throw.</p>
+<p style="text-align: justify; padding-left: 30px;">Event A = Getting a multiple of 3</p>
+<p style="text-align: justify; padding-left: 30px;">Event B = Getting a multiple of 5</p>
+<p style="text-align: justify;">You want both event A &amp; B should occur together.</p>
+<p style="text-align: justify;">Let&#8217;s find the sub space for Event A &amp; B.</p>
+<p style="padding-left: 30px;">Event A = {3,6}</p>
+<p style="padding-left: 30px;">Event B = {5}</p>
+<p style="padding-left: 30px;">Sample Space= {1,2,3,4,5,6}</p>
+<p style="text-align: justify;">As you can see, there is no case for which event A &amp; B can occur together. Such events are called disjoint event. To represent this using a Venn diagram:</p>
+<p style="text-align: justify;"><img loading="lazy" class="aligncenter wp-image-33876 size-full" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13105424/CP3.png" width="260" height="117" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13105424/CP3.png 260w, https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13105424/CP3-258x117.png 258w, https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13105424/CP3-257x117.png 257w" sizes="(max-width: 260px) 100vw, 260px" />Now that we are familiar with the terms Union, intersection and disjoint events, we can talk about independence of events.</p>
+<p>&nbsp;</p>
+<h2 style="text-align: justify;">2. Independent, Dependent &amp; Exclusive Events</h2>
+<p>Suppose we have two events &#8211; event A and event B.</p>
+<p style="text-align: center;"><em>If the occurrence of event A doesn&#8217;t affect the occurrence of event B, these events are called independent events.</em></p>
+<p>Let’s see some examples of independent events.</p>
+<ul>
+<li>Getting heads after tossing a coin AND getting a 5 on a throw of a fair die.</li>
+<li>Choosing a marble from a jar AND getting heads after tossing a coin.</li>
+<li>Choosing a 3 card from a deck of cards, replacing it, AND then choosing an ace as the second card.</li>
+<li>Rolling a 4 on a fair die, AND then rolling a 1 on a second roll of the die.</li>
+</ul>
+<p style="text-align: justify;">In each of these cases the probability of outcome of the second event is not affected at all by the outcome of the first event.</p>
+<h3 style="text-align: justify;">Probability of independent events</h3>
+<p>In this case the probability of P (A ꓵ B) = P (A) * P (B)</p>
+<p style="text-align: justify;">Let’s take an example here. Suppose we win the game if we pick a red marble from a jar containing <strong>4 red and 3 black marbles</strong> and we get heads on the toss of a coin. What is the probability of winning?</p>
+<p>Let’s define event A, as getting red marble from the jar</p>
+<p>Event B is getting heads on the toss of a coin.</p>
+<p>We need to find the probability of both getting a red marble and a heads in a coin toss.</p>
+<p style="text-align: center;">P (A) = 4/7</p>
+<p style="text-align: center;">P (B) = 1/2</p>
+<p>We know that there is no affect of the color of the marble on the outcome of the coin toss.</p>
+<p style="padding-left: 60px;">P (A ꓵ B) = P (A) * P (B)</p>
+<p style="padding-left: 60px;">P (A ꓵ B) = (4/7) * (1/2) = (2/7)</p>
+<p>&nbsp;</p>
+<h3>Now, it&#8217;s time to implement the independent tests in R</h3>
+<p>Let us consider the following example:</p>
+<p>Example:<br />
+We have two cards on which numbers are written on both front and back (1 at front and 2 at back). We will toss those two cards in air and see if the results of the two cards are independent. We toss the cards 2000 times, and then compute the joint distribution of the results of the toss from the two cards.</p>
+<div class="oembed-gist"><script src="https://gist.github.com/Harshit1694/40c9c349ddf47e7fd5e663a228d27ed4.js"></script><noscript>View the code on <a href="https://gist.github.com/Harshit1694/40c9c349ddf47e7fd5e663a228d27ed4">Gist</a>.</noscript></div>
+<p>&nbsp;</p>
+<p><strong>Output</strong></p>
+<pre>prob_table1
+y1 y2
+x1 0.2555 0.244
+x2 0.2515 0.249
+
+prob_table2
+
+y1 y2
+x1 0.2550247 0.2504752
+x2 0.2494752 0.2450247
+
+</pre>
+<p>We see that prob_table1 and prob_table2 have close values, indicating that the toss of the two cards  are probably independent.</p>
+<p>&nbsp;</p>
+<h3>Probability of dependent events</h3>
+<p>Next, can you think of examples of dependent events ?</p>
+<p style="text-align: justify;">In the above example, let’s define event A as getting a Red marble from the jar. We then keep the marble out and then take another marble from the jar.</p>
+<p style="text-align: justify;"><strong>Will the probabilities in the second case still be the same as that in the first case?</strong></p>
+<p>Let’s see. So, for the first time there are 4/7 chances of getting a red marble. Let&#8217;s assume you got a red marble on the first attempt. Now, for second chance, to get a red marble we have 3/6 chances.</p>
+<p style="text-align: justify;">If we didn&#8217;t get a red marble on the first attempt but a white marble instead. Then, there were 4/6 chances to get the red marble second time. <strong>Therefore the probability in the second case was dependent on what happened the first time.</strong></p>
+<p style="text-align: justify;"><strong>Quiz 1</strong>: If you have a Jack and your next card is dealt with a new deck of cards the probability of you obtaining a jack again is? Are these events dependent or independent?</p>
+<p>&nbsp;</p>
+<h3>Mutually exclusive and Exhaustive events</h3>
+<p style="text-align: justify;">Mutually exclusive events are those events where two events cannot happen together.</p>
+<p style="text-align: justify;">The easiest example to understand this is the toss of a coin. Getting a head and a tail are mutually exclusive because we can either get heads or tails but never both at the same in a single coin toss.</p>
+<p style="text-align: justify;">A set of events is collectively exhaustive when the set should contain all the possible outcomes of the experiment. One of the events from the list must occur for sure when the experiment is performed.</p>
+<p style="text-align: justify;">For example, in a throw of a die, {1,2,3,4,5,6} is an exhaustive collection because, it encompasses the entire range of the possible outcomes.</p>
+<p style="text-align: justify;">Consider the outcomes &#8220;even&#8221; (2,4 or 6) and &#8220;not-6&#8221; (1,2,3,4, or 5) in a throw of a fair die. They are collectively exhaustive but not mutually exclusive.</p>
+<p><strong>Quiz 2</strong>: Check whether the below events are mutually exclusive:</p>
+<ol>
+<li>Drawing a red card or a jack from a given 52 cards deck.</li>
+<li>Getting three heads or three tails when three coins are flipped.</li>
+</ol>
+<p>&nbsp;</p>
+<h2>3. Conditional Probability</h2>
+<p style="text-align: justify;">Conditional probabilities arise naturally in the investigation of experiments where an outcome of a trial may affect the outcomes of the subsequent trials.</p>
+<p style="text-align: justify;">We try to calculate the probability of the second event (event B) given that the first event (event A) has already happened. If the probability of the event changes when we take the first event into consideration, we can safely say that the probability of event B is dependent of the occurrence of event A.</p>
+<p>Let’s think of cases where this happens:</p>
+<ul>
+<li>Drawing a second ace from a deck given we got the first ace</li>
+<li>Finding the probability of having a disease given you were tested positive</li>
+<li>Finding the probability of liking Harry Potter given we know the person likes fiction</li>
+</ul>
+<p>And so on….</p>
+<p>Here we can define, 2 events:</p>
+<ul>
+<li>Event A is the probability of the event we’re trying to calculate.</li>
+<li>Event B is the condition that we know or the event that has happened.</li>
+</ul>
+<p style="text-align: justify;">We can write the conditional probability as <img loading="lazy" class="alignnone size-medium wp-image-33881" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114144/CP8.png" alt="" width="73" height="55" />, the probability of the occurrence of event A given that B has already happened.</p>
+<p><img loading="lazy" class="aligncenter wp-image-33879 size-full" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114124/CP6.png" width="583" height="74" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114124/CP6.png 583w, https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114124/CP6-300x38.png 300w" sizes="(max-width: 583px) 100vw, 583px" /></p>
+<p>Let’s play a simple game of cards for you to understand this. Suppose you draw two cards from a deck and you win if you get a jack followed by an ace (without replacement). What is the probability of winning, given we know that you got a jack in the first turn?</p>
+<p>Let event A be getting a jack in the first turn</p>
+<p>Let event B be getting an ace in the second turn.</p>
+<p>We need to find <img loading="lazy" class="alignnone size-full wp-image-33882" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114148/CP9.png" alt="" width="75" height="56" /></p>
+<p style="padding-left: 30px;">P(A) = 4/52</p>
+<p style="padding-left: 30px;">P(B) = 4/51 {no replacement}</p>
+<p style="padding-left: 30px;">P(A and B) = 4/52*4/51= 0.006</p>
+<p style="padding-left: 30px;"><img loading="lazy" class="alignnone size-medium wp-image-33880" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114134/CP7-300x54.png" alt="" width="300" height="54" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114134/CP7-300x54.png 300w, https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114134/CP7.png 394w" sizes="(max-width: 300px) 100vw, 300px" /></p>
+<p style="text-align: justify;">Here we are determining the probabilities when we know some conditions instead of calculating random probabilities. Here we knew that he got a jack in the first turn.</p>
+<p>Let’s take another example.</p>
+<p style="text-align: justify;">Suppose you have a jar containing 6 marbles – 3 black and 3 white. What is the probability of getting a black given the first one was black too.</p>
+<p style="padding-left: 30px;">P (A) = getting a black marble in the first turn</p>
+<p style="padding-left: 30px;">P (B) = getting a black marble in the second turn</p>
+<p style="padding-left: 30px;">P (A) = 3/6</p>
+<p style="padding-left: 30px;">P (B) = 2/5</p>
+<p style="padding-left: 30px;">P (A and B) = ½*2/5 = 1/5</p>
+<p style="padding-left: 30px;"><img loading="lazy" class="alignnone size-full wp-image-33888" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114715/CP15.png" alt="" width="288" height="64" /></p>
+<p>Let us now  consider a new example and implement in R.</p>
+<p>Example:<br />
+A research group collected the yearly data of road accidents with respect to the conditions of<br />
+following and not following the traffic rules of an accident prone area. They are interested in calculating the probability of accident given that a person followed the traffic rules. The table of the data is given as follows:</p>
+<table dir="ltr" style="height: 207px;" border="1" width="818" cellspacing="0" cellpadding="0">
+<colgroup>
+<col width="96" />
+<col width="123" />
+<col width="178" /></colgroup>
+<tbody>
+<tr>
+<td data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;Condition&quot;}">Condition</td>
+<td data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;Follow Traffic Rule&quot;}">Follow Traffic Rule</td>
+<td data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;Does not follow Traffic Rule&quot;}">Does not follow Traffic Rule</td>
+</tr>
+<tr>
+<td data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;Accident  &quot;}">Accident</td>
+<td data-sheets-value="{&quot;1&quot;:3,&quot;3&quot;:50}">50</td>
+<td data-sheets-value="{&quot;1&quot;:3,&quot;3&quot;:500}">500</td>
+</tr>
+<tr>
+<td data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;No Accident&quot;}">No Accident</td>
+<td data-sheets-value="{&quot;1&quot;:3,&quot;3&quot;:2000}">2000</td>
+<td data-sheets-value="{&quot;1&quot;:3,&quot;3&quot;:5000}">5000</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>Now here our equation becomes:</p>
+<p>P(Accident | A person follow Traffic Rule) = P(Accident and follow Traffic Rule) / P(Follow Traffic Rule)</p>
+<p><strong>Solution:</strong></p>
+<div class="oembed-gist"><script src="https://gist.github.com/Harshit1694/b2850f929f65f86617f8b1c3601c2317.js"></script><noscript>View the code on <a href="https://gist.github.com/Harshit1694/b2850f929f65f86617f8b1c3601c2317">Gist</a>.</noscript></div>
+<p>&nbsp;</p>
+<p><strong>Output</strong></p>
+<pre>Conditional_Probability
+0.02439024</pre>
+<p>&nbsp;</p>
+<h3>3.1 Reversing the condition</h3>
+<p style="text-align: justify;">Example: Rahul’s favorite breakfast is bagels and his favorite lunch is pizza. The probability of Rahul having bagels for breakfast is 0.6. The probability of him having pizza for lunch is 0.5. The probability of him, having a bagel for breakfast given that he eats a pizza for lunch is 0.7.</p>
+<p>Let’s define event A as Rahul having a bagel for breakfast, Event B as Rahul having a pizza for lunch.</p>
+<p style="padding-left: 30px;">P (A) = 0.6</p>
+<p style="padding-left: 30px;">P (B) = 0.5</p>
+<p style="padding-left: 30px;"><img loading="lazy" class="alignnone size-full wp-image-33889" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114934/CP16.png" alt="" width="129" height="60" /></p>
+<p style="text-align: justify;">If we look at the numbers, the probability of having a bagel is different than the probability of having a bagel given he has a pizza for lunch. This means that the probability of having a bagel is dependent on having a pizza for lunch.</p>
+<p style="text-align: justify;">Now what if we need to know the probability of having a pizza given you had a bagel for breakfast. i.e. we need to know <img loading="lazy" class="alignnone size-full wp-image-33882" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114148/CP9.png" alt="" width="75" height="56" />. Bayes theorem now comes into the picture.</p>
+<p>&nbsp;</p>
+<h2>4. Bayes Theorem</h2>
+<p style="text-align: justify;">The Bayes theorem describes the probability of an event based on the prior knowledge of the conditions that might be related to the event. If we know the conditional probability <img loading="lazy" class="alignnone size-full wp-image-33881" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114144/CP8.png" alt="" width="73" height="55" />, we can use the bayes rule to find out the reverse probabilities <img loading="lazy" class="alignnone size-full wp-image-33882" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114148/CP9.png" alt="" width="75" height="56" />.</p>
+<p>How can we do that?</p>
+<p style="padding-left: 30px;"><img loading="lazy" class="alignnone wp-image-33890 size-full" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13115711/CP17.png" width="431" height="208" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13115711/CP17.png 431w, https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13115711/CP17-300x145.png 300w" sizes="(max-width: 431px) 100vw, 431px" /></p>
+<p style="padding-left: 30px;"><img loading="lazy" class="alignnone size-full wp-image-33891" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13115722/CP18.png" alt="" width="209" height="57" /></p>
+<p>The above statement is the general representation of the Bayes rule.</p>
+<p>For the previous example – if we now wish to calculate the probability of having a pizza for lunch provided you had a bagel for breakfast would be = 0.7 * 0.5/0.6.</p>
+<p>We can generalize the formula further.</p>
+<p>If multiple events A<sub>i </sub>form an exhaustive set with another event B.</p>
+<p>We can write the equation as</p>
+<p><img loading="lazy" class="aligncenter wp-image-33887 size-full" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114218/CP14.png" width="427" height="92" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114218/CP14.png 427w, https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13114218/CP14-300x65.png 300w" sizes="(max-width: 427px) 100vw, 427px" /></p>
+<p>Now, implementing the example in R:</p>
+<div class="oembed-gist"><script src="https://gist.github.com/Harshit1694/1775867933427b49c6902a7cb9c98836.js"></script><noscript>View the code on <a href="https://gist.github.com/Harshit1694/1775867933427b49c6902a7cb9c98836">Gist</a>.</noscript></div>
+<p>&nbsp;</p>
+<p><strong>Output</strong></p>
+<pre>Bayes_Theorem
+0.1211449</pre>
+<p>&nbsp;</p>
+<h2>5. Example of Bayes Theorem and Probability trees</h2>
+<p style="text-align: justify;">Let’s take the example of the breast cancer patients. The patients were tested thrice before the oncologist concluded that they had cancer. The general belief is that 1.48 out of a 1000 people have breast cancer in the US at that particular time when this test was conducted. The patients were tested over multiple tests. Three sets of test were done and the patient was only diagnosed with cancer if she tested positive in all three of them.</p>
+<p>Let’s examine the test in detail.</p>
+<p style="padding-left: 30px;">Sensitivity of the test (93%) – true positive Rate</p>
+<p style="padding-left: 30px;">Specificity of the test (99%) – true negative Rate</p>
+<p>Let’s first compute the probability of having cancer given that the patient tested positive in the first test.</p>
+<p style="padding-left: 30px;">P (has cancer | first test +)</p>
+<p style="padding-left: 30px;">P (cancer) = 0.00148</p>
+<p style="padding-left: 30px;">Sensitivity can be denoted as P (+ | cancer) = 0.93</p>
+<p style="padding-left: 30px;">Specificity can be denoted as P (- | no cancer)</p>
+<p style="text-align: justify;">Since we do not have any other information, we believe that the patient is a randomly sampled individual. Hence our prior belief is that there is a 0.148% probability of the patient having cancer.</p>
+<p style="text-align: justify;">The complement is that there is a 100 &#8211; 0.148% chance that the patient does not have CANCER. Similarly we can draw the below tree to denote the probabilities.</p>
+<p style="text-align: justify;"><img loading="lazy" class="aligncenter wp-image-33877 size-full" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13105431/CP4.png" width="513" height="283" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13105431/CP4.png 513w, https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13105431/CP4-300x165.png 300w" sizes="(max-width: 513px) 100vw, 513px" /></p>
+<p style="text-align: justify;">Let’s now try to calculate the probability of having cancer given that he tested positive on the first test i.e. P (cancer|+)</p>
+<p style="padding-left: 30px;"><img loading="lazy" class="alignnone size-medium wp-image-33892" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13120517/CP20-300x49.png" alt="" width="300" height="49" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13120517/CP20-300x49.png 300w, https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13120517/CP20.png 396w" sizes="(max-width: 300px) 100vw, 300px" /></p>
+<p style="padding-left: 30px;">P (cancer and +) = P (cancer) * P (+) = 0.00148*0.93</p>
+<p style="padding-left: 30px;">P (no cancer and +) = P (no cancer) * P(+) = 0.99852*0.01</p>
+<p style="text-align: justify;">To calculate the probability of testing positive, the person can have cancer and test positive or he may not have cancer and still test positive.</p>
+<p><img loading="lazy" class="aligncenter wp-image-33893 " src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13120526/CP21.png" width="631" height="74" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13120526/CP21.png 699w, https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13120526/CP21-300x35.png 300w" sizes="(max-width: 631px) 100vw, 631px" /></p>
+<p style="text-align: justify;">This means that there is a 12% chance that the patient has cancer given he tested positive in the first test. This is known as the <strong>posterior probability.</strong></p>
+<p><strong> </strong></p>
+<h3>5.1 Bayes Updating</h3>
+<p style="text-align: justify;">Let’s now try to calculate the probability of having cancer given the patient tested positive in the second test as well.</p>
+<p style="text-align: justify;">Now remember we will only do the second test if she tested positive in the first one. Therefore now the person is no longer a randomly sampled person but a specific case. We know something about her. Hence, the prior probabilities should change. We update the prior probability with the posterior from the previous test.</p>
+<p style="text-align: justify;">Nothing would change in the sensitivity and specificity of the test since we’re doing the same test again. Look at the probability tree below.</p>
+<p style="text-align: justify;"><img loading="lazy" class="aligncenter wp-image-33878 size-full" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13105441/CP5.png" width="435" height="295" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13105441/CP5.png 435w, https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13105441/CP5-300x203.png 300w" sizes="(max-width: 435px) 100vw, 435px" /></p>
+<p style="text-align: justify;">Let’s calculate again the probability of having cancer given she tested positive in the second test.</p>
+<p style="padding-left: 30px;">P (cancer and +) = P(cancer) * P(+) = 0.12 * 0.93</p>
+<p style="padding-left: 30px;">P (no cancer and +) = P (no cancer) * P (+) = 0.88 * 0.01</p>
+<p style="text-align: justify;">To calculate the probability of testing positive, the person can have cancer and test positive or she may not have cancer and still test positive.</p>
+<p style="text-align: justify;"><img loading="lazy" class="aligncenter wp-image-33894 " src="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13120536/CP22.png" width="606" height="66" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13120536/CP22.png 670w, https://cdn.analyticsvidhya.com/wp-content/uploads/2017/03/13120536/CP22-300x33.png 300w" sizes="(max-width: 606px) 100vw, 606px" /></p>
+<p>Now we see, that a patient who tested positive in the test twice, has a 93% chance of having cancer.</p>
+<p>&nbsp;</p>
+<h2>6. Frequentist vs Bayesian Definitions of probability</h2>
+<p style="text-align: justify;">A frequentist defines probability as an expected frequency of occurrence over large number of experiments.</p>
+<p style="text-align: justify;">P(event) = n/N, where n is the number of times event A occurs in N opportunities.</p>
+<p style="text-align: justify;">The Bayesian view of probability is related to degree of belief.  It is a measure of the plausibility of an event given incomplete knowledge.</p>
+<p style="text-align: justify;">The frequentist believes that the population mean is real but unknowable and can only be estimated from the data. He knows the distribution of the sample mean and constructs a confidence interval centered at the sample mean. So the actual population mean is either in the confidence interval or not in it.</p>
+<p style="text-align: justify;">This is because he believes that the true mean is a single fixed value and does not have a distribution. So the frequentist says that 95% of similar intervals would contain the true mean, if each interval were constructed from a different random sample.</p>
+<p style="text-align: justify;">The Bayesian definition has a totally different view point. They use their beliefs to construct probabilities. They believe that certain values are more believable than others based on the data and our prior knowledge.</p>
+<p style="text-align: justify;">The Bayesian constructs a credible interval centered near the sample mean and totally affected by the prior beliefs about the mean. The Bayesian can therefore make statements about the population mean by using the probabilities.</p>
+<p>&nbsp;</p>
+<h2>7. Open Challenges</h2>
+<ul>
+<li style="text-align: justify;">In the cancer example taken above, try calculating the probability of a patient having cancer provided the patient is tested positive in the third test as well.</li>
+<li style="text-align: justify;">In an exam, there is a problem that 60% of students know the correct answer. However, there is 15% chance that a student picked the wrong answer even if he/she knows the right answer And there is also a 25% chance that a student does not know the right answer but guessed it correctly. If a student did get the problem right, what is the chance that this student really knows the answer?</li>
+</ul>
+<p>&nbsp;</p>
+<h2>End Notes</h2>
+<p style="text-align: justify;">The debate between Bayesian and frequentist approaches has been going on for a long while. We have an <a href="https://www.analyticsvidhya.com/blog/2016/06/bayesian-statistics-beginners-simple-english/" target="_blank" rel="nofollow noopener noreferrer">amazing article</a> which has gone deep into both these approaches. It has explained in detail the two approaches and Bayesian Inference.</p>
+<p style="text-align: justify;">The aim of this article was to introduce you to conditional probability and Bayes theorem. Bayes theorem forms the backbone of one of very frequently used classification algorithms in data science – <strong>Naive Bayes</strong>.</p>
+<p style="text-align: justify;">Once the above concepts are clear you might be interested to open the doors <a href="https://www.analyticsvidhya.com/blog/2015/09/naive-bayes-explained/" target="_blank" rel="nofollow noopener noreferrer">the naive Bayes algorithm</a> and be stunned by the vast applications of Bayes theorem in it.</p>
+<p style="text-align: justify;">Please post your answers to the open challenges in the comments section. And feel free to ask doubts or questions. Hope you enjoyed reading!</p>
+<h2><a href="https://www.analyticsvidhya.com/blog">Learn</a>, <a href="https://datahack.analyticsvidhya.com/" rel="nofollow">compete, hack</a> and <a href="https://www.analyticsvidhya.com/jobs/#/user/">get hired</a></h2>
+You can also read this article on our Mobile APP <a href='//play.google.com/store/apps/details?id=com.analyticsvidhya.android&utm_source=blog_article&utm_campaign=blog&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' onclick="ga('send', {'hitType': 'event', 'eventCategory': 'app-blog', 'eventAction': 'clicked'});"><img alt='Get it on Google Play' src='//play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' style='height:80px'></a><a href='https://apps.apple.com/us/app/analytics-vidhya/id1470025572'><img src='https://cdn.analyticsvidhya.com/wp-content/uploads/2020/06/download-appstore-apple.png'></a>
+<div id='jp-relatedposts' class='jp-relatedposts'>
+<h3>Related Articles</h3>
+</div>
+
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-5229672700622157" data-ad-slot="7938033629"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<footer class="clearfix both">
+<div class="meta-tags clearfix">
+Tags : <a href="https://www.analyticsvidhya.com/blog/tag/bayes-theorem/" rel="tag">bayes theorem</a><span>,</span> <a href="https://www.analyticsvidhya.com/blog/tag/bayes-theorem-applications/" rel="tag">Bayes theorem applications</a><span>,</span> <a href="https://www.analyticsvidhya.com/blog/tag/conditional-probability/" rel="tag">conditional probability</a><span>,</span> <a href="https://www.analyticsvidhya.com/blog/tag/conditional-probability-applications/" rel="tag">Conditional probability applications</a><span>,</span> <a href="https://www.analyticsvidhya.com/blog/tag/dependent-events/" rel="tag">dependent events</a> </div>
+<div class="next-prev clearfix">
+<a class="next" href="https://www.analyticsvidhya.com/blog/2017/03/data-quality-architect-mumbai-us-7-years-of-experience/" rel="next"><i class="tm-chevron-right"></i><div class="np-caption">Next Article</div><h3 class="np-title">Data Quality Architect- Mumbai, US (7 Years Of Experience)</h3></a> <i class="tm-3dots"></i>
+<a class="prev" href="https://www.analyticsvidhya.com/blog/2017/03/celebrating-womens-day-33-women-in-data-science-from-around-the-world-av-community/" rel="prev"><i class="tm-chevron-left"></i><div class="np-caption">Previous Article</div><h3 class="np-title">Celebrating Women&#8217;s Day: 33 Women in Data Science from around the World &#038; AV Community</h3></a> </div>
+<div class="meta-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+<div class="author-thumb">
+<a href="https://www.analyticsvidhya.com/blog/author/dishashree26/">
+<img alt='' src='https://secure.gravatar.com/avatar/3a42e5a1ae793593b7804ac61e5753c2?s=200&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/3a42e5a1ae793593b7804ac61e5753c2?s=400&#038;d=mm&#038;r=g 2x' class='avatar avatar-200 photo' height='200' width='200' loading='lazy' /> </a>
+</div>
+<div class="author-info">
+<h3 class="author-name">
+<a itemprop="name" content="Dishashree Gupta" href="https://www.analyticsvidhya.com/blog/author/dishashree26/">Dishashree Gupta</a>
+</h3>
+<div class="author-desc">
+<span class="fn">Dishashree is passionate about statistics and is a machine learning enthusiast. She has an experience of 1.5 years of Market Research using R, advanced Excel, Azure ML.</span>
+</div>
+<ul class="author-links">
+</ul>
+</div>
+</div>
+</footer>
+</article> 
+
+
+<div class="row">
+<div class="col-sm-12">
+<div class="message-article">This article is quite old and you might not get a prompt response from the author. We request you to post this comment on Analytics Vidhya's <a href="https://discuss.analyticsvidhya.com/"><b>Discussion portal</b></a> to get your queries resolved</div> </div>
+</div>
+<div class="comment-wrap">
+
+<div class="row">
+<div class="col-sm-12">
+<div class="block-cap" id="comments">
+<h3 id="comment">23 Comments</h3>
+</div>
+</div>
+</div>
+<div class="navigation">
+<div class="alignleft"></div>
+<div class="alignright"></div>
+</div>
+<ul class="comment-list" id="show-comments">
+<li class="comment even thread-even depth-1 parent" id="comment-124695">
+<div id="div-comment-124695" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/dbc57b2113ddb3f1d66d733266657d49?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/dbc57b2113ddb3f1d66d733266657d49?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Rahul</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-124695">March 14, 2017 at 9:04 am</a> </div>
+<p>Nice article! One basic doubt &#8230;.prob of can cer and + is calculated as prob cancer * prob of positive = 0.00148*0.93&#8230;.but we multiply probabilities only if they are independent events correct? Since prob of positive changes with without cancer these are dependent right</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-124695' data-commentid="124695" data-postid="33873" data-belowelement="div-comment-124695" data-respondelement="respond" data-replyto="Reply to Rahul" aria-label='Reply to Rahul'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-dishashree26 bypostauthor odd alt depth-2" id="comment-124732">
+<div id="div-comment-124732" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/3a42e5a1ae793593b7804ac61e5753c2?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/3a42e5a1ae793593b7804ac61e5753c2?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Dishashree Gupta</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-124732">March 14, 2017 at 5:57 pm</a> </div>
+<p>The probability of +ve given you have cancer is the true positive rate of the test, which is always fixed for the test. Here the positive means the probability of testing positive given you have cancer. If you check the value 0.93 it is P(+|cancer) and not just P(+).</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-124732' data-commentid="124732" data-postid="33873" data-belowelement="div-comment-124732" data-respondelement="respond" data-replyto="Reply to Dishashree Gupta" aria-label='Reply to Dishashree Gupta'>Reply</a></div>
+</div>
+</li>
+</ul>
+</li>
+<li class="comment even thread-odd thread-alt depth-1" id="comment-124727">
+<div id="div-comment-124727" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/5870ccfe4b24535a777cda072e904c18?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/5870ccfe4b24535a777cda072e904c18?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Amogh Huilgol</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-124727">March 14, 2017 at 5:11 pm</a> </div>
+<p>Could you also post the answer to the quizzes and open challenges . That way , we can verify the answers which we have got with the correct answers</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-124727' data-commentid="124727" data-postid="33873" data-belowelement="div-comment-124727" data-respondelement="respond" data-replyto="Reply to Amogh Huilgol" aria-label='Reply to Amogh Huilgol'>Reply</a></div>
+</div>
+</li>
+<li class="comment odd alt thread-even depth-1" id="comment-124729">
+<div id="div-comment-124729" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/f666838836283ad44fac3d91a57c2c93?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/f666838836283ad44fac3d91a57c2c93?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Saad Khan</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-124729">March 14, 2017 at 5:27 pm</a> </div>
+<p>Open Challenges Answers:</p>
+<p>1. 0.999162<br />
+2. 0.836066</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-124729' data-commentid="124729" data-postid="33873" data-belowelement="div-comment-124729" data-respondelement="respond" data-replyto="Reply to Saad Khan" aria-label='Reply to Saad Khan'>Reply</a></div>
+</div>
+</li>
+<li class="comment even thread-odd thread-alt depth-1 parent" id="comment-124733">
+<div id="div-comment-124733" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/7a443656559453057cb70b6528c5408d?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/7a443656559453057cb70b6528c5408d?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Edward Flaschner</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-124733">March 14, 2017 at 6:01 pm</a> </div>
+<p>On page 8 in the conditional probability section the first event B is the event that has already happened, but later in the page, its event A (getting a Jack), not B, that is the event that has already happened. Switching the letters is confusing.<br />
+In addition, in the first part of the game the first draw is a jack, but later in the game it states &#8220;Here we knew that he got an ace in the first draw.&#8221; Please clarify. Thank you.</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-124733' data-commentid="124733" data-postid="33873" data-belowelement="div-comment-124733" data-respondelement="respond" data-replyto="Reply to Edward Flaschner" aria-label='Reply to Edward Flaschner'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-dishashree26 bypostauthor odd alt depth-2" id="comment-124736">
+<div id="div-comment-124736" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/3a42e5a1ae793593b7804ac61e5753c2?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/3a42e5a1ae793593b7804ac61e5753c2?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Dishashree Gupta</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-124736">March 14, 2017 at 6:34 pm</a> </div>
+<p>Hey Edward, thanks for pointing that out, “Here we knew that he got an ace in the first draw&#8221; has been edited to &#8220;got a jack in the first draw&#8221;. </p>
+<p>Small clarification, So the event which we know has happened is the condition that we already know for sure. In this case we knew that the first draw was a jack, hence that was the condition on which the further probability is based. If the letters confuse you, I would encourage solving these examples again with taking the known condition as B and always calculating P(A/B). </p>
+<p>Do post if you need further clarification!</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-124736' data-commentid="124736" data-postid="33873" data-belowelement="div-comment-124736" data-respondelement="respond" data-replyto="Reply to Dishashree Gupta" aria-label='Reply to Dishashree Gupta'>Reply</a></div>
+</div>
+</li>
+</ul>
+</li>
+<li class="comment even thread-even depth-1" id="comment-124788">
+<div id="div-comment-124788" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/32d456b8027fe7009819a7d52cd4c1db?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/32d456b8027fe7009819a7d52cd4c1db?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Shan</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-124788">March 15, 2017 at 7:31 am</a> </div>
+<p>1. 0.9980<br />
+2. 0.8360</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-124788' data-commentid="124788" data-postid="33873" data-belowelement="div-comment-124788" data-respondelement="respond" data-replyto="Reply to Shan" aria-label='Reply to Shan'>Reply</a></div>
+</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1 parent" id="comment-124872">
+<div id="div-comment-124872" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/bccb5b8cfc4c8dd1947663e0dcd3bd9f?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/bccb5b8cfc4c8dd1947663e0dcd3bd9f?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">pankaj agarwal</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-124872">March 16, 2017 at 6:38 am</a> </div>
+<p>I think this line is incorrect: P (no cancer and +) = P (no cancer) * P(+) = 0.99852*0.99</p>
+<p>The correct statement should be &#8212; 0.998582 * 0.01 </p>
+<p>12 % though is correct &amp; is based on the 2nd formula which I mentioned.</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-124872' data-commentid="124872" data-postid="33873" data-belowelement="div-comment-124872" data-respondelement="respond" data-replyto="Reply to pankaj agarwal" aria-label='Reply to pankaj agarwal'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-dishashree26 bypostauthor even depth-2" id="comment-129132">
+<div id="div-comment-129132" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/3a42e5a1ae793593b7804ac61e5753c2?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/3a42e5a1ae793593b7804ac61e5753c2?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Dishashree Gupta</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-129132">May 24, 2017 at 4:00 pm</a> </div>
+<p>this has been corrected.. Thanks !</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-129132' data-commentid="129132" data-postid="33873" data-belowelement="div-comment-129132" data-respondelement="respond" data-replyto="Reply to Dishashree Gupta" aria-label='Reply to Dishashree Gupta'>Reply</a></div>
+</div>
+</li>
+</ul>
+</li>
+<li class="comment odd alt thread-even depth-1" id="comment-125153">
+<div id="div-comment-125153" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/53cc8695125b4b6e8cd4800e233fc03a?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/53cc8695125b4b6e8cd4800e233fc03a?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Krishna Sishtla</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-125153">March 19, 2017 at 4:22 pm</a> </div>
+<p>Nice work!</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-125153' data-commentid="125153" data-postid="33873" data-belowelement="div-comment-125153" data-respondelement="respond" data-replyto="Reply to Krishna Sishtla" aria-label='Reply to Krishna Sishtla'>Reply</a></div>
+</div>
+</li>
+<li class="comment even thread-odd thread-alt depth-1" id="comment-125310">
+<div id="div-comment-125310" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/51f307aaaea7c3eace223f0f48914512?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/51f307aaaea7c3eace223f0f48914512?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Prasenjit</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-125310">March 21, 2017 at 7:32 am</a> </div>
+<p>A well written and a very informative article for the aspiring data science professionals.. Keep up the good work !</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-125310' data-commentid="125310" data-postid="33873" data-belowelement="div-comment-125310" data-respondelement="respond" data-replyto="Reply to Prasenjit" aria-label='Reply to Prasenjit'>Reply</a></div>
+</div>
+</li>
+<li class="comment odd alt thread-even depth-1" id="comment-125333">
+<div id="div-comment-125333" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/5066b2038ccd9bab961a5273fda3d36b?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/5066b2038ccd9bab961a5273fda3d36b?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Mauricio</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-125333">March 22, 2017 at 2:26 am</a> </div>
+<p>1: 0,93 x 0,9276 / (0,93 x 0,9276 + 0,0724 x 0,01) = 0,9942<br />
+2: 0,85 x 0,6 / (0,85 x 0,6 + 0,25 x 0,4) = 0,8361</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-125333' data-commentid="125333" data-postid="33873" data-belowelement="div-comment-125333" data-respondelement="respond" data-replyto="Reply to Mauricio" aria-label='Reply to Mauricio'>Reply</a></div>
+</div>
+</li>
+<li class="comment even thread-odd thread-alt depth-1" id="comment-125457">
+<div id="div-comment-125457" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/ccc1408406cb3d7f2349a2ce1202e14d?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/ccc1408406cb3d7f2349a2ce1202e14d?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn"><a href='http://www.seoindiarank.com/' rel='external nofollow ugc' class='url'>Shalini</a></cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-125457">March 24, 2017 at 4:05 am</a> </div>
+<p>It&#8217;s interesting that many of the bloggers to helped clarify a few things for me as well as giving.Most of ideas can be nice content.The people to give them a good shake to get your point and across the command.</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-125457' data-commentid="125457" data-postid="33873" data-belowelement="div-comment-125457" data-respondelement="respond" data-replyto="Reply to Shalini" aria-label='Reply to Shalini'>Reply</a></div>
+</div>
+</li>
+<li class="comment odd alt thread-even depth-1" id="comment-125514">
+<div id="div-comment-125514" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/427469b25bc114ddd432548b720534eb?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/427469b25bc114ddd432548b720534eb?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Gaurav V</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-125514">March 25, 2017 at 6:54 am</a> </div>
+<p>An excellent article for budding data science professionals to get their basics right. Looking forward to more such articles!</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-125514' data-commentid="125514" data-postid="33873" data-belowelement="div-comment-125514" data-respondelement="respond" data-replyto="Reply to Gaurav V" aria-label='Reply to Gaurav V'>Reply</a></div>
+</div>
+</li>
+<li class="comment even thread-odd thread-alt depth-1" id="comment-125605">
+<div id="div-comment-125605" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/25266783af69013b1718d41cca0e0cc7?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/25266783af69013b1718d41cca0e0cc7?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Pavan</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-125605">March 27, 2017 at 9:37 am</a> </div>
+<p>1. 0.99<br />
+2. o.83</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-125605' data-commentid="125605" data-postid="33873" data-belowelement="div-comment-125605" data-respondelement="respond" data-replyto="Reply to Pavan" aria-label='Reply to Pavan'>Reply</a></div>
+</div>
+</li>
+<li class="comment odd alt thread-even depth-1" id="comment-127251">
+<div id="div-comment-127251" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/a7383de19af209d56eb6e8c2557f0fdd?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/a7383de19af209d56eb6e8c2557f0fdd?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Sirisha</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-127251">April 20, 2017 at 12:32 pm</a> </div>
+<p>Well written and thanks for the article.</p>
+<p>I would need a clarification here. How can we consider P(Cancer)=0.12 for the second test. Here, 12% is a chance that the patient has cancer given he tested positive and it&#8217;s not the probability of having the cancer.</p>
+<p>Could please help me to understand here</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-127251' data-commentid="127251" data-postid="33873" data-belowelement="div-comment-127251" data-respondelement="respond" data-replyto="Reply to Sirisha" aria-label='Reply to Sirisha'>Reply</a></div>
+</div>
+</li>
+<li class="comment even thread-odd thread-alt depth-1" id="comment-129126">
+<div id="div-comment-129126" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/6efb21b3cdf4ea1b4c2144b7cd36f4cf?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/6efb21b3cdf4ea1b4c2144b7cd36f4cf?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn"><a href='http://adataanalyst.com/' rel='external nofollow ugc' class='url'>Piush Vaish</a></cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-129126">May 24, 2017 at 10:10 am</a> </div>
+<p>Nice Article. I learned a lot<br />
+Piush Vaish<br />
+<a rel="nofollow" href="http://adataanalyst.com/" rel="nofollow ugc">http://adataanalyst.com/</a></p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-129126' data-commentid="129126" data-postid="33873" data-belowelement="div-comment-129126" data-respondelement="respond" data-replyto="Reply to Piush Vaish" aria-label='Reply to Piush Vaish'>Reply</a></div>
+</div>
+</li>
+<li class="comment odd alt thread-even depth-1 parent" id="comment-129889">
+<div id="div-comment-129889" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/35006c5dc16b07db0e6c2377ef96ecf6?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/35006c5dc16b07db0e6c2377ef96ecf6?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn"><a href='http://DataSciencePath.com' rel='external nofollow ugc' class='url'><span class="__cf_email__" data-cfemail="6a09041f44000306060b2a0d070b030644090507">[email&#160;protected]</span></a></cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-129889">June 6, 2017 at 5:13 pm</a> </div>
+<p>Great article and well said.<br />
+Quick correction at &#8220;Let’s NOT try to calculate the probability of having cancer given that he tested positive on the first test i.e. P (cancer|+)&#8221;<br />
+There shouldn&#8217;t be NOT in above statement.</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-129889' data-commentid="129889" data-postid="33873" data-belowelement="div-comment-129889" data-respondelement="respond" data-replyto="Reply to cnu.jilla@gmail.com" aria-label='Reply to cnu.jilla@gmail.com'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment even depth-2" id="comment-152889">
+<div id="div-comment-152889" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/634a4a6cc425727e9a67ee23b96e74da?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/634a4a6cc425727e9a67ee23b96e74da?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">jrl</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-152889">April 27, 2018 at 9:53 pm</a> </div>
+<p>agreed; perhaps a simple typo &#8211; &#8220;let&#8217;s NOW try &#8230;&#8221;</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-152889' data-commentid="152889" data-postid="33873" data-belowelement="div-comment-152889" data-respondelement="respond" data-replyto="Reply to jrl" aria-label='Reply to jrl'>Reply</a></div>
+</div>
+</li>
+</ul>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-138561">
+<div id="div-comment-138561" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/79f7e7d24708645bb3d68d308e09b118?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/79f7e7d24708645bb3d68d308e09b118?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn"><a href='http://www.aimstutorial.in' rel='external nofollow ugc' class='url'>Salman naseer</a></cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-138561">October 3, 2017 at 10:32 am</a> </div>
+<p>Nice article<br />
+I am a school teacher, I learn a lot from ur article it help me to explain the students with example.<br />
+Thanks</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-138561' data-commentid="138561" data-postid="33873" data-belowelement="div-comment-138561" data-respondelement="respond" data-replyto="Reply to Salman naseer" aria-label='Reply to Salman naseer'>Reply</a></div>
+</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-141302">
+<div id="div-comment-141302" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/701315ced5f31e5d6085fc73543d6b92?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/701315ced5f31e5d6085fc73543d6b92?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Nithin</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-141302">October 29, 2017 at 1:29 pm</a> </div>
+<p>Top stuff, Was really helpful in refreshing the probability concepts and the rationale behind Bayes.<br />
+Thanks</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-141302' data-commentid="141302" data-postid="33873" data-belowelement="div-comment-141302" data-respondelement="respond" data-replyto="Reply to Nithin" aria-label='Reply to Nithin'>Reply</a></div>
+</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-142918">
+<div id="div-comment-142918" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/06b362f1ae1c242336dac43a147156f1?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/06b362f1ae1c242336dac43a147156f1?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">Shubhasish Panda</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-142918">November 9, 2017 at 9:54 pm</a> </div>
+<p>Nice Article !!</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-142918' data-commentid="142918" data-postid="33873" data-belowelement="div-comment-142918" data-respondelement="respond" data-replyto="Reply to Shubhasish Panda" aria-label='Reply to Shubhasish Panda'>Reply</a></div>
+</div>
+</li>
+<li class="comment even thread-even depth-1" id="comment-152487">
+<div id="div-comment-152487" class="comment-body">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/56b18fda5d3f0ee0433f3418cc74a445?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/56b18fda5d3f0ee0433f3418cc74a445?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' /> <cite class="fn">MJ</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata">
+<a href="https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/#comment-152487">April 10, 2018 at 11:26 am</a> </div>
+<p>Thank you!</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='#comment-152487' data-commentid="152487" data-postid="33873" data-belowelement="div-comment-152487" data-respondelement="respond" data-replyto="Reply to MJ" aria-label='Reply to MJ'>Reply</a></div>
+</div>
+</li>
+</ul>
+</div>
+<div id="write-comment"></div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+var hash = window.location.hash;
+if(hash!=""){
+jQuery.ajax ({
+	type: 'GET',
+    url: 'https://www.analyticsvidhya.com/comments-form/show-comments.php?rand='+Math.random()+'&id=33873',
+    success: function (data)
+	{
+		jQuery('#show-comments').html(data);
+	},
+	error: function (e) {
+		console.log(e);
+	}
+});
+}
+</script>
+</div>
+</div>
+<div class="col-sm-4 "><div class="sidebar"><div id="text-24" class="widget clearfix widget_text"> <div class="textwidget"><div id="time-series-disp"></div></div>
+</div><div id="text-44" class="widget clearfix widget_text"> <div class="textwidget"><p><br />
+<br />
+<ins class="adsbygoogle" style="display: inline-block; width: 336px; height: 280px;" data-ad-client="ca-pub-5229672700622157" data-ad-slot="1620249624"></ins><br />
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+</div>
+</div><div id="wmp_widget-2" class="widget clearfix widget_wmp_widget"><div class="widget-title"><div class="block-cap"><h3>Popular posts</h3></div></div><ul class="wp-most-popular">
+<li class="post-18770posttype-poststatus-publishformat-standardhas-post-thumbnailcategory-algorithmcategory-business-analyticscategory-classificationcategory-clusteringcategory-intermediatecategory-listiclecategory-machine-learningcategory-python-2category-rcategory-regressioncategory-structured-datacategory-supervisedcategory-unsupervisedtag-c4-5tag-carttag-catboosttag-data-sciencetag-decision-treetag-gbmtag-k-meanstag-knntag-lightgbmtag-linear-regressiontag-live-codingtag-logistic-regressiontag-machine-learningtag-naive-bayestag-neural-networktag-random-foresttag-reinforcementtag-supervised-learningtag-svmtag-unsupervisedtag-xgboost">
+<a href="https://www.analyticsvidhya.com/blog/2017/09/common-machine-learning-algorithms/" title="Commonly used Machine Learning Algorithms (with Python and R Codes)">
+Commonly used Machine Learning Algorithms (with Python and R Codes)
+</a>
+</li>
+<li class="post-33160posttype-poststatus-publishformat-standardhas-post-thumbnailcategory-beginnercategory-business-analyticscategory-mathscategory-rcategory-techniquetag-excel-solvertag-least-cost-methodtag-linear-optimizationtag-linear-programmtag-linear-programmingtag-linear-programming-for-data-sciencetag-linear-programming-modelstag-northwest-corner-methodtag-opensolvertag-simplex-method">
+<a href="https://www.analyticsvidhya.com/blog/2017/02/lintroductory-guide-on-linear-programming-explained-in-simple-english/" title="Introductory guide on Linear Programming for (aspiring) data scientists">
+Introductory guide on Linear Programming for (aspiring) data scientists
+</a>
+</li>
+<li class="post-35058posttype-poststatus-publishformat-standardhas-post-thumbnailcategory-careercategory-intermediatecategory-interviewscategory-machine-learningcategory-skilltesttag-data-science-interviewstag-essential-machine-learning-skillstag-machine-learningtag-machine-learning-algorithmtag-machine-learning-application">
+<a href="https://www.analyticsvidhya.com/blog/2017/04/40-questions-test-data-scientist-machine-learning-solution-skillpower-machine-learning-datafest-2017/" title="40 Questions to test a data scientist on Machine Learning [Solution: SkillPower – Machine Learning, DataFest 2017]">
+40 Questions to test a data scientist on Machine Learning [Solution: SkillPower – Machine Learning, DataFest 2017]
+</a>
+</li>
+<li class="post-19875posttype-poststatus-publishformat-standardhas-post-thumbnailcategory-beginnercategory-data-sciencecategory-machine-learningcategory-mathscategory-probabilitycategory-python-2category-rcategory-techniquetag-bayes-theoremtag-classificationtag-conditional-probabilitytag-data-sciencetag-live-codingtag-machine-learningtag-naive-bayestag-naive-bayes-classifiertag-naive-bayes-in-rtag-probabilitytag-python">
+<a href="https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/" title="6 Easy Steps to Learn Naive Bayes Algorithm with codes in Python and R">
+6 Easy Steps to Learn Naive Bayes Algorithm with codes in Python and R
+</a>
+</li>
+<li class="post-32906posttype-poststatus-publishformat-standardhas-post-thumbnailcategory-business-analyticscategory-careercategory-intermediatecategory-machine-learningcategory-rcategory-skilltesttag-clusteringtag-clustering-analysistag-clustering-skilltest-solutiontag-clustering-techniquestag-hierarchical-clusteringtag-k-means-clusteringtag-non-hierarchical-clusteringtag-portfolio-clusteringtag-two-step-clustering">
+<a href="https://www.analyticsvidhya.com/blog/2017/02/test-data-scientist-clustering/" title="40 Questions to test a Data Scientist on Clustering Techniques (Skill test Solution)">
+40 Questions to test a Data Scientist on Clustering Techniques (Skill test Solution)
+</a>
+</li>
+<li class="post-36659posttype-poststatus-publishformat-standardhas-post-thumbnailcategory-advancedcategory-careercategory-educationcategory-linear-regressioncategory-machine-learningcategory-skilltesttag-lasso-regressiontag-linear-regressiontag-machine-learningtag-regressiontag-ridge-regression">
+<a href="https://www.analyticsvidhya.com/blog/2017/07/30-questions-to-test-a-data-scientist-on-linear-regression/" title="30 Questions to test a data scientist on Linear Regression [Solution: Skilltest – Linear Regression]">
+30 Questions to test a data scientist on Linear Regression [Solution: Skilltest – Linear Regression]
+</a>
+</li>
+<li class="post-32410posttype-poststatus-publishformat-standardcategory-careercategory-deep-learningcategory-intermediatecategory-machine-learningcategory-skilltesttag-deep-learningtag-deep-learning-applicationtag-deep-learning-coursestag-deep-learning-guidetag-deep-learning-tutorialstag-gpu-for-deep-learningtag-guide-on-deep-learningtag-implementation-of-neural-networkstag-neural-networktag-neural-network-coursestag-neural-network-tutorials">
+<a href="https://www.analyticsvidhya.com/blog/2017/01/must-know-questions-deep-learning/" title="45 Questions to test a data scientist on basics of Deep Learning (along with solution)">
+45 Questions to test a data scientist on basics of Deep Learning (along with solution)
+</a>
+</li>
+<li class="post-20569posttype-poststatus-publishformat-standardhas-post-thumbnailcategory-algorithmcategory-classificationcategory-data-sciencecategory-intermediatecategory-machine-learningcategory-python-2category-rcategory-structured-datacategory-supervisedtag-e1071tag-kerneltag-live-codingtag-machine-learningtag-pythontag-rtag-scikit-learntag-support-vector-machinetag-svmtag-svm-classifiertag-svm-kerneltag-svm-sklearn">
+<a href="https://www.analyticsvidhya.com/blog/2017/09/understaing-support-vector-machine-example-code/" title="Understanding Support Vector Machine(SVM) algorithm from examples (along with code)">
+Understanding Support Vector Machine(SVM) algorithm from examples (along with code)
+</a>
+</li>
+</ul></div><div id="text-23" class="widget clearfix widget_text"> <div class="textwidget">
+
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-5229672700622157" data-ad-slot="1620249624"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</div><div id="listcareerpostswidget-2" class="widget clearfix ListCareerPostsWidget"><div class="widget-title"><div class="block-cap"><h3>Career Resources</h3></div></div><ul class="recommended-reads"><li><div class="recommended-reads-li" style="margin-bottom:20px;"><div class="recommended-reads-img"><img width="83" height="63" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/01/deep_learning_learning_path-83x63.jpg" class="attachment-83x63 size-83x63 wp-post-image" alt="deep_learning_learning_path" loading="lazy" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/01/deep_learning_learning_path-83x63.jpg 83w, https://cdn.analyticsvidhya.com/wp-content/uploads/2020/01/deep_learning_learning_path-260x198.jpg 260w" sizes="(max-width: 83px) 100vw, 83px" /></div><div class="recommended-reads-txt"><div class="recommended-reads-heading"><a href="https://www.analyticsvidhya.com/16-key-questions-data-science-career-transition/?&utm_source=Blog&utm_medium=CareerResourceWidget" style="color: #333;font-size:15px;">16 Key Questions You Should Answer Before Transitioning into Data Science</a></div><div class="recommended-reads-title" style="text-transform:uppercase;font-weight:600;padding:2px;font-size:12px;">November 23, 2020</div><li><div class="recommended-reads-li" style="margin-bottom:20px;"><div class="recommended-reads-img"><img width="83" height="63" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/11/skills-to-become-a-Data-Scientist-83x63.jpg" class="attachment-83x63 size-83x63 wp-post-image" alt="Data Scientist skills" loading="lazy" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/11/skills-to-become-a-Data-Scientist-83x63.jpg 83w, https://cdn.analyticsvidhya.com/wp-content/uploads/2020/11/skills-to-become-a-Data-Scientist-260x198.jpg 260w" sizes="(max-width: 83px) 100vw, 83px" /></div><div class="recommended-reads-txt"><div class="recommended-reads-heading"><a href="https://www.analyticsvidhya.com/blog/2021/01/heres-what-you-need-to-know-to-become-a-data-scientist/?&utm_source=Blog&utm_medium=CareerResourceWidget" style="color: #333;font-size:15px;">Here&#8217;s What You Need to Know to Become a Data Scientist!</a></div><div class="recommended-reads-title" style="text-transform:uppercase;font-weight:600;padding:2px;font-size:12px;">January 22, 2021</div><li><div class="recommended-reads-li" style="margin-bottom:20px;"><div class="recommended-reads-img"><img width="83" height="63" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/10/Data-Science-Blogathon-Share-Your-Knowledge-and-Win-Prizes-83x63.jpg" class="attachment-83x63 size-83x63 wp-post-image" alt="Potential Data Scientist" loading="lazy" srcset="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/10/Data-Science-Blogathon-Share-Your-Knowledge-and-Win-Prizes-83x63.jpg 83w, https://cdn.analyticsvidhya.com/wp-content/uploads/2020/10/Data-Science-Blogathon-Share-Your-Knowledge-and-Win-Prizes-260x198.jpg 260w" sizes="(max-width: 83px) 100vw, 83px" /></div><div class="recommended-reads-txt"><div class="recommended-reads-heading"><a href="https://www.analyticsvidhya.com/blog/2020/12/these-7-signs-show-you-have-data-scientist-potential/?&utm_source=Blog&utm_medium=CareerResourceWidget" style="color: #333;font-size:15px;">These 7 Signs Show you have Data Scientist Potential!</a></div><div class="recommended-reads-title" style="text-transform:uppercase;font-weight:600;padding:2px;font-size:12px;">December 3, 2020</div><li><div class="recommended-reads-li" style="margin-bottom:20px;"><div class="recommended-reads-img"><img width="83" height="63" src="https://www.analyticsvidhya.com/wp-content/uploads/2014/09/htds-83x63.jpg" class="attachment-83x63 size-83x63 wp-post-image" alt="how to become a data scientist business analyst?" loading="lazy" /></div><div class="recommended-reads-txt"><div class="recommended-reads-heading"><a href="https://www.analyticsvidhya.com/blog/2020/11/how-to-have-a-career-in-data-science-business-analytics/?&utm_source=Blog&utm_medium=CareerResourceWidget" style="color: #333;font-size:15px;">How To Have a Career in Data Science (Business Analytics)?</a></div><div class="recommended-reads-title" style="text-transform:uppercase;font-weight:600;padding:2px;font-size:12px;">November 26, 2020</div><li><div class="recommended-reads-li" style="margin-bottom:20px;"><div class="recommended-reads-img"><img width="83" height="63" src="https://www.analyticsvidhya.com/wp-content/uploads/2014/09/ds-83x63.jpg" class="attachment-83x63 size-83x63 wp-post-image" alt="Should I become a Data Scientist or a Business Analyst" loading="lazy" /></div><div class="recommended-reads-txt"><div class="recommended-reads-heading"><a href="https://www.analyticsvidhya.com/blog/2020/11/become-data-scientist-business-analyst/?&utm_source=Blog&utm_medium=CareerResourceWidget" style="color: #333;font-size:15px;">Should I become a data scientist (or a business analyst)?</a></div><div class="recommended-reads-title" style="text-transform:uppercase;font-weight:600;padding:2px;font-size:12px;">November 24, 2020</div></ul></div><div id="maha_recent_posts-3" class="widget clearfix widget_recents"><div class="widget-title"><div class="block-cap"><h3>Recent Posts</h3></div></div>
+<article class="post-box-small recent-item clearfix">
+<div class="thumb-wrap zoom-zoom three">
+<a href="https://www.analyticsvidhya.com/blog/2021/03/introduction-to-bayes-theorem-for-data-science/" rel="bookmark" title="Introduction to Bayes Theorem for Data Science">
+<img width="83" height="63" class="entry-thumb zoom-it three" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2019/05/Bayes-Theorem-and-its-Applications-83x63.jpg" alt="Introduction to Bayes Theorem for Data Science" title="Introduction to Bayes Theorem for Data Science" />
+</a>
+</div>
+<div class="box-small-wrap">
+<h3 class="entry-title short-bottom">
+<a href="https://www.analyticsvidhya.com/blog/2021/03/introduction-to-bayes-theorem-for-data-science/" rel="bookmark" title="Introduction to Bayes Theorem for Data Science">
+Introduction to Bayes Theorem for Data Science </a>
+</h3>
+<meta content="Introduction to Bayes Theorem for Data Science" />
+<div class="meta-info">
+<time class="entry-date" datetime="2021-03-30T18:17:10+05:30">
+March 30, 2021 </time>
+</div>
+</div>
+</article>
+<article class="post-box-small recent-item clearfix">
+<div class="thumb-wrap zoom-zoom three">
+<a href="https://www.analyticsvidhya.com/blog/2021/03/advanced-ensemble-learning-technique-stacking-and-its-variants/" rel="bookmark" title="Advanced Ensemble Learning technique &#8211; Stacking and its Variants">
+<img width="83" height="63" class="entry-thumb zoom-it three" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2019/10/math_machine_learning.jpg-83x63.jpg" alt="Advanced Ensemble Learning technique &#8211; Stacking and its Variants" title="Advanced Ensemble Learning technique &#8211; Stacking and its Variants" />
+</a>
+</div>
+<div class="box-small-wrap">
+<h3 class="entry-title short-bottom">
+<a href="https://www.analyticsvidhya.com/blog/2021/03/advanced-ensemble-learning-technique-stacking-and-its-variants/" rel="bookmark" title="Advanced Ensemble Learning technique &#8211; Stacking and its Variants">
+Advanced Ensemble Learning technique &#8211; Stacking and its Variants </a>
+</h3>
+<meta content="Advanced Ensemble Learning technique &#8211; Stacking and its Variants" />
+<div class="meta-info">
+<time class="entry-date" datetime="2021-03-30T17:20:10+05:30">
+March 30, 2021 </time>
+</div>
+</div>
+</article>
+<article class="post-box-small recent-item clearfix">
+<div class="thumb-wrap zoom-zoom three">
+<a href="https://www.analyticsvidhya.com/blog/2021/03/pandas-functions-for-data-analysis-and-manipulation/" rel="bookmark" title="Pandas Functions for Data Analysis and Manipulation">
+<img width="83" height="63" class="entry-thumb zoom-it three" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/09/Speeding-up-Pandas-in-Python-83x63.jpg" alt="Pandas Functions for Data Analysis and Manipulation" title="Pandas Functions for Data Analysis and Manipulation" />
+</a>
+</div>
+<div class="box-small-wrap">
+<h3 class="entry-title short-bottom">
+<a href="https://www.analyticsvidhya.com/blog/2021/03/pandas-functions-for-data-analysis-and-manipulation/" rel="bookmark" title="Pandas Functions for Data Analysis and Manipulation">
+Pandas Functions for Data Analysis and Manipulation </a>
+</h3>
+<meta content="Pandas Functions for Data Analysis and Manipulation" />
+<div class="meta-info">
+<time class="entry-date" datetime="2021-03-30T14:56:12+05:30">
+March 30, 2021 </time>
+</div>
+</div>
+</article>
+<article class="post-box-small recent-item clearfix">
+<div class="thumb-wrap zoom-zoom three">
+<a href="https://www.analyticsvidhya.com/blog/2021/03/feature-transformation-cheatsheet/" rel="bookmark" title="Feature Transformation CheatSheet">
+<img width="83" height="63" class="entry-thumb zoom-it three" src="https://cdn.analyticsvidhya.com/wp-content/uploads/2021/03/55880asyaevloeva_feature_transformation-83x63.png" alt="Feature Transformation CheatSheet" title="Feature Transformation CheatSheet" />
+</a>
+</div>
+<div class="box-small-wrap">
+<h3 class="entry-title short-bottom">
+<a href="https://www.analyticsvidhya.com/blog/2021/03/feature-transformation-cheatsheet/" rel="bookmark" title="Feature Transformation CheatSheet">
+Feature Transformation CheatSheet </a>
+</h3>
+<meta content="Feature Transformation CheatSheet" />
+<div class="meta-info">
+<time class="entry-date" datetime="2021-03-30T14:33:17+05:30">
+March 30, 2021 </time>
+</div>
+</div>
+</article>
+</div><div id="text-42" class="widget clearfix widget_text"> <div class="textwidget"><div id="sticky1"><a href="https://blackbelt.analyticsvidhya.com/plus?utm_source=Blog&#038;utm_medium=stickybanner1" target="_blank" rel="noopener"><img src="https://cdn.analyticsvidhya.com/wp-content/uploads/2021/03/BB_Plus-1.png" /></a></div>
+</div>
+</div><div id="text-46" class="widget clearfix widget_text"> <div class="textwidget"><div id="sticky2"><a href="https://datahack.analyticsvidhya.com/contest/data-science-blogathon-6/?utm_source=blog&#038;utm_medium=stickybanner2" target="_blank" rel="noopener"><img src="https://cdn.analyticsvidhya.com/wp-content/uploads/2021/03/blogathon-6.png" /></a></div>
+</div>
+</div></div></div> </div>
+</div>
+</div>
+</div>
+
+</div>
+
+<footer class="footer-bg">
+<div class="container">
+<div class="row">
+<div class="col-lg-4 col-md-4 col-sm-4 col-12">
+<a href="https://www.analyticsvidhya.com/">
+<img src="https://www.analyticsvidhya.com/wp-content/themes/Curated/custom/images/av-white2.png" alt="Analytics Vidhya" width="85%">
+</a>
+<div class="download-av-app">
+<h6 class="d-flex align-items-center download-text-center">Download App</h6>
+<a href="https://play.google.com/store/apps/details?id=com.analyticsvidhya.android" target="_blank">
+<img src="https://www.analyticsvidhya.com/wp-content/themes/Curated/custom/images/play_store_icon.svg" alt="play store">
+</a>
+<a href="https://apps.apple.com/us/app/analytics-vidhya/id1470025572" target="_blank">
+<img src="https://www.analyticsvidhya.com/wp-content/themes/Curated/custom/images/app_Store_icon.svg" alt="App Store">
+</a>
+</div>
+</div>
+<div class="col-lg-8 col-md-8 col-sm-8 col-12">
+<div class="av-links">
+<ul>
+<li>
+<h6>Analytics Vidhya</h6>
+<a href="https://www.analyticsvidhya.com/about-me/">About Us</a>
+<a href="https://www.analyticsvidhya.com/about-me/team/">Our Team</a>
+<a href="https://www.analyticsvidhya.com/about-me/career-analytics-vidhya/">Careers</a>
+<a href="https://www.analyticsvidhya.com/contact/">Contact us</a>
+</li>
+<li>
+<h6>Data Science</h6>
+<a href="https://www.analyticsvidhya.com/blog/">Blog</a>
+<a href="https://datahack.analyticsvidhya.com/">Hackathon</a>
+<a href="https://discuss.analyticsvidhya.com/">Discussions</a>
+<a href="https://www.analyticsvidhya.com/jobs/">Apply Jobs</a>
+</li>
+<li>
+<h6>Companies</h6>
+<a href="https://www.analyticsvidhya.com/corporate/">Post Jobs</a>
+<a href="https://courses.analyticsvidhya.com/">Trainings</a>
+<a href="https://datahack.analyticsvidhya.com/">Hiring Hackathons</a>
+<a href="https://www.analyticsvidhya.com/contact/">Advertising</a>
+</li>
+<li>
+<h6>Visit us</h6>
+<div class="av-get-social">
+<a href="https://www.facebook.com/AnalyticsVidhya/" target="_blank" class="social-visit fb mr-2">
+<i class="fa fa-facebook"></i>
+</a>
+<a href="https://www.linkedin.com/company/analytics-vidhya/" target="_blank" class="social-visit in mr-2">
+<i class="fa fa-linkedin"></i>
+</a>
+<a href="https://www.youtube.com/channel/UCH6gDteHtH4hg3o2343iObA" target="_blank" class="social-visit utub mr-2">
+<i class="fa fa-youtube"></i>
+</a>
+<a href="https://twitter.com/analyticsvidhya" target="_blank" class="social-visit tw mr-2">
+<i class="fa fa-twitter"></i>
+</a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div class="footer-link-bottom">
+<div class="container">
+<div class="row">
+<div class="col-12 col-sm-6 col-md-6">
+<div class="mr-auto">
+<p>© Copyright 2013-2020 Analytics Vidhya</p>
+</div>
+</div>
+<div class="col-12 col-sm-6 col-md-6">
+<div class="footer-float-right">
+<a href="https://www.analyticsvidhya.com/privacy-policy/" target="_blank">Privacy Policy</a>
+<a href="https://www.analyticsvidhya.com/terms/" target="_blank">Terms of Use</a>
+<a href="https://www.analyticsvidhya.com/refund-policy/" target="_blank">Refund Policy</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</footer>
+</div>
+
+</div>
+
+<div id="scrolltop">
+<a><i class="tm-go-top"></i></a>
+</div>
+</div>
+<script>
+ $(document).ready(function(){
+	     $.ajax({
+        url: "https://www.analyticsvidhya.com/back-channel/display-image.php",
+        data: {
+            image: '3'
+        },
+        type: "GET",
+				cache: false,
+        dataType: "html",
+        success: function (data) {
+            $('#ban3_av').html(data);
+        },
+        error: function (xhr, status) {
+					console.log("Image Failed!");
+        },
+    });
+});
+</script>
+<script type="text/javascript" src="https://www.analyticsvidhya.com/wp-content/themes/Curated/custom/oidc-client.js" defer></script>
+<script>
+var redirect_uri = 'https://www.analyticsvidhya.com/';
+var authority_id = 'https://id.analyticsvidhya.com/openid';
+var client_o_id = '516577';
+var av_is_signed_in = false;
+</script>
+<script type="text/javascript" src="https://www.analyticsvidhya.com/back-channel/id-connect-v2.js" defer></script>
+<script src="https://accounts.google.com/gsi/client"></script>
+<script>
+var img_path = "https://www.analyticsvidhya.com/wp-content/themes/Curated/";
+var bookmark_post_id = "33873"
+var is_bookmarked = false;
+var uid = "";
+
+function user_logged_in(user)
+{
+    $.ajaxSetup({
+            beforeSend: function (xhr){
+                xhr.setRequestHeader("Authorization","Bearer "+user.access_token);
+             }
+    });//ajaxsetup
+    // Check if the article is already bookmarked
+    $.ajax({
+     type:"GET",
+     url:"https://id.analyticsvidhya.com/api/v1/resources/external_save_check?resource_ids=33873",
+     contentType: 'application/json',
+     success: function(data) {
+         if(data.results[0].is_bookmarked==true)
+            {
+              $(".save-for-later").html('<a id="bookmark-article" href="#"><img src="'+img_path+'/custom-design/images/bookmarked.svg" width="18px" alt="Remove Bookmark" title="Remove Bookmark" data-toggle="tooltip"></a>');
+							$(".fb-blue").addClass("fb-active-blue");
+							$("#fb-blue-href").attr("title","Remove Bookmark");
+							is_bookmarked = true;
+						}
+     },
+        error: function(data) {
+        data =  JSON.stringify(data);
+//        $(".save-for-later").html(data);
+       }
+    });
+   // End Check if article already Bookmarked
+
+	// If user is logged in give option to bookmark article
+        $("#login1").html("<a href='https://id.analyticsvidhya.com/accounts/profile/' target='_blank'>" + user.profile.preferred_username + "</a>");
+        $(".save-for-later").html('<a id="bookmark-article" href="#"><img src="'+img_path+'/custom-design/images/do-bookmark.svg" width="18px" alt="Bookmark this story to read later" title="Bookmark this story to read later" data-toggle="tooltip"></a>');
+				$("#fb-blue-href").attr("title","Bookmark this story to read later");
+				$(".download-pdf").html("<a href='https://www.analyticsvidhya.com/back-channel/download-pdf.php?pid=33873&next="+$(location).attr('href')+ "' ><img src='https://cdn.analyticsvidhya.com/wp-content/uploads/2020/06/download-post-pdf.png' alt='Click to Download PDF' title='Click to Download PDF of this Article'></a>");
+				$("#top-av-users-signup").hide();
+				$("#top-av-users-show").show();
+				$("#is_logged_in_brchr").val("1");
+				$(".coding-window-no-show").hide();
+				initCodingWindow();
+				$(".coding-window").show();
+				$(".video-show-no-show").hide();
+				$(".video-show").show();
+				$("#typing-tutor").html("<a href='https://typingtutor.analyticsvidhya.com/'>https://typingtutor.analyticsvidhya.com/</a>");
+				$(".qa-login-req-no-show").hide();
+				$(".qa-login-req").show();
+				$('.qa-login-req').css('visibility','visible');
+				$(".fluffycourse-hide").hide();
+				$(".fluffycourse").show();
+				$(".lock-icon").hide();
+
+				uid = user.profile.sub;
+				quizInit(uid);
+				// Popup Logged in
+				$("#popup_logged_in").val("1");
+				//console.log ("H:"+uid);
+				$.getScript( "https://brahma.analyticsvidhya.com/static/js/events.js" )
+				  .done(function( script, textStatus ) {
+				    console.log( "Brahma Loaded" );
+				  })
+				  .fail(function( jqxhr, settings, exception ) {
+						console.log( "Brahma Failed" );
+				});
+								//$("#signup").hide();
+				//$("#dwn-brchr").show();
+	// End If user is logged in give option to bookmark article
+
+}
+
+function user_logged_out()
+{
+    //console.log("logged out");
+		var page_url = $(location). attr("href");
+    $("#login1").html("<a href='https://id.analyticsvidhya.com/auth/login/?next="+$(location).attr('href')+ "' target='_blank'> Login / Register</a>");
+    $(".save-for-later").html("<a href='https://id.analyticsvidhya.com/auth/login/?next="+$(location).attr('href')+ "' target='_blank'>Login to Bookmark this article</a>");
+		$("#fb-blue-href").attr("href","https://id.analyticsvidhya.com/auth/login/?next="+$(location).attr('href'));
+		$("#fb-blue-href").attr("title","Login to Bookmark this article");
+		$(".download-pdf").html("<a href='https://www.analyticsvidhya.com/back-channel/download-pdf.php?pid=33873' target='_blank'><img src='https://cdn.analyticsvidhya.com/wp-content/uploads/2020/06/download-post-pdf.png' alt='Click to Download PDF' title='Click to Download PDF of this Article'></a>");
+		$("#top-av-users-show").hide();
+		$("#top-av-users-signup").show();
+		$("#is_logged_in_brchr").val("0");
+		if ($(".coding-window-no-show").length == 0)
+		{
+			$(".coding-window").before("<a href='https://id.analyticsvidhya.com/auth/login/?next="+$(location).attr('href')+ "?&utm_source=coding-window-blog&source=coding-window-blog'><img src='https://s3-ap-south-1.amazonaws.com/av-blog-media/wp-content/uploads/2019/08/coding-window-noshow.jpg' class='coding-window-no-show'></a>");
+		}
+		$(".coding-window").hide();
+		if ($(".video-show-no-show").length == 0)
+		{
+			$(".video-show").before("<a href='https://id.analyticsvidhya.com/auth/login/?next="+$(location).attr('href')+ "?&utm_source=video-show-blog&source=video-show-blog'><img src='https://cdn.analyticsvidhya.com/wp-content/uploads/2021/02/video-noshow.jpg' class='video-show-no-show'></a>");
+		}
+		$(".video-show").hide();
+
+		$("#typing-tutor").html("<a href='https://id.analyticsvidhya.com/auth/login/?next="+$(location).attr('href')+ "' target='_blank'> <img style='height: 40px;' src='https://cdn.analyticsvidhya.com/wp-content/uploads/2020/12/images.png'/></a>");
+
+		if ($(".qa-login-req-no-show").length == 0)
+		{
+			$(".qa-login-req").before("<a href='https://id.analyticsvidhya.com/auth/login/?next="+$(location).attr('href')+ "?&utm_source=question-answer-blog&source=qa-blog'><img src='https://cdn.analyticsvidhya.com/wp-content/uploads/2020/10/answer-signin.png' class='qa-login-req-no-show'></a>");
+		}
+		$(".qa-login-req").hide();
+		$(".fluffycourse").hide();
+		$(".fluffycourse").after("<div 'fluffycourse-hide'><a href='https://id.analyticsvidhya.com/auth/login/?next="+$(location).attr('href')+ "?&utm_source=coding-window-blog&source=coding-window-blog'><img src='https://s3-ap-south-1.amazonaws.com/av-blog-media/wp-content/uploads/2019/08/test-learning.jpg' class='coding-window-no-show'></a></div>");
+		// Popup Logged out
+		$("#popup_logged_in").val("0");
+		uid = "";
+		//$("#signup").show();
+		//$("#dwn-brchr").hide();
+		$.getScript( "https://brahma.analyticsvidhya.com/static/js/events.js" )
+			.done(function( script, textStatus ) {
+				console.log( "Brahma Script Loaded" );
+			})
+			.fail(function( jqxhr, settings, exception ) {
+				console.log( "Brahma Script Failed" );
+		});
+		}
+
+// Assess yourself
+$(document).ready(function(){
+
+$('#assess-button-2').click(function(){   // Videos
+	$('#assess-button-2').addClass("assess-tab-button-active");
+	$('#assess-button-1').removeClass("assess-tab-button-active");
+	$('#assess-button-3').removeClass("assess-tab-button-active");
+	$("#article-data").hide();
+	$("#assess-data").hide();
+	$("#assess-video-data").show();
+
+// Display Vidoes on All Pages
+if (av_is_signed_in == true)
+	{
+		$("#assess-video-data").html('<iframe src="https://dsat.analyticsvidhya.com/blog/videos/33873" height="500" width="100%" class="assess-video-data" allowfullscreen>');
+	}
+else {
+	$("#assess-video-data").html("<a id='auth_url' href='https://id.analyticsvidhya.com/auth/login/?next="+$(location).attr('href')+ "?&utm_source=assess-yourself&source=assess-yourself-blog'><img id='auth_url_image' src='https://cdn.analyticsvidhya.com/wp-content/uploads/2021/01/video.png'></a>");
+	window.location = "https://id.analyticsvidhya.com/auth/login/?next="+$(location).attr('href')+ "?&utm_source=assess-yourself&source=assess-yourself-blog";
+	}
+
+});
+
+
+$('#assess-button-3').click(function(){ // Interview Questions
+	$('#assess-button-3').addClass("assess-tab-button-active");
+	$('#assess-button-2').removeClass("assess-tab-button-active");
+	$('#assess-button-1').removeClass("assess-tab-button-active");
+	$("#article-data").hide();
+	$("#assess-video-data").hide();
+  $("#assess-data").show();
+
+
+// Check if user is logged in
+if (av_is_signed_in == true)
+	{
+			$("#assess-data").html('<iframe src="https://dsat.analyticsvidhya.com/blog/create/assessment/33873" height="500" width="100%">');
+	}
+else {
+		$("#assess-data").html("<a id='auth_url' href='https://id.analyticsvidhya.com/auth/login/?next="+$(location).attr('href')+ "?&utm_source=assess-yourself&source=assess-yourself-blog'><img id='auth_url_image' src='https://cdn.analyticsvidhya.com/wp-content/uploads/2020/11/click-to-login.png'></a>");
+		window.location = "https://id.analyticsvidhya.com/auth/login/?next="+$(location).attr('href')+ "?&utm_source=assess-yourself&source=assess-yourself-blog";
+	}
+
+});
+
+$('#assess-button-1').click(function(){ // Article
+	$('#assess-button-1').addClass("assess-tab-button-active");
+	$('#assess-button-2').removeClass("assess-tab-button-active");
+	$('#assess-button-3').removeClass("assess-tab-button-active");
+	$("#assess-data").hide();
+	$("#assess-video-data").hide();
+	$("#article-data").show();
+	});
+});
+// End Assess yourself
+
+function quizInit(uid)
+{
+			return;
+	}
+
+function initCodingWindow() {
+	$('.coding-window iframe').each(function() {
+		var src = $(this).data('src');
+		if (!src) {
+			return;
+		}
+		this.src = src;
+	})
+}
+
+$(document).ready(function(){
+
+        var img_path = "https://www.analyticsvidhya.com/wp-content/themes/Curated/";
+
+				google.accounts.id.initialize({
+					client_id: '429311339129-v51ip59f2utl09dvqd2nfunv44el44nj.apps.googleusercontent.com',
+					callback: handleCredentialResponse
+				});
+
+mgr.getUser().then(function(user) {
+    // If user was already logged in
+    if (user!==null){
+        mgr.querySessionStatus().then(function(res) {
+        //console.log('Ohhh, its you again');
+        av_is_signed_in = true;
+        // Log the user in
+        user_logged_in(user);
+
+        }).catch(function(err){
+					// Check If User logged in With Google Signon
+            // If user logged out from OP
+            av_is_signed_in = false;
+            user_logged_out();
+            mgr.removeUser();
+        });
+
+    } // End check if the user is not null
+    else{
+        mgr.signinRedirectCallback().then(function(user) {
+            // If user just logged in and redirected to this page
+            //console.log(user.profile.given_name, ' bro, how was login experience?');
+            av_is_signed_in = true;
+            // Call user_logged_in_functions
+            user_logged_in(user);
+        }).catch(function(err) {
+            // If user is NOT logged in
+            //console.log('Logged out');
+            user_logged_out();
+            google.accounts.id.prompt();
+            mgr.signinSilent().then(function(user) {
+                av_is_signed_in = true;
+                //console.log("silent signed in", user);
+                user_logged_in(user);
+            }).catch(function(err) {
+
+							// Check If User logged in With Google Signon
+								av_is_signed_in = false;
+                user_logged_out();
+                google.accounts.id.prompt();
+                //console.log("Silentsignin Err");
+               // console.log(err);
+				 });
+        });
+    }
+}).catch(function(err){
+    //console.log('Couldnt get user');
+    user_logged_out();
+});
+
+
+}); // document.ready
+
+
+// Bookmark Article
+$('.fb-blue').click(function(){
+	if (av_is_signed_in)
+		bookmark_post();
+});
+
+$('.save-for-later').on("click", "#bookmark-article",function(event){
+	bookmark_post();
+});
+
+function getCookie(name) {
+    return (document.cookie.match('(?:^|;)\\s*'+name.trim()+'\\s*=\\s*([^;]*?)\\s*(?:;|$)')||[])[1];
+}
+
+function bookmark_post()
+{
+	event.preventDefault();
+	var bookmark_data = {resource_id:"33873", resource_type:"article",resource_permalink:"https://www.analyticsvidhya.com/blog/2017/03/conditional-probability-bayes-theorem/",resource_title:"Introduction to Conditional Probability and Bayes theorem in R for data science professionals",resource_medium: "blog"};
+ if (is_bookmarked==false) {
+ $.ajax({
+	type:"POST",
+	dataType:"json",
+	url:"https://id.analyticsvidhya.com/api/v1/resources/external_save",
+	data:JSON.stringify(bookmark_data),
+ contentType: 'application/json',
+	success: function(data) {
+			data =JSON.stringify(data);
+			 $(".save-for-later").html('<a id="bookmark-article" href="#"><img src="'+img_path+'/custom-design/images/bookmarked.svg" width="18px" alt="Article Bookmarked" title="Article Bookmarked" data-toggle="tooltip"></a>');
+			 $(".fb-blue").addClass("fb-active-blue");
+			 $("#fb-blue-href").attr("title","Article Bookmarked");
+			 is_bookmarked=true;
+	},
+		 error: function(data) {
+		 data =  JSON.stringify(data);
+		 //$(".save-for-later").html(data);
+		 $(".save-for-later").html('Failed to Bookmark Article');
+		 $(".fb-blue").removeClass("fb-active-blue");
+		 $("#fb-blue-href").attr("title","Failed to Bookmark Article");
+		}
+ });
+} // end if
+else if (is_bookmarked==true){
+ //console.log("Remove");
+ $.ajax({
+	type:"DELETE",
+	dataType:"json",
+	url:"https://id.analyticsvidhya.com/api/v1/resources/external_save",
+	data:JSON.stringify(bookmark_data),
+ contentType: 'application/json',
+	success: function(data) {
+			data =JSON.stringify(data);
+			$(".save-for-later").html('<a id="bookmark-article" href="#"><img src="'+img_path+'/custom-design/images/do-bookmark.svg" width="18px" alt="Bookmark this story to read later" title="Bookmark this story to read later" data-toggle="tooltip"></a>');
+			$(".fb-blue").removeClass("fb-active-blue");
+			$("#fb-blue-href").attr("title","Bookmark this story to read later");
+			 is_bookmarked=false;
+	},
+		 error: function(data) {
+		 data =  JSON.stringify(data);
+		 //$(".save-for-later").html(data);
+		 $(".save-for-later").html('Failed to Remove Bookmark');
+		 $("#fb-blue-href").attr("title","Failed to Remove Bookmark");
+
+		}
+ });
+} //end elseif
+
+}
+
+
+</script>
+<script>
+        if (av_is_signed_in == true)
+    {
+            $("#logout_button_id").on("click", function(){
+            google.accounts.id.disableAutoSelect();
+            av_is_signed_in = false;
+        })
+    }
+    </script>
+<script>
+    if (av_is_signed_in == false) {
+        window.onload = function () {
+          /*google.accounts.id.initialize({
+            client_id: '429311339129-v51ip59f2utl09dvqd2nfunv44el44nj.apps.googleusercontent.com',
+            callback: handleCredentialResponse
+          });*/
+          //google.accounts.id.prompt();
+        }
+    }
+        function handleCredentialResponse(callback_data){
+            // get credentials from google and send it for login
+            callback_data['source_platform']='blogs-prod';
+            callback_data['redirect_url'] = 'https://www.analyticsvidhya.com/';
+            callback_data['url'] = window.location.href;
+            callback_data['button_id'] = 1113;
+            $.ajax({
+              url:"https://id.analyticsvidhya.com/automation/google/onetap/blog/login",
+              data: callback_data,
+              method:'post',
+              success: function(response){
+                console.log(response)
+                payload = JSON.parse(response)
+                av_is_signed_in = true;
+              //  console.log(payload);
+            //    console.log(payload.identityid);
+                 $.ajax({
+  url: "https://www.analyticsvidhya.com/back-channel/check-session.php",
+  method: "POST",
+  data: { "session_key" : payload.identityid },
+  success : function(r){
+  	//console.log(r)
+  }
+});
+                user_logged_in(payload)
+              },
+              error: function(){
+                console.log("error")
+              }
+            })
+          }
+
+      </script>
+<script>
+jQuery(document).ready(function(){
+	var cur_article = 33873;
+	var sticky_show = [34673,17945,39017,33065,50015,8705,8185,34647,24617,35039,53147,37752,31141,20811,38436,39022,32906,30206,1985,31873,2898,34013,38437,16268,35043,1656,2809,17720,44850,24236,4749,45525,56532,6211,25844,16541,48404,37765,2341,34507,45887,21892,29434,22307,29158,9979,27149,2575,41211,54542,42678,49215,32101,20778,3408,49787,34733,27011,36662,36172,2523,21189,32410,0,27636,27350,38563,35045,29755,1636,35041,33278,3622,21670,34998,28117,29771,0,35058,27146,30778,15588,50351,45797,0,5964,25900,32390,34513,16996,2835,5999,15900,39551,55586,6213,2187,20880,21323,2462,26363,3139,27022,12907,36659,32868,57884,55871,59240,59393,60322,60523,60581,60316,0,62393,62996,0,64636,64654,0,43910,65424,65668,67255,67708,49551,0,70784,71114,70714,71881,63282,72166,72170,72426,72559,72640,72168,72684];
+	if (jQuery.inArray(cur_article, sticky_show)!='-1'){
+	 jQuery("#sticky1").html('<a href="https://courses.analyticsvidhya.com/bundles/certified-ai-ml-blackbelt-plus?utm_source=Sticky-banner-1&utm_medium=blog&utm_campaign=blackbelt" target="_blank"><img src="https://cdn.analyticsvidhya.com/wp-content/uploads/2020/11/career-ds.jpg"></a>');
+	}
+});
+</script>
+
+<script>
+$(document).ready(function(){
+	$('#download_brochure_btn').on('click',function(){
+		event.preventDefault();
+		var article_url = $('#dwn-post-id').val();
+		var name = $('#dwn-name').val();
+		var phone = $('#dwn-phone').val();
+		var email = $('#dwn-email').val();
+		var bid = $('#for-download-pdf').val();
+		if(name!=""){
+			if(phone!=""){
+				$.ajax({
+					method: 'post',
+					data:{'name':name,'phone':phone,'email':email,'article_url':article_url,'bid':bid},
+					url:'https://www.analyticsvidhya.com/back-channel/download-brochure.php',
+					success:function(response){
+						if (response == 1)
+							{
+							$('#dwn-brochure-message').html('Thank you for your Interest');
+							$('#dwn-brochure-frm').hide();
+							// $('#dwn-error').hide();
+							window.location = 'https://www.analyticsvidhya.com/back-channel/download-brochure-file.php?brochure_id='+bid+'&email='+email;
+							}
+						else 	$('#dwn-error').html(response);
+						//$('#hide-download-brochure').html(response);
+					},
+					error:function(){
+						$('#dwn-error').html('Some error occured');
+						return false;
+						// alert('Failed');
+					}
+				});
+			}else{
+				$('#dwn-error').html('Please enter phone');
+				return false;
+			}
+		}else{
+			$('#dwn-error').html('Please enter name');
+			return false;
+		}
+	});
+});
+</script>
+
+<script>
+/* Use
+			$(document).ready(function() {
+
+		     $('#brochure-btn2').click(function(e) {
+		        e.preventDefault();
+		       	window.location.replace("https://id.analyticsvidhya.com/auth/login/?next="+window.location.href);
+		     });
+
+        $('#brochure-btn').click(function(e) {
+*/
+				/* Do not use
+								if ($('#dwn_bcr_name').val() == ""){
+									$("#error").empty();
+									$('#error').addClass('error-show');
+									$("#dwn_bcr_email").css("margin-top", "6%");
+									$('#error').append('Please Enter Name');
+									$('#dwn_bcr_name').focus();
+									return false;
+							}
+							else*/
+							/* Use
+							 if ($('#dwn_bcr_email').val() == ""){
+									$("#error1").empty();
+									$("#dwn_bcr_email").css({ 'margin-top' : '', '6%' : '' });
+									$('#error1').addClass('error-show');
+									$('#error1').append('Please Enter Email Id');
+									$("#dwn_bcr_phone").css("margin-top", "6%");
+									$('#dwn_bcr_email').focus();
+									return false;
+							}
+							/* Do not Use
+							else if ($('#dwn_bcr_phone').val() == ""){
+									$("#error2").empty();
+									$("#dwn_bcr_phone").css({ 'margin-top' : '', '6%' : '' });
+									$('#error2').addClass('error-show');
+									$('#error2').append('Please Enter Phone Number');
+									$('#dwn_bcr_phone').focus();
+									return false;
+							}*/
+							/* Use
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: 'https://www.analyticsvidhya.com/back-channel/download-brochure.php',
+                data: $('#download-brochure').serialize(),
+                beforeSend: function() {
+                    $("#loading-image").show();
+
+                },
+                success: function(data){
+                    $('#grdnt-clr').replaceWith('<div class="thnk-top">Thanks for showing your interest.</div>');
+                    $('#frm-cntnt').replaceWith('<div class="thnk-cntn">' + data + '</div>');
+                    // $('#frm-cntnt').html(data);
+                    $("#loading-image").hide();
+										if (av_is_signed_in == false)
+										{
+											try {
+											window.location.replace("https://id.analyticsvidhya.com/auth/login/?next="+window.location.href);
+											}
+											catch(e) {
+												window.location = "https://id.analyticsvidhya.com/auth/login/?next="+window.location.href;
+											}
+									  }
+								}
+            });
+        });
+    });*/
+</script>
+<script>
+    function myFunction1() {
+        document.getElementById("error").innerHTML = "";
+    }
+    function myFunction2() {
+        var email = document.getElementById("dwn_bcr_email").value;
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(email.match(re)){
+            document.getElementById("error1").innerHTML = "";
+            return true;
+        }else{
+            document.getElementById("error1").classList.add("error-show");
+            document.getElementById("error1").innerHTML = "Please enter valid email id";
+            return false;
+        }
+    }
+    function myFunction3() {
+        document.getElementById("error2").innerHTML = "";
+    }
+</script>
+
+
+<script type='text/javascript' id='contact-form-7-js-extra'>
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/www.analyticsvidhya.com\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=5.3.2' defer='defer' id='contact-form-7-js'></script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-content/themes/Curated/static/js/main.js?ver=1.0.0' id='maha-main-js'></script>
+<script type='text/javascript' id='maha-basix-js-extra'>
+/* <![CDATA[ */
+var MahaAjax = {"ajaxurl":"https:\/\/www.analyticsvidhya.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-content/themes/Curated/static/js/basix.js?ver=1.0.0' defer='defer' id='maha-basix-js'></script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-content/themes/Curated/static/js/add_to_cart.js?ver=1.0.0' defer='defer' id='add_to_cart-js'></script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-includes/js/comment-reply.min.js?ver=5.6' defer='defer' id='comment-reply-js'></script>
+<!--[if IE 9]>
+<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js?ver=1' defer='defer' id='maha-html5-ie9-js'></script>
+<![endif]-->
+<!--[if IE 9]>
+<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.min.js?ver=1' defer='defer' id='maha-respond-ie9-js'></script>
+<![endif]-->
+<script type='text/javascript' id='q2w3_fixed_widget-js-extra'>
+/* <![CDATA[ */
+var q2w3_sidebar_options = [{"sidebar":"blog-sidebar","margin_top":55,"margin_bottom":800,"stop_id":"","screen_max_width":0,"screen_max_height":0,"width_inherit":false,"refresh_interval":1500,"window_load_hook":false,"disable_mo_api":false,"widgets":["text-42","text-46"]}];
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-content/plugins/q2w3-fixed-widget/js/q2w3-fixed-widget.min.js?ver=5.1.9' defer='defer' id='q2w3_fixed_widget-js'></script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-includes/js/jquery/ui/effect.min.js?ver=1.12.1' defer='defer' id='jquery-effects-core-js'></script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-includes/js/jquery/ui/effect-blind.min.js?ver=1.12.1' defer='defer' id='jquery-effects-blind-js'></script>
+<script type='text/javascript' id='wstbLayout-js-extra'>
+/* <![CDATA[ */
+var stbUserOptions = {"mode":"css","cssOptions":{"roundedCorners":true,"mbottom":10,"imgHide":"https:\/\/www.analyticsvidhya.com\/blog\/wp-content\/plugins\/wp-special-textboxes\/images\/minus.png","imgShow":"https:\/\/www.analyticsvidhya.com\/blog\/wp-content\/plugins\/wp-special-textboxes\/images\/plus.png","strHide":"Hide","strShow":"Show"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-content/plugins/wp-special-textboxes/js/wstb.min.js?ver=5.9.109' defer='defer' id='wstbLayout-js'></script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-includes/js/wp-embed.min.js?ver=5.6' defer='defer' id='wp-embed-js'></script>
+<script type='text/javascript' src='https://www.analyticsvidhya.com/wp-content/plugins/oembed-gist/js/script.min.js?ver=4.9.1' defer='defer' id='oembed-gist-js'></script>
+
+<div class="dgd_overlay"></div>
+<div class="dgd_stb_box " id="dgd_scrollbox-75110"><a class="dgd_stb_box_close dgd_stb_box_x" href="javascript:void(0);"> </a><p><a href="https://programs.analyticsvidhya.com/bundles/machine-learning-starter-program?utm_source=blog&utm_medium=popup" target="_blank" rel="noopener noreferrer"><img src="https://www.analyticsvidhya.com/wp-content/uploads/2021/03/MLSP.png" /></a></p>
+</div>
+
+
+<script>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:9.3.1',blog:'180026056',post:'33873',tz:'5.5',srv:'www.analyticsvidhya.com'} ]);
+	_stq.push([ 'clickTrackerInit', '180026056', '33873' ]);
+</script>
+<link rel="stylesheet" href="https://automation.analyticsvidhya.com/static/css/strip.css">
+
+<script type="text/javascript" src="https://automation.analyticsvidhya.com/static/js/getFlashDetails2.js" defer></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<link rel="stylesheet" href="https://www.analyticsvidhya.com/wp-content/themes/Curated/css/popup-style.css?ver=1.0.9">
+
+<div id="download-brochure-pdf-modal" class="modal">
+<center>
+<div class="modal-head">
+<h3 class="pdf-modal-heading" id="download-pdf-modal-heading">
+Download PDF
+</h3>
+</div>
+<div id="dwn-error1"></div>
+<div id="dwn-brochure-message1"></div>
+<form method="post" id="dwn-brochure-frm">
+<div class="form-container text-left">
+<input type="text" class="form-input name" placeholder="* Name" id="dwn-bro-name">
+<input type="email" class="form-input email" placeholder="* Email" id="dwn-bro-email">
+<input type="mobile" class="form-input" placeholder="Mobile" id="dwn-bro-mobile" style="border: 1px solid #dbdbdb;">
+<input type="hidden" name="dwnfile" value="" id="download-pdf-modal-dwnfile">
+
+<div class="btn-container text-center">
+<input type="submit" class="av-pdf-btn" value="download" id="dwnld_brochure_btn">
+</div>
+</div>
+</form>
+</center>
+</div>
+<script>
+$(document).ready(function(){
+ $('.download-pdf-popup').click(function(event) {
+  $('#download-pdf-modal-heading').text($(this).data('title'));
+  $('#download-pdf-modal-dwnfile').val($(this).data('downlaod'));
+  $('#download-brochure-pdf-modal').modal();
+  return false;
+ });
+});
+</script>
+<script>
+$(document).ready(function(){
+$('#dwnld_brochure_btn').on('click',function(){
+event.preventDefault();
+var article_url = 'https://www.analyticsvidhya.com/blog/2021/03/feature-transformation-cheatsheet/';
+var name = $('#dwn-bro-name').val();
+var email = $('#dwn-bro-email').val();
+var mobile = $('#dwn-bro-mobile').val();
+var dwnpath = $('#download-pdf-modal-dwnfile').val();
+if(name!=""){
+   if(email!=""){
+    $.ajax({
+      method: 'post',
+      data:{'name':name,'email':email,'mobile':mobile,'file_path':dwnpath,'article_url':article_url},
+      url:'https://www.analyticsvidhya.com/back-channel/download-popup-brochure.php',
+      success:function(response){
+        if (response == 1)
+          {
+          $('#dwn-brochure-message1').html('Thank you for your Interest');
+          $('#dwn-brochure-frm1').hide();
+          // $('#dwn-error').hide();
+          // window.location.assign(dwnpath);
+          window.open(dwnpath, 'Download');
+         // window.location = 'https://www.analyticsvidhya.com/back-channel/download-popup-brochure-file.php?email='+email;
+          $('.jquery-modal').css("background", "none");
+          //$('#ex1').hide();
+          }
+        else 	$('#dwn-error1').html(response);
+        //$('#hide-download-brochure').html(response);
+
+      },
+      error:function(){
+          alert('Failed');
+        $('#dwn-error1').html('Some error occured');
+        return false;
+        // alert('Failed');
+      }
+    });
+   }else{
+   	$('#dwn-error1').html('Please enter email address');
+   	return false;
+   }
+}else{
+  $('#dwn-error1').html('Please enter name');
+  return false;
+}
+});
+});
+</script>
+
+</body>
+</html>
+
+<div class="dgd_overlay"></div>
+<div class="dgd_stb_box " id="dgd_scrollbox-75110"><a class="dgd_stb_box_close dgd_stb_box_x" href="javascript:void(0);"> </a><p><a href="https://programs.analyticsvidhya.com/bundles/machine-learning-starter-program?utm_source=blog&utm_medium=popup" target="_blank" rel="noopener noreferrer"><img src="https://www.analyticsvidhya.com/wp-content/uploads/2021/03/MLSP.png" /></a></p>
+</div>
+
+
+<script>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:9.3.1',blog:'180026056',post:'33873',tz:'5.5',srv:'www.analyticsvidhya.com'} ]);
+	_stq.push([ 'clickTrackerInit', '180026056', '33873' ]);
+</script>
+</body>
+</html>
