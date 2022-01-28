@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" nonce="f9c5443273604ce387eeb147df5" src="//local.adguard.org?ts=1642943821134&amp;type=content-script&amp;dmn=quantgirl.blog&amp;css=1&amp;js=1&amp;gcss=1&amp;rel=1&amp;rji=1&amp;stealth=1&amp;uag=&amp;trref=aHR0cHM6Ly9xdWFudGdpcmwuYmxvZy8="></script>
+<script type="text/javascript" nonce="f9c5443273604ce387eeb147df5" src="//local.adguard.org?ts=1642943821134&amp;name=AdGuard%20Extra%20Beta&amp;type=user-script"></script><link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://quantgirl.blog/xmlrpc.php">
+
+<title>Simulating Normal Random Variables &#8211; Quant Girl</title>
+<script type="text/javascript">
+  WebFontConfig = {"google":{"families":["Alegreya:r,i,b,bi:latin,latin-ext","Alegreya:r:latin,latin-ext"]}};
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = 'https://quantgirl.blog/wp-content/mu-plugins/wpcomsh/vendor/automattic/custom-fonts/js/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+	})();
+</script><style id="jetpack-custom-fonts-css">.wf-active .grid-wrapper .format-quote blockquote, .wf-active .grid-wrapper .format-quote blockquote p, .wf-active .page .entry-content strong, .wf-active .post .entry-content strong, .wf-active .widget button, .wf-active .widget input[type="button"], .wf-active .widget input[type="reset"], .wf-active .widget input[type="submit"], .wf-active .widget_calendar caption, .wf-active blockquote + cite, .wf-active blockquote + p cite, .wf-active blockquote cite, .wf-active body, .wf-active body #jp-relatedposts{font-family:"Alegreya",serif}.wf-active .author-info p, .wf-active .cat-links, .wf-active .comment-content, .wf-active .contact-form label, .wf-active .page .entry-content blockquote, .wf-active .page .entry-content blockquote p, .wf-active .page .entry-content li, .wf-active .page .entry-content p, .wf-active .post .entry-content blockquote, .wf-active .post .entry-content blockquote p, .wf-active .post .entry-content li, .wf-active .post .entry-content p, .wf-active .post .entry-meta, .wf-active .secondary-font, .wf-active .site-header .search-form:after, .wf-active .slick-dots, .wf-active .widget, .wf-active .wp-caption-text, .wf-active blockquote{font-family:"Alegreya",serif}.wf-active .site-description{font-family:"Alegreya",serif}.wf-active h1{font-style:normal;font-weight:400}.wf-active .widget-title{font-family:"Alegreya",serif;font-style:normal;font-weight:400}.wf-active .site-footer .widget-title{font-style:normal;font-weight:400}.wf-active div.sharedaddy .sd-block h3.sd-title{font-style:normal;font-weight:400}.wf-active .archive .page-title, .wf-active h6, .wf-active .sd-title, .wf-active .search .page-title{font-style:normal;font-weight:400}.wf-active h5{font-style:normal;font-weight:400}.wf-active .widget-title, .wf-active .page .entry-title, .wf-active .post .entry-title{font-style:normal;font-weight:400}.wf-active .comments-title{font-style:normal;font-weight:400}.wf-active .site-title, .wf-active h3{font-style:normal;font-weight:400}.wf-active .featured-slider .entry-title, .wf-active h2{font-style:normal;font-weight:400}.wf-active .page-title{font-style:normal;font-weight:400}.wf-active .category-info h2, .wf-active .single-post .entry-title, .wf-active h1{font-style:normal;font-weight:400}.wf-active h1, .wf-active h2, .wf-active h3, .wf-active h4, .wf-active h5, .wf-active h6{font-family:"Alegreya",serif;font-style:normal;font-weight:400}.wf-active .site-title{font-weight:400;font-family:"Alegreya",serif;font-style:normal}.wf-active .archive .page-title, .wf-active .search .page-title{font-weight:400;font-style:normal}.wf-active .archive .page-title span, .wf-active .search .page-title span{font-weight:400;font-style:normal}.wf-active div.sharedaddy .sd-block h3.sd-title{font-weight:400;font-style:normal}.wf-active .featured-slider .entry-title{font-style:normal;font-weight:400}.wf-active .featured-slider-fullwidth .featured-slider .entry-title{font-style:normal;font-weight:400}.wf-active .single-post .entry-title{font-style:normal;font-weight:400}</style>
+<meta name='robots' content='max-image-preview:large' />
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$','$'],['\\(','\\)']], 
+    processEscapes: true
+  },
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore|editor-rich-text'
+  }
+};
+
+</script>
+<link rel='dns-prefetch' href='//cdn.jsdelivr.net' />
+<link rel='dns-prefetch' href='//secure.gravatar.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel='dns-prefetch' href='//widgets.wp.com' />
+<link rel='dns-prefetch' href='//jetpack.wordpress.com' />
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel='dns-prefetch' href='//public-api.wordpress.com' />
+<link rel='dns-prefetch' href='//0.gravatar.com' />
+<link rel='dns-prefetch' href='//1.gravatar.com' />
+<link rel='dns-prefetch' href='//2.gravatar.com' />
+<link rel='dns-prefetch' href='//i0.wp.com' />
+<link rel='dns-prefetch' href='//c0.wp.com' />
+<link rel="alternate" type="application/rss+xml" title="Quant Girl &raquo; Feed" href="https://quantgirl.blog/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Quant Girl &raquo; Comments Feed" href="https://quantgirl.blog/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Quant Girl &raquo; Simulating Normal Random Variables Comments Feed" href="https://quantgirl.blog/box-muller-and-marsaglia-bray/feed/" />
+		<script type="text/javascript">
+			var ajaxurl = 'https://quantgirl.blog/wp-admin/admin-ajax.php';
+		</script>
+				<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/quantgirl.blog\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.8.3"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([10084,65039,8205,55357,56613],[10084,65039,8203,55357,56613])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css'  href='https://quantgirl.blog/wp-content/plugins/gutenberg/build/block-library/style.css?ver=12.4.1' type='text/css' media='all' />
+<style id='wp-block-library-inline-css' type='text/css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<link rel='stylesheet' id='mediaelement-css'  href='https://c0.wp.com/c/5.8.3/wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-mediaelement-css'  href='https://c0.wp.com/c/5.8.3/wp-includes/js/mediaelement/wp-mediaelement.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wpcom-text-widget-styles-css'  href='https://quantgirl.blog/wp-content/mu-plugins/wpcomsh/vendor/automattic/text-media-widget-styles/css/widget-text.css?ver=20170607' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-blog-designer-fontawesome-stylesheets-css'  href='https://quantgirl.blog/wp-content/plugins/blog-designer//admin/css/fontawesome-all.min.css?ver=1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-blog-designer-css-stylesheets-css'  href='https://quantgirl.blog/wp-content/plugins/blog-designer/public/css/designer_css.css?ver=1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='mkaz-code-syntax-prism-css-css'  href='https://quantgirl.blog/wp-content/plugins/code-syntax-block/assets/prism-onedark.css?ver=1635730883' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+</style>
+<link rel='stylesheet' id='ez-icomoon-css'  href='https://quantgirl.blog/wp-content/plugins/easy-table-of-contents/vendor/icomoon/style.min.css?ver=2.0.17' type='text/css' media='all' />
+<link rel='stylesheet' id='ez-toc-css'  href='https://quantgirl.blog/wp-content/plugins/easy-table-of-contents/assets/css/screen.min.css?ver=2.0.17' type='text/css' media='all' />
+<style id='ez-toc-inline-css' type='text/css'>
+div#ez-toc-container p.ez-toc-title {font-size: 120%;}div#ez-toc-container p.ez-toc-title {font-weight: 500;}div#ez-toc-container ul li {font-size: 95%;}div#ez-toc-container {background: #fff;border: 1px solid #ddd;width: 100%;}div#ez-toc-container p.ez-toc-title {color: #000000;}div#ez-toc-container ul.ez-toc-list a {color: #af3a67;}div#ez-toc-container ul.ez-toc-list a:hover {color: #1e73be;}div#ez-toc-container ul.ez-toc-list a:visited {color: #db90c8;}
+</style>
+<link rel='stylesheet' id='goodz-magazine-style-css'  href='https://quantgirl.blog/wp-content/themes/goodz-magazine/style.css?ver=5.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='footer-credits-css'  href='https://quantgirl.blog/wp-content/plugins/footer-putter/styles/footer-credits.css?ver=1.17' type='text/css' media='all' />
+<style id='jetpack-global-styles-frontend-style-inline-css' type='text/css'>
+:root { --font-headings: unset; --font-base: unset; --font-headings-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; --font-base-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;}
+</style>
+<link rel='stylesheet' id='social-logos-css'  href='https://quantgirl.blog/wp-content/plugins/jetpack/_inc/social-logos/social-logos.min.css?ver=10.6-a.3' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css'  href='https://quantgirl.blog/wp-content/plugins/jetpack/css/jetpack.css?ver=10.6-a.3' type='text/css' media='all' />
+<script type='text/javascript' src='https://c0.wp.com/c/5.8.3/wp-includes/js/jquery/jquery.min.js' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://c0.wp.com/c/5.8.3/wp-includes/js/jquery/jquery-migrate.min.js' id='jquery-migrate-js'></script>
+<script type='text/javascript' src='https://c0.wp.com/c/5.8.3/wp-includes/js/imagesloaded.min.js' id='imagesloaded-js'></script>
+<script type='text/javascript' src='https://c0.wp.com/c/5.8.3/wp-includes/js/masonry.min.js' id='masonry-js'></script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/blog-designer/public/js/ticker.min.js?ver=5.8.3' id='ticker-js'></script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/blog-designer/public/js/designer.js?ver=1.0' id='wp-blog-designer-script-js'></script>
+<link rel="https://api.w.org/" href="https://quantgirl.blog/wp-json/" /><link rel="alternate" type="application/json" href="https://quantgirl.blog/wp-json/wp/v2/posts/472" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://quantgirl.blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://quantgirl.blog/wp-includes/wlwmanifest.xml" /> 
+
+<link rel="canonical" href="https://quantgirl.blog/box-muller-and-marsaglia-bray/" />
+<link rel='shortlink' href='https://wp.me/p8vWOQ-7C' />
+<link rel="alternate" type="application/json+oembed" href="https://quantgirl.blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fquantgirl.blog%2Fbox-muller-and-marsaglia-bray%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://quantgirl.blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fquantgirl.blog%2Fbox-muller-and-marsaglia-bray%2F&#038;format=xml" />
+          <style>
+          .has-post-thumbnail img.wp-post-image, 
+          .attachment-twentyseventeen-featured-image.wp-post-image { display: none !important; }          
+          </style><style type='text/css'>img#wpstats{display:none}</style>
+	<meta name="description" content="Two simple ways to simulate a pair of independent standard normal distributions with Python code. - Box-Muller Transform - Marsaglia-Bray Transform" />
+<link rel="amphtml" href="https://quantgirl.blog/box-muller-and-marsaglia-bray/amp/">			<style type="text/css">
+				/* If html does not have either class, do not show lazy loaded images. */
+				html:not( .jetpack-lazy-images-js-enabled ):not( .js ) .jetpack-lazy-image {
+					display: none;
+				}
+			</style>
+			<script>
+				document.documentElement.classList.add(
+					'jetpack-lazy-images-js-enabled'
+				);
+			</script>
+		
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Simulating Normal Random Variables" />
+<meta property="og:url" content="https://quantgirl.blog/box-muller-and-marsaglia-bray/" />
+<meta property="og:description" content="Two simple ways to simulate a pair of independent standard normal distributions with Python code. &#8211; Box-Muller Transform &#8211; Marsaglia-Bray Transform" />
+<meta property="article:published_time" content="2019-09-22T09:46:41+00:00" />
+<meta property="article:modified_time" content="2019-11-27T21:02:17+00:00" />
+<meta property="og:site_name" content="Quant Girl" />
+<meta property="og:image" content="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?fit=1200%2C414&#038;ssl=1" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="414" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:site" content="@Quant_Girl" />
+<meta name="twitter:text:title" content="Simulating Normal Random Variables" />
+<meta name="twitter:image" content="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?fit=1200%2C414&#038;ssl=1&#038;w=640" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- End Jetpack Open Graph Tags -->
+<style type="text/css" id="custom-colors-css">.single-post .entry-meta a:hover,.comment-metadata a:hover,.single-post .tags-links a:hover{color:#000}.comment-metadata a,.single-post .entry-meta,.single-post .entry-meta a{color:#6d6d6d}label,body #jp-relatedposts .jp-relatedposts-items .jp-relatedposts-post .jp-relatedposts-post-context,body #jp-relatedposts .jp-relatedposts-items .jp-relatedposts-post .jp-relatedposts-post-date{color:#6d6d6d}.featured-slider .slick-arrow:focus:before,.featured-slider .slick-arrow:hover:before{color:#fff}button,input[type="button"],input[type="reset"],input[type="submit"],.grid-wrapper #infinite-handle span button{color:#fff}select,input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],textarea{border-color:#ebebeb}select,input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],textarea{border-color:rgba(235,235,235,.3)}select{color:#1a1616}.widget_recent_entries .post-date,.widget_recent_comments,.widget_categories,.widget_rss,.tagcloud a{color:#6d6d6d}.single-post .tags-links a{color:#6d6d6d}.grid-wrapper .format-link .entry-title:after,.grid-wrapper .format-quote blockquote:after{color:#6d6d6d}#infinite-footer .container,#infinite-footer,body,.main-navigation ul ul li,.main-navigation ul ul,.featured-slider .slick-arrow,.shrink,button:hover,input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,.grid-wrapper #infinite-handle span button:hover{background-color:#fff}.main-navigation a,.site-title a,.site-description,#big-search-trigger{color:#024591}.featured-slider .slick-arrow:before{color:#024591}label.checkbox:before,input[type="checkbox"]+label:before,label.radio:before,input[type="radio"]+label:before{border-color:#024591}select:hover,.widget .search-form:hover input[type="search"],.widget .search-form input[type="search"]:focus,.widget .search-form:hover input[type="submit"]{border-color:#024591}#infinite-footer .blog-info a,#infinite-footer .blog-credits a{color:#024591}.grid-wrapper .format-quote .highlighted,.grid-wrapper .format-link .highlighted{border-color:#024591}input[type="text"]:hover,input[type="email"]:hover,input[type="url"]:hover,input[type="password"]:hover,input[type="search"]:hover,textarea:hover,input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="search"]:focus,textarea:focus{border-color:#024591}button:hover,input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,.grid-wrapper #infinite-handle span button:hover{color:#024591}button:hover,input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,.grid-wrapper #infinite-handle span button:hover{border-color:#024591}a{color:#006fd1}a:hover,.comment-metadata a:hover{color:#1e96ff}.featured-image:hover a:before{border-color:#006fd1}.featured-slider .slick-arrow:focus,.featured-slider .slick-arrow:hover{background-color:#8ecaff}button,input[type="button"],input[type="reset"],input[type="submit"],.grid-wrapper #infinite-handle span button{background-color:#8ecaff}button,input[type="button"],input[type="reset"],input[type="submit"],.grid-wrapper #infinite-handle span button{border-color:#8ecaff}.entry-title a,.widget-title a,h1,h2,h3,h4,h5,h6,.widget-title{color:#a70684}.post .entry-content h1,.page .entry-content h1,.post .entry-content h2,.page .entry-content h2,.post .entry-content h3,.page .entry-content h3,.post .entry-content h4,.page .entry-content h4,.post .entry-content h5,.page .entry-content h5,.post .entry-content h6,.page .entry-content h6,.archive .page-title,.search .page-title{color:#a70684}.archive .page-title span,.search .page-title span{color:#000}.wp-caption-text{color:#000}.widget td{color:#000}body,.single-post .entry-content{color:#000}.widget_calendar #today{color:#000}.widget_calendar #today{border-color:#000}.post .entry-content,.grid-wrapper .page .entry-content,.author-info p{color:#000}</style>
+<style id="uagb-style-conditional-extension">@media (min-width: 1025px){body .uag-hide-desktop.uagb-google-map__wrap,body .uag-hide-desktop{display:none}}@media (min-width: 768px) and (max-width: 1024px){body .uag-hide-tab.uagb-google-map__wrap,body .uag-hide-tab{display:none}}@media (max-width: 767px){body .uag-hide-mob.uagb-google-map__wrap,body .uag-hide-mob{display:none}}</style><link rel="icon" href="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/image-1.jpg?fit=32%2C32&#038;ssl=1" sizes="32x32" />
+<link rel="icon" href="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/image-1.jpg?fit=192%2C192&#038;ssl=1" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/image-1.jpg?fit=180%2C180&#038;ssl=1" />
+<meta name="msapplication-TileImage" content="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/image-1.jpg?fit=270%2C270&#038;ssl=1" />
+<style type="text/css" id="wp-custom-css">.onecolumn .mainbar {
+width: 99%
+}
+
+.entry-content p {
+	  margin-top: -1.em; 
+	  margin-bottom: -1.em; 
+    line-height: 1.5;
+	
+}
+
+.single .entry-header, .page-header {
+    margin-bottom: 1.5em;
+}
+
+.entry-content li {
+	padding-left: -1. em;
+	margin-top: -1. em;
+	margin-bottom: 0em;
+	line-height: 1.5;
+}
+
+
+.entry-thumbnail{
+	display: none; 
+}
+
+*{
+    margin:0;padding: 0;
+}
+
+
+/* if used slider, each page will display the featured image first, this css hide the image in each page */
+.page img.aligncenter.wp-post-image {
+display: none;
+}</style><!-- Your Google Analytics Plugin is missing the tracking ID -->
+</head>
+
+<body class="post-template-default single single-post postid-472 single-format-standard wp-embed-responsive boxed-single tk-theme-frontend custom-colors">
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<header id="masthead" class="site-header" role="banner">
+		<div class="container">
+
+			<div class="site-branding">
+
+				<!-- Logo -->
+									<a href="https://quantgirl.blog/" class="site-logo-link" rel="home" itemprop="url"></a>				
+									<p class="site-title"><a href="https://quantgirl.blog/" rel="home">Quant Girl</a></p>
+								<p class="site-description">A Mexican girl working as a Quantitative Analyst in London</p>
+
+			</div><!-- .site-branding -->
+
+			<nav id="site-navigation" class="main-navigation" role="navigation">
+				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+					Primary Menu				</button>
+				<div class="menu-primary-container"><ul id="primary-menu" class="menu"><li id="menu-item-8" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8"><a href="/">Home</a></li>
+<li id="menu-item-1267" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1267"><a href="https://quantgirl.blog/apps/">Apps and Libraries</a></li>
+<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-has-children menu-item-142"><a href="https://quantgirl.blog/about/">About</a>
+<ul class="sub-menu">
+	<li id="menu-item-1277" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-1277"><a href="https://quantgirl.blog/contact/">Contact</a></li>
+</ul>
+</li>
+<li id="menu-item-1342" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1342"><a href="https://quantgirl.blog/faqs/">FAQs</a></li>
+</ul></div>			</nav><!-- #site-navigation -->
+
+			<!-- Search form -->
+			<div class="search-wrap"><form role="search" method="get" class="search-form" action="https://quantgirl.blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form><div class="search-instructions">Press Enter / Return to begin your search.</div></div>
+			<button id="big-search-trigger"><span class="screen-reader-text"></span><i class="icon-search"></i></button>
+			<button id="big-search-close"><span class="screen-reader-text"></span><i class="icon-close"></i></button>
+
+		</div><!-- container -->
+	</header><!-- #masthead -->
+
+	<div id="content" class="site-content">
+
+	<!-- Featured Slider -->
+
+		<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			<article id="post-472" class="post-472 post type-post status-publish format-standard has-post-thumbnail hentry category-python category-statistics tag-python tag-statistics tag-visualisation">
+
+                
+			<figure class="featured-image">
+				<img width="1620" height="559" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?fit=1620%2C559&amp;ssl=1" class="attachment-goodz-magazine-single-featured-image size-goodz-magazine-single-featured-image wp-post-image jetpack-lazy-image" alt="" loading="lazy" data-attachment-id="548" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_42_0/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?fit=2087%2C720&amp;ssl=1" data-orig-size="2087,720" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_42_0" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?fit=300%2C103&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?fit=1024%2C353&amp;ssl=1" data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?w=2087&amp;ssl=1 2087w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?resize=300%2C103&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?resize=768%2C265&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?resize=1024%2C353&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?resize=1620%2C559&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?resize=340%2C117&amp;ssl=1 340w" data-lazy-sizes="(max-width: 1620px) 100vw, 1620px" data-lazy-src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_42_0.png?fit=1620%2C559&amp;ssl=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />			</figure>
+
+		
+                <header class="entry-header">
+
+                    <h2 class="entry-title">Simulating Normal Random Variables</h2>
+                    <div class="entry-meta">
+
+                        <span class="posted-on"><a href="https://quantgirl.blog/box-muller-and-marsaglia-bray/" rel="bookmark"><time class="entry-date published" datetime="2019-09-22T09:46:41+01:00">September 22, 2019</time><time class="updated" datetime="2019-11-27T21:02:17+00:00">November 27, 2019</time></a></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://quantgirl.blog/author/dialidsantiago/">Quant Girl</a></span></span>
+                    </div><!-- .entry-meta -->
+
+                </header><!-- .entry-header -->
+
+                <div class="row">
+
+                    <div class="col-md-9 no-sidebar">
+
+                        <div class="entry-content">
+
+                            <div class="wp-container-61edf322c3f9c wp-block-group"><div class="wp-block-group__inner-container"><div class="wp-container-61edf322c2c72 wp-block-group"><div class="wp-block-group__inner-container"><p>Two simple ways to simulate a pair of independent standard normal distributions.</p><p>&#8211; Box-Muller Transform<br />&#8211; Marsaglia-Bray Transform</p><div id="ez-toc-container" class="ez-toc-v2_0_17 counter-hierarchy counter-decimal">
+<div class="ez-toc-title-container">
+<p class="ez-toc-title">Table of Contents</p>
+<span class="ez-toc-title-toggle"><a class="ez-toc-pull-right ez-toc-btn ez-toc-btn-xs ez-toc-btn-default ez-toc-toggle" style="display: none;"><i class="ez-toc-glyphicon ez-toc-icon-toggle"></i></a></span></div>
+<nav><ul class="ez-toc-list ez-toc-list-level-1"><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-1" href="#Box-Muller" title="Box-Muller">Box-Muller</a><ul class="ez-toc-list-level-3"><li class="ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-2" href="#Method" title="Method">Method</a></li><li class="ez-toc-page-1 ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-3" href="#Visualisations" title="Visualisations">Visualisations</a></li><li class="ez-toc-page-1 ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-4" href="#Python_Implementation" title="Python Implementation">Python Implementation</a></li></ul></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-5" href="#Marsaglia-Bray_Method" title="Marsaglia-Bray Method">Marsaglia-Bray Method</a><ul class="ez-toc-list-level-3"><li class="ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-6" href="#Method-2" title="Method">Method</a></li><li class="ez-toc-page-1 ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-7" href="#Visualisations-2" title="Visualisations">Visualisations</a></li><li class="ez-toc-page-1 ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-8" href="#Python_Implementation-2" title="Python Implementation">Python Implementation</a></li></ul></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-9" href="#Further_Reading" title="Further Reading">Further Reading</a></li></ul></nav></div>
+<h2><span class="ez-toc-section" id="Box-Muller"></span>Box-Muller<span class="ez-toc-section-end"></span></h2><p>The Box–Muller transform is a pseudo-random number sampling method for generating pairs of independent, standard, normally distributed (zero expectation, unit variance) random numbers, given a source of uniformly distributed random numbers. The method was first mentioned explicitly by <a href="https://en.wikipedia.org/wiki/Raymond_Paley">Raymond E. A. C. Paley</a> and <a href="https://en.wikipedia.org/wiki/Norbert_Wiener">Norbert Wiener</a> in 1934. However, it is attributed to British statistician <a href="https://en.wikipedia.org/wiki/George_E._P._Box">George E.P. Box</a> and American computer scientist <a href="https://en.wikipedia.org/wiki/Mervin_E._Muller">Mervin E. Muller</a> who formalised it in their paper <a href="https://projecteuclid.org/euclid.aoms/1177706645">&#8220;A Note on the Generation of Random Normal Deviates&#8221;</a> (1958) published in The Annals of Mathematical Statistics.</p><p>The Box–Muller transform was developed as a more computationally efficient alternative to the <a href="https://en.wikipedia.org/wiki/Inverse_transform_sampling">inverse transform sampling</a> method. It takes two samples from the uniform distribution on the interval $[0, 1]$ and maps them to two standard, normally distributed samples. It uses the fact that the 2-dimensional distribution of two independent zero-mean Gaussian random numbers is radially <em>symmetric</em> if <em>both component Gaussians have the same variance</em>.</p><h3><span class="ez-toc-section" id="Method"></span>Method<span class="ez-toc-section-end"></span></h3><p>Generate  $U_1, U_2$ independent random variables distributed uniformly on $[0,1]$ and define $R = \sqrt{-2\cdot\ln U_1}$ and $\theta = 2 \pi U_1$. Then</p><p>$$Z_1 = R*cos(\theta),$$</p><p>$$Z_2 = R*sin(\theta)$$</p><p>are independent random variables with standard normal distribution.</p><h3><span class="ez-toc-section" id="Visualisations"></span>Visualisations<span class="ez-toc-section-end"></span></h3><p>Box-Muller Transform Visualisation with sample size n=1000. The image on the top shows the uniform variables U1, U2. The image on the bottom shows the transformed variables Z1, Z2 which are normally distributed.</p><p><img data-attachment-id="492" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_3_0/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?fit=2087%2C806&amp;ssl=1" data-orig-size="2087,806" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_3_0" data-image-description data-image-caption data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?fit=300%2C116&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?fit=1024%2C395&amp;ssl=1" loading="lazy" class="alignnone size-full wp-image-492 jetpack-lazy-image" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=1920%2C742&#038;ssl=1" alt width="1920" height="742" data-recalc-dims="1" data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?w=2087&amp;ssl=1 2087w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=300%2C116&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=768%2C297&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=1024%2C395&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=1620%2C626&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=340%2C131&amp;ssl=1 340w" data-lazy-sizes="(max-width: 1920px) 100vw, 1920px" data-lazy-src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=1920%2C742&amp;is-pending-load=1#038;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-attachment-id="492" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_3_0/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?fit=2087%2C806&amp;ssl=1" data-orig-size="2087,806" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_3_0" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?fit=300%2C116&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?fit=1024%2C395&amp;ssl=1" loading="lazy" class="alignnone size-full wp-image-492" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=1920%2C742&#038;ssl=1" alt="" width="1920" height="742" srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?w=2087&amp;ssl=1 2087w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=300%2C116&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=768%2C297&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=1024%2C395&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=1620%2C626&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_0.png?resize=340%2C131&amp;ssl=1 340w" sizes="(max-width: 1920px) 100vw, 1920px" data-recalc-dims="1" /></noscript></p><p><img data-attachment-id="493" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_3_1/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?fit=2099%2C720&amp;ssl=1" data-orig-size="2099,720" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_3_1" data-image-description data-image-caption data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?fit=300%2C103&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?fit=1024%2C351&amp;ssl=1" loading="lazy" class="wp-image-493 size-full jetpack-lazy-image" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=1920%2C659&#038;ssl=1" alt width="1920" height="659" data-recalc-dims="1" data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?w=2099&amp;ssl=1 2099w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=300%2C103&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=768%2C263&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=1024%2C351&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=1620%2C556&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=340%2C117&amp;ssl=1 340w" data-lazy-sizes="(max-width: 1920px) 100vw, 1920px" data-lazy-src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=1920%2C659&amp;is-pending-load=1#038;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-attachment-id="493" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_3_1/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?fit=2099%2C720&amp;ssl=1" data-orig-size="2099,720" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_3_1" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?fit=300%2C103&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?fit=1024%2C351&amp;ssl=1" loading="lazy" class="wp-image-493 size-full" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=1920%2C659&#038;ssl=1" alt="" width="1920" height="659" srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?w=2099&amp;ssl=1 2099w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=300%2C103&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=768%2C263&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=1024%2C351&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=1620%2C556&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_3_1.png?resize=340%2C117&amp;ssl=1 340w" sizes="(max-width: 1920px) 100vw, 1920px" data-recalc-dims="1" /></noscript></p><p>Let&#8217;s breakdown the transformation in steps and take a look at the transformations.</p><ul><li>The first step consists of transforming $U_1$ into $R = \sqrt{-2\cdot\ln U_1}$.</li><li>Note that we can write $R^2= Z_1^2 + Z_2^2$. That is, $R^2$ is the sum of two independent squared normal variables. Thus $R^2$ follows a Chi-Square distribution with 2 degrees of freedom which in turn coincides with an exponential distribution of mean equal 2. We can see this in the third picture below. Note that this give us a way to generate a sample from an exponential distribution.<img data-attachment-id="494" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_8_0/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?fit=2111%2C753&amp;ssl=1" data-orig-size="2111,753" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_8_0" data-image-description data-image-caption data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?fit=300%2C107&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?fit=1024%2C365&amp;ssl=1" loading="lazy" class="alignnone wp-image-494 size-full jetpack-lazy-image" style="font-size: inherit;" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=1920%2C685&#038;ssl=1" alt width="1920" height="685" data-recalc-dims="1" data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?w=2111&amp;ssl=1 2111w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=300%2C107&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=768%2C274&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=1024%2C365&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=1620%2C578&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=340%2C121&amp;ssl=1 340w" data-lazy-sizes="(max-width: 1920px) 100vw, 1920px" data-lazy-src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=1920%2C685&amp;is-pending-load=1#038;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-attachment-id="494" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_8_0/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?fit=2111%2C753&amp;ssl=1" data-orig-size="2111,753" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_8_0" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?fit=300%2C107&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?fit=1024%2C365&amp;ssl=1" loading="lazy" class="alignnone wp-image-494 size-full" style="font-size: inherit;" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=1920%2C685&#038;ssl=1" alt="" width="1920" height="685" srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?w=2111&amp;ssl=1 2111w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=300%2C107&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=768%2C274&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=1024%2C365&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=1620%2C578&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_8_0.png?resize=340%2C121&amp;ssl=1 340w" sizes="(max-width: 1920px) 100vw, 1920px" data-recalc-dims="1" /></noscript></li></ul><ul><li>The second step is to map $U_2$ into $X = cos(2\pi U_2)$ and $Y = sin(2\pi U_2)$. These transformations together form the pairs $(X, Y) =(cos(2\pi U_2), sin(2\pi U_2))$ which indeed define the circle in the fourth picture.</li></ul><p><img data-attachment-id="495" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_10_0/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?fit=2787%2C755&amp;ssl=1" data-orig-size="2787,755" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_10_0" data-image-description data-image-caption data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?fit=300%2C81&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?fit=1024%2C277&amp;ssl=1" loading="lazy" class="alignnone size-full wp-image-495 jetpack-lazy-image" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=1920%2C520&#038;ssl=1" alt width="1920" height="520" data-recalc-dims="1" data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?w=2787&amp;ssl=1 2787w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=300%2C81&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=768%2C208&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=1024%2C277&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=1620%2C439&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=340%2C92&amp;ssl=1 340w" data-lazy-sizes="(max-width: 1920px) 100vw, 1920px" data-lazy-src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=1920%2C520&amp;is-pending-load=1#038;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-attachment-id="495" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_10_0/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?fit=2787%2C755&amp;ssl=1" data-orig-size="2787,755" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_10_0" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?fit=300%2C81&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?fit=1024%2C277&amp;ssl=1" loading="lazy" class="alignnone size-full wp-image-495" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=1920%2C520&#038;ssl=1" alt="" width="1920" height="520" srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?w=2787&amp;ssl=1 2787w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=300%2C81&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=768%2C208&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=1024%2C277&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=1620%2C439&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_10_0.png?resize=340%2C92&amp;ssl=1 340w" sizes="(max-width: 1920px) 100vw, 1920px" data-recalc-dims="1" /></noscript></p><ul><li>Finally, multiplying the pairs $(X, Y)$ by $R$ we obtain $(Z1, Z2)$. Visualisations allow us to see that at the end $U1$ translates into the distance of each $(Z1, Z2)$ to the origin; while $U2$ defines the slope of the line that joins $(Z1, Z2)$ with the origin.</li></ul><p><img data-attachment-id="496" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_12_0/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?fit=2118%2C1407&amp;ssl=1" data-orig-size="2118,1407" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_12_0" data-image-description data-image-caption data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?fit=300%2C199&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?fit=1024%2C680&amp;ssl=1" loading="lazy" class="alignnone size-full wp-image-496 jetpack-lazy-image" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=1920%2C1275&#038;ssl=1" alt width="1920" height="1275" data-recalc-dims="1" data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?w=2118&amp;ssl=1 2118w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=300%2C199&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=768%2C510&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=1024%2C680&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=1620%2C1076&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=340%2C226&amp;ssl=1 340w" data-lazy-sizes="(max-width: 1920px) 100vw, 1920px" data-lazy-src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=1920%2C1275&amp;is-pending-load=1#038;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-attachment-id="496" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_12_0/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?fit=2118%2C1407&amp;ssl=1" data-orig-size="2118,1407" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_12_0" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?fit=300%2C199&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?fit=1024%2C680&amp;ssl=1" loading="lazy" class="alignnone size-full wp-image-496" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=1920%2C1275&#038;ssl=1" alt="" width="1920" height="1275" srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?w=2118&amp;ssl=1 2118w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=300%2C199&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=768%2C510&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=1024%2C680&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=1620%2C1076&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_12_0.png?resize=340%2C226&amp;ssl=1 340w" sizes="(max-width: 1920px) 100vw, 1920px" data-recalc-dims="1" /></noscript></p><h3><span class="ez-toc-section" id="Python_Implementation"></span>Python Implementation<span class="ez-toc-section-end"></span></h3></div></div>
+
+<div class="wp-container-61edf322c3cdd wp-block-group"><div class="wp-block-group__inner-container"><pre class="wp-block-code" title="Box-Muller Python Function"><code class="language-python line-numbers" lang="python">from numpy import random, sqrt, log, sin, cos, pi
+
+def box_muller_sample(n=1):
+    
+    u1 = random.rand(n)
+    u2 = random.rand(n)
+    
+    r = sqrt(-2*log(u1))
+    x = cos(2*pi*u2)
+    y = sin(2*pi*u2)
+    z1 = r*x
+    z2 = r*y
+    
+    return z1, z2</code></pre>
+
+<div class="wp-container-61edf322c3a2c wp-block-group"><div class="wp-block-group__inner-container"><h2><span class="ez-toc-section" id="Marsaglia-Bray_Method"></span>Marsaglia-Bray Method<span class="ez-toc-section-end"></span></h2>
+
+<p>As we have seen the Box-Muller transform requires logarithm, square root, sine and cosine functions. The latter can be expensive to compute. American mathematician and computer scientist <a href="https://en.wikipedia.org/wiki/George_Marsaglia">George Marsaglia</a> developed a modification of the Box-Muller transform that avoids the usage of trigonometric functions. It was proposed in his paper &#8220;A Convenient Method for Generating Normal Variables&#8221; (1964) published by SIAM Review.</p>
+
+<p>Marsaglia-Bray method is sometimes referred as Polar Method/Version of Box- Muller.</p>
+
+<h3><span class="ez-toc-section" id="Method-2"></span>Method<span class="ez-toc-section-end"></span></h3>
+
+<div class="wp-container-61edf322c37a3 wp-block-group"><div class="wp-block-group__inner-container"><p>Generate $W_1, W_2$ independent random variables distributed uniformly on $[-1,1]$ until $S = W1^2 + W2^2 &lt; 1$. Define</p>
+
+<div class="wp-container-61edf322c3510 wp-block-group"><div class="wp-block-group__inner-container"><div class="wp-container-61edf322c3290 wp-block-group"><div class="wp-block-group__inner-container"><div class="wp-container-61edf322c2fd0 wp-block-group"><div class="wp-block-group__inner-container"><p>$T = \sqrt{\frac{-2\log(S)}{S} }$, and</p>
+
+<p>$Z_1 = T*W_1$, and $Z_2 = T*W_2$</p></div></div></div></div></div></div>
+
+<p>Then, $Z_1, Z_2$ are independent random variables with standard normal distribution.</p></div></div></div></div>
+
+<p>&nbsp;</p></div></div></div></div>
+
+<h3><span class="ez-toc-section" id="Visualisations-2"></span>Visualisations<span class="ez-toc-section-end"></span></h3>
+
+<p>Marsaglia Bray Transform Visualisation with sample size n=1000. The image on the top shows the uniform variables W1, W2. The image on the bottom shows the transformed variables Z1, Z2 which are normally distributed.</p>
+
+<figure class="wp-block-image size-large"><img data-attachment-id="497" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_14_0/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?fit=2087%2C806&amp;ssl=1" data-orig-size="2087,806" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_14_0" data-image-description data-image-caption data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?fit=300%2C116&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?fit=1024%2C395&amp;ssl=1" loading="lazy" width="1024" height="395" class="wp-image-497 jetpack-lazy-image" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=1024%2C395&#038;ssl=1" alt data-recalc-dims="1" data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=1024%2C395&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=300%2C116&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=768%2C297&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=1620%2C626&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=340%2C131&amp;ssl=1 340w" data-lazy-sizes="(max-width: 1024px) 100vw, 1024px" data-lazy-src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=1024%2C395&amp;is-pending-load=1#038;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-attachment-id="497" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_14_0/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?fit=2087%2C806&amp;ssl=1" data-orig-size="2087,806" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_14_0" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?fit=300%2C116&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?fit=1024%2C395&amp;ssl=1" loading="lazy" width="1024" height="395" class="wp-image-497" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=1024%2C395&#038;ssl=1" alt="" srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=1024%2C395&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=300%2C116&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=768%2C297&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=1620%2C626&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_0.png?resize=340%2C131&amp;ssl=1 340w" sizes="(max-width: 1024px) 100vw, 1024px" data-recalc-dims="1" /></noscript></figure>
+
+<figure class="wp-block-image size-large"><img data-attachment-id="498" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_14_1/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?fit=2099%2C720&amp;ssl=1" data-orig-size="2099,720" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_14_1" data-image-description data-image-caption data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?fit=300%2C103&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?fit=1024%2C351&amp;ssl=1" loading="lazy" width="1024" height="351" class="wp-image-498 jetpack-lazy-image" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=1024%2C351&#038;ssl=1" alt data-recalc-dims="1" data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=1024%2C351&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=300%2C103&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=768%2C263&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=1620%2C556&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=340%2C117&amp;ssl=1 340w" data-lazy-sizes="(max-width: 1024px) 100vw, 1024px" data-lazy-src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=1024%2C351&amp;is-pending-load=1#038;ssl=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-attachment-id="498" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_14_1/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?fit=2099%2C720&amp;ssl=1" data-orig-size="2099,720" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_14_1" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?fit=300%2C103&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?fit=1024%2C351&amp;ssl=1" loading="lazy" width="1024" height="351" class="wp-image-498" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=1024%2C351&#038;ssl=1" alt="" srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=1024%2C351&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=300%2C103&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=768%2C263&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=1620%2C556&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_14_1.png?resize=340%2C117&amp;ssl=1 340w" sizes="(max-width: 1024px) 100vw, 1024px" data-recalc-dims="1" /></noscript></figure>
+
+<p>Just as we did for the Box-Muller transform, let&#8217;s breakdown this transformations in steps and take a look at the visualisations.</p>
+
+<ul><li>We start with points $(W1, W2)$ within the square of vertices $(-1, 1), (-1, -1), (1, -1)$ and $(1,1)$. Then, we calculate their square distance to the origin, i.e. $S = W1^2 + W2^2$ and keep only those points within the unit disk.</li></ul>
+
+<figure class="wp-block-image size-large"><img data-attachment-id="515" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_18_0-1/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?fit=1473%2C751&amp;ssl=1" data-orig-size="1473,751" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_18_0-1" data-image-description data-image-caption data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?fit=300%2C153&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?fit=1024%2C522&amp;ssl=1" loading="lazy" width="1473" height="751" class="wp-image-515 jetpack-lazy-image" src="https://i2.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?fit=1024%2C522&amp;ssl=1" alt data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?w=1473&amp;ssl=1 1473w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?resize=300%2C153&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?resize=768%2C392&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?resize=1024%2C522&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?resize=340%2C173&amp;ssl=1 340w" data-lazy-sizes="(max-width: 1473px) 100vw, 1473px" data-lazy-src="https://i2.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?fit=1024%2C522&amp;ssl=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-attachment-id="515" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_18_0-1/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?fit=1473%2C751&amp;ssl=1" data-orig-size="1473,751" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_18_0-1" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?fit=300%2C153&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?fit=1024%2C522&amp;ssl=1" loading="lazy" width="1473" height="751" class="wp-image-515" src="https://i2.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?fit=1024%2C522&amp;ssl=1" alt="" srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?w=1473&amp;ssl=1 1473w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?resize=300%2C153&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?resize=768%2C392&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?resize=1024%2C522&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_0-1.png?resize=340%2C173&amp;ssl=1 340w" sizes="(max-width: 1473px) 100vw, 1473px" /></noscript></figure>
+
+<ul><li>Next we calculate $T = \sqrt{\frac{-2\ln( W1^2 + W2^2)}{ W1^2 + W2^2} }$ in order to map $S$ into $\mathbb{R}^{+}$. The following graph shows the mappings $W1\mapsto S$ and $W2\mapsto T$.</li></ul>
+
+<figure class="wp-block-image size-large"><img data-attachment-id="516" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_18_1/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?fit=1452%2C751&amp;ssl=1" data-orig-size="1452,751" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_18_1" data-image-description data-image-caption data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?fit=300%2C155&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?fit=1024%2C530&amp;ssl=1" loading="lazy" width="1452" height="751" class="wp-image-516 jetpack-lazy-image" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?fit=1024%2C530&amp;ssl=1" alt data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?w=1452&amp;ssl=1 1452w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?resize=300%2C155&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?resize=768%2C397&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?resize=1024%2C530&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?resize=340%2C176&amp;ssl=1 340w" data-lazy-sizes="(max-width: 1452px) 100vw, 1452px" data-lazy-src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?fit=1024%2C530&amp;ssl=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-attachment-id="516" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_18_1/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?fit=1452%2C751&amp;ssl=1" data-orig-size="1452,751" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_18_1" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?fit=300%2C155&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?fit=1024%2C530&amp;ssl=1" loading="lazy" width="1452" height="751" class="wp-image-516" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?fit=1024%2C530&amp;ssl=1" alt="" srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?w=1452&amp;ssl=1 1452w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?resize=300%2C155&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?resize=768%2C397&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?resize=1024%2C530&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_1.png?resize=340%2C176&amp;ssl=1 340w" sizes="(max-width: 1452px) 100vw, 1452px" /></noscript></figure>
+
+<ul><li>Finally, the pairs $(Z1,Z2)$ are obtained simply by multiplying $T$ by $(W1, W2)$. The following plots illustrate the mappings $W1\mapsto(Z1, Z2)$ and $W2\mapsto(Z1, Z2)$.</li></ul>
+
+<figure class="wp-block-image size-large"><img data-attachment-id="517" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_18_2/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?fit=1443%2C751&amp;ssl=1" data-orig-size="1443,751" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_18_2" data-image-description data-image-caption data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?fit=300%2C156&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?fit=1024%2C533&amp;ssl=1" loading="lazy" width="1443" height="751" class="wp-image-517 jetpack-lazy-image" src="https://i1.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?fit=1024%2C533&amp;ssl=1" alt data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?w=1443&amp;ssl=1 1443w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?resize=300%2C156&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?resize=768%2C400&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?resize=1024%2C533&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?resize=340%2C177&amp;ssl=1 340w" data-lazy-sizes="(max-width: 1443px) 100vw, 1443px" data-lazy-src="https://i1.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?fit=1024%2C533&amp;ssl=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img data-attachment-id="517" data-permalink="https://quantgirl.blog/box-muller-and-marsaglia-bray/output_18_2/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?fit=1443%2C751&amp;ssl=1" data-orig-size="1443,751" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="output_18_2" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?fit=300%2C156&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?fit=1024%2C533&amp;ssl=1" loading="lazy" width="1443" height="751" class="wp-image-517" src="https://i1.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?fit=1024%2C533&amp;ssl=1" alt="" srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?w=1443&amp;ssl=1 1443w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?resize=300%2C156&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?resize=768%2C400&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?resize=1024%2C533&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/09/output_18_2.png?resize=340%2C177&amp;ssl=1 340w" sizes="(max-width: 1443px) 100vw, 1443px" /></noscript></figure>
+
+<h3><span class="ez-toc-section" id="Python_Implementation-2"></span>Python Implementation<span class="ez-toc-section-end"></span></h3>
+
+<pre class="wp-block-code" title="Marsaglia-Bray Python Function"><code class="language-python line-numbers" lang="python">import numpy as np
+import math
+
+def marsaglia():
+  
+    while True:
+        
+        w1 = (np.random.rand() * 2) - 1
+        w2 = (np.random.rand() * 2) - 1
+        s = w1 * w1 + w2 * w2
+        
+        if s &lt; 1:
+            t = math.sqrt((-2) * math.log(s)/s)
+            z1 = w1 * t
+            z2 = w2 * t
+            
+            return z1, z2
+
+def marsaglia_sample(n=1):
+    
+    z1 = np.empty(n)
+    z2 = np.empty(n)
+    
+    for i in range(n):
+        z1[i], z2[i] = marsaglia()
+        
+    return z1, z2</code></pre>
+
+<div class="wp-container-61edf322c43a7 wp-block-group"><div class="wp-block-group__inner-container"><h2><span class="ez-toc-section" id="Further_Reading"></span>Further Reading<span class="ez-toc-section-end"></span></h2>
+
+<p>The original papers and some extra reading materials</p>
+
+<ul><li><a href="https://projecteuclid.org/euclid.aoms/1177706645">Box, G. E. P.; Muller, Mervin E. A Note on the Generation of Random Normal Deviates.</a> Ann. Math. Statist. 29 (1958), no. 2, 610&#8211;611.</li><li><a href="https://epubs.siam.org/doi/10.1137/1006063">Marsaglia, G.; Bray, T. A. (1964). &#8220;A Convenient Method for Generating Normal Variables&#8221;.</a> <em>SIAM Review</em>. <strong>6</strong> (3): 260–26</li><li><a href="https://www.doc.ic.ac.uk/~wl/papers/07/csur07dt.pdf">Thomas, David &amp; Luk, Wayne &amp; Leong, Philip &amp; Villasenor, John. (2007). Gaussian random number generators.</a> ACM Comput. Surv.. 39. 10.1145/1287620.1287622.</li><li><a href="https://doi.org/10.1080/03610918.2014.950872">N. Balakrishnan, H. Y. So &amp; X. J. Zhu (2016) On Box–Muller Transformation and Simulation of Normal Record Data</a>, Communications in Statistics &#8211; Simulation and Computation, 45:10, 3670-3682</li></ul></div></div><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-official sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://quantgirl.blog/box-muller-and-marsaglia-bray/" data-text="Simulating Normal Random Variables" data-via="Quant_Girl" >Tweet</a></li><li class="share-facebook"><div class="fb-share-button" data-href="https://quantgirl.blog/box-muller-and-marsaglia-bray/" data-layout="button_count"></div></li><li class="share-linkedin"><div class="linkedin_button"><script type="in/share" data-url="https://quantgirl.blog/box-muller-and-marsaglia-bray/" data-counter="right"></script></div></li><li><a href="#" class="sharing-anchor sd-button share-more"><span>More</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-reddit"><div class="reddit_button"></div></li><li class="share-jetpack-whatsapp"><a rel="nofollow noopener noreferrer" data-shared="" class="share-jetpack-whatsapp sd-button" href="https://quantgirl.blog/box-muller-and-marsaglia-bray/?share=jetpack-whatsapp" target="_blank" title="Click to share on WhatsApp"><span>WhatsApp</span></a></li><li class="share-end"></li><li class="share-email"><a rel="nofollow noopener noreferrer" data-shared="" class="share-email sd-button" href="https://quantgirl.blog/box-muller-and-marsaglia-bray/?share=email" target="_blank" title="Click to email this to a friend"><span>Email</span></a></li><li class="share-end"></li></ul></div></div></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-125824960-472-61edf322cccb6' data-src='https://widgets.wp.com/likes/#blog_id=125824960&amp;post_id=472&amp;origin=quantgirl.blog&amp;obj_id=125824960-472-61edf322cccb6' data-name='like-post-frame-125824960-472-61edf322cccb6' data-title='Like or Reblog'><h3 class="sd-title">Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height: 55px;'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+                            
+                            <div class="entry-footer">
+                                <span class="tags-links">Tags: <a href="https://quantgirl.blog/tag/python/" rel="tag">Python</a>&nbsp;<a href="https://quantgirl.blog/tag/statistics/" rel="tag">Statistics</a>&nbsp;<a href="https://quantgirl.blog/tag/visualisation/" rel="tag">Visualisation</a></span>                            </div><!-- .entry-footer -->
+
+                        </div><!-- .entry-content -->
+
+                        <!-- Author box -->
+                        
+	<section class="author-box">
+		<figure class="author-avatar">
+			<img alt src="https://secure.gravatar.com/avatar/a8e1fa7292e640b9fb4d33005d8ab29b?s=96&#038;d=identicon&#038;r=g" class="avatar avatar-96 photo jetpack-lazy-image" height="96" width="96" loading="lazy" data-lazy-srcset="https://secure.gravatar.com/avatar/a8e1fa7292e640b9fb4d33005d8ab29b?s=192&#038;d=identicon&#038;r=g 2x" data-lazy-src="https://secure.gravatar.com/avatar/a8e1fa7292e640b9fb4d33005d8ab29b?s=96&amp;is-pending-load=1#038;d=identicon&#038;r=g" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><noscript><img alt='' src='https://secure.gravatar.com/avatar/a8e1fa7292e640b9fb4d33005d8ab29b?s=96&#038;d=identicon&#038;r=g' srcset='https://secure.gravatar.com/avatar/a8e1fa7292e640b9fb4d33005d8ab29b?s=192&#038;d=identicon&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' loading='lazy'/></noscript>		</figure>
+		<div class="author-info">
+			<h6 class="author-name">Quant Girl</h6>
+			<p>I write about Mathematics, Statistics, Finance, Programming, and the relationships among them. I enjoy learning, listening to music and podcasts, practicing yoga, reading magazines, and watching documentaries.</p>
+		</div>
+	</section>
+
+
+                        <!-- Related Posts -->
+                        
+                        
+<div id="comments" class="comments-area">
+
+	
+	
+	
+	
+		<div id="respond" class="comment-respond">
+							<h3 id="reply-title" class="comment-reply-title">Leave a Reply					<small><a rel="nofollow" id="cancel-comment-reply-link" href="/box-muller-and-marsaglia-bray/#respond" style="display:none;">Cancel reply</a></small>
+				</h3>
+						<form id="commentform" class="comment-form">
+				<iframe
+					title="Comment Form"
+					src="https://jetpack.wordpress.com/jetpack-comment/?blogid=125824960&#038;postid=472&#038;comment_registration=0&#038;require_name_email=1&#038;stc_enabled=1&#038;stb_enabled=1&#038;show_avatars=1&#038;avatar_default=identicon&#038;greeting=Leave+a+Reply&#038;greeting_reply=Leave+a+Reply+to+%25s&#038;color_scheme=light&#038;lang=en_US&#038;jetpack_version=10.6-a.3&#038;show_cookie_consent=10&#038;has_cookie_consent=0&#038;token_key=%3Bnormal%3B&#038;sig=743fef1df3c652791aac9889f4d4f926f648e739#parent=https%3A%2F%2Fquantgirl.blog%2Fbox-muller-and-marsaglia-bray%2F"
+											name="jetpack_remote_comment"
+						style="width:100%; height: 430px; border:0;"
+										class="jetpack_remote_comment"
+					id="jetpack_remote_comment"
+					sandbox="allow-same-origin allow-top-navigation allow-scripts allow-forms allow-popups"
+				>
+									</iframe>
+									<!--[if !IE]><!-->
+					<script>
+						document.addEventListener('DOMContentLoaded', function () {
+							var commentForms = document.getElementsByClassName('jetpack_remote_comment');
+							for (var i = 0; i < commentForms.length; i++) {
+								commentForms[i].allowTransparency = false;
+								commentForms[i].scrolling = 'no';
+							}
+						});
+					</script>
+					<!--<![endif]-->
+							</form>
+		</div>
+
+		
+		<input type="hidden" name="comment_parent" id="comment_parent" value="" />
+
+		<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+                    </div><!-- .columns -->
+
+                    
+                </div><!-- .row -->
+
+            </article><!-- #post-## -->
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+	
+	<nav class="navigation post-navigation" role="navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://quantgirl.blog/jp-morgan-challenge/" rel="prev"><span>Previous Post</span> JP Morgan Challenge</a></div><div class="nav-next"><a href="https://quantgirl.blog/comparing-box-muller-and-marsaglia-bray/" rel="next"><span>Next Post</span> Comparing Box-Muller and Marsaglia-Bray</a></div></div>
+	</nav>
+	</div><!-- #content -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="container">
+			<div class="row">
+				<div class="custom-menus col-sm-6">
+					<aside class="widget widget_media_gallery"><div data-carousel-extra='{"blog_id":1,"permalink":"https:\/\/quantgirl.blog\/box-muller-and-marsaglia-bray\/"}' id='gallery-1' class='gallery galleryid-472 gallery-columns-3 gallery-size-medium'><figure class='gallery-item'>
+			<div class='gallery-icon landscape'>
+				<a href='https://quantgirl.blog/wp-content/uploads/2019/07/IMG_3277.jpg'><img width="300" height="225" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3277.jpg?fit=300%2C225&amp;ssl=1" class="attachment-medium size-medium jetpack-lazy-image" alt="" loading="lazy" aria-describedby="gallery-1-447" data-attachment-id="447" data-permalink="https://quantgirl.blog/img_3277/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3277.jpg?fit=3264%2C2448&amp;ssl=1" data-orig-size="3264,2448" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;2.2&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;iPhone 6 Plus&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;1482907915&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;4.15&quot;,&quot;iso&quot;:&quot;32&quot;,&quot;shutter_speed&quot;:&quot;0.0023041474654378&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;1&quot;}" data-image-title="Oaxaca" data-image-description="" data-image-caption="&lt;p&gt;One of the most beautiful places I have ever been.&lt;/p&gt;
+" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3277.jpg?fit=300%2C225&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3277.jpg?fit=1024%2C768&amp;ssl=1" data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3277.jpg?w=3264&amp;ssl=1 3264w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3277.jpg?resize=300%2C225&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3277.jpg?resize=768%2C576&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3277.jpg?resize=1024%2C768&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3277.jpg?resize=1620%2C1215&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3277.jpg?resize=340%2C255&amp;ssl=1 340w" data-lazy-sizes="(max-width: 300px) 100vw, 300px" data-lazy-src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3277.jpg?fit=300%2C225&amp;ssl=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></a>
+			</div>
+				<figcaption class='wp-caption-text gallery-caption' id='gallery-1-447'>
+				One of the most beautiful places I have ever been.
+				</figcaption></figure><figure class='gallery-item'>
+			<div class='gallery-icon landscape'>
+				<a href='https://quantgirl.blog/wp-content/uploads/2019/07/IMG_3274.jpg'><img width="300" height="225" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3274.jpg?fit=300%2C225&amp;ssl=1" class="attachment-medium size-medium jetpack-lazy-image" alt="" loading="lazy" data-attachment-id="448" data-permalink="https://quantgirl.blog/img_3274/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3274.jpg?fit=3264%2C2448&amp;ssl=1" data-orig-size="3264,2448" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;2.2&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;iPhone 6 Plus&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;1482907902&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;4.15&quot;,&quot;iso&quot;:&quot;32&quot;,&quot;shutter_speed&quot;:&quot;0.016666666666667&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;1&quot;}" data-image-title="" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3274.jpg?fit=300%2C225&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3274.jpg?fit=1024%2C768&amp;ssl=1" data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3274.jpg?w=3264&amp;ssl=1 3264w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3274.jpg?resize=300%2C225&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3274.jpg?resize=768%2C576&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3274.jpg?resize=1024%2C768&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3274.jpg?resize=1620%2C1215&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3274.jpg?resize=340%2C255&amp;ssl=1 340w" data-lazy-sizes="(max-width: 300px) 100vw, 300px" data-lazy-src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3274.jpg?fit=300%2C225&amp;ssl=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></a>
+			</div></figure><figure class='gallery-item'>
+			<div class='gallery-icon landscape'>
+				<a href='https://quantgirl.blog/wp-content/uploads/2019/07/IMG_3271.jpg'><img width="300" height="225" src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3271.jpg?fit=300%2C225&amp;ssl=1" class="attachment-medium size-medium jetpack-lazy-image" alt="" loading="lazy" data-attachment-id="449" data-permalink="https://quantgirl.blog/img_3271/" data-orig-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3271.jpg?fit=3264%2C2448&amp;ssl=1" data-orig-size="3264,2448" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;2.2&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;iPhone 6 Plus&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;1482862595&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;4.15&quot;,&quot;iso&quot;:&quot;40&quot;,&quot;shutter_speed&quot;:&quot;0.016666666666667&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;1&quot;}" data-image-title="" data-image-description="" data-image-caption="" data-medium-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3271.jpg?fit=300%2C225&amp;ssl=1" data-large-file="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3271.jpg?fit=1024%2C768&amp;ssl=1" data-lazy-srcset="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3271.jpg?w=3264&amp;ssl=1 3264w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3271.jpg?resize=300%2C225&amp;ssl=1 300w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3271.jpg?resize=768%2C576&amp;ssl=1 768w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3271.jpg?resize=1024%2C768&amp;ssl=1 1024w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3271.jpg?resize=1620%2C1215&amp;ssl=1 1620w, https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3271.jpg?resize=340%2C255&amp;ssl=1 340w" data-lazy-sizes="(max-width: 300px) 100vw, 300px" data-lazy-src="https://i0.wp.com/quantgirl.blog/wp-content/uploads/2019/07/IMG_3271.jpg?fit=300%2C225&amp;ssl=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></a>
+			</div></figure>
+		</div>
+</aside>				</div>
+									<div class="col-lg-3 col-sm-6 widget-area">
+						<aside class="widget widget_tag_cloud"><h2 class="widget-title">Tags</h2><div class="tagcloud"><a href="https://quantgirl.blog/tag/code/" class="tag-cloud-link tag-link-656 tag-link-position-1" style="font-size: 13.714285714286pt;" aria-label="Code (4 items)">Code</a>
+<a href="https://quantgirl.blog/tag/computer-science/" class="tag-cloud-link tag-link-678314628 tag-link-position-2" style="font-size: 8pt;" aria-label="Computer Science (1 item)">Computer Science</a>
+<a href="https://quantgirl.blog/tag/finance/" class="tag-cloud-link tag-link-678314617 tag-link-position-3" style="font-size: 12.285714285714pt;" aria-label="Finance (3 items)">Finance</a>
+<a href="https://quantgirl.blog/tag/history/" class="tag-cloud-link tag-link-678 tag-link-position-4" style="font-size: 10.571428571429pt;" aria-label="History (2 items)">History</a>
+<a href="https://quantgirl.blog/tag/infographics/" class="tag-cloud-link tag-link-678314615 tag-link-position-5" style="font-size: 8pt;" aria-label="infographics (1 item)">infographics</a>
+<a href="https://quantgirl.blog/tag/loose-stones/" class="tag-cloud-link tag-link-678314627 tag-link-position-6" style="font-size: 8pt;" aria-label="Loose Stones (1 item)">Loose Stones</a>
+<a href="https://quantgirl.blog/tag/magazines/" class="tag-cloud-link tag-link-3750 tag-link-position-7" style="font-size: 12.285714285714pt;" aria-label="Magazines (3 items)">Magazines</a>
+<a href="https://quantgirl.blog/tag/mini-stories/" class="tag-cloud-link tag-link-2510152 tag-link-position-8" style="font-size: 10.571428571429pt;" aria-label="Mini Stories (2 items)">Mini Stories</a>
+<a href="https://quantgirl.blog/tag/probability-theory/" class="tag-cloud-link tag-link-2993790 tag-link-position-9" style="font-size: 10.571428571429pt;" aria-label="Probability Theory (2 items)">Probability Theory</a>
+<a href="https://quantgirl.blog/tag/python/" class="tag-cloud-link tag-link-832 tag-link-position-10" style="font-size: 22pt;" aria-label="Python (18 items)">Python</a>
+<a href="https://quantgirl.blog/tag/quotes/" class="tag-cloud-link tag-link-755 tag-link-position-11" style="font-size: 13.714285714286pt;" aria-label="Quotes (4 items)">Quotes</a>
+<a href="https://quantgirl.blog/tag/randomcharts/" class="tag-cloud-link tag-link-678314623 tag-link-position-12" style="font-size: 18pt;" aria-label="RandomCharts (9 items)">RandomCharts</a>
+<a href="https://quantgirl.blog/tag/short-stories/" class="tag-cloud-link tag-link-546 tag-link-position-13" style="font-size: 10.571428571429pt;" aria-label="Short Stories (2 items)">Short Stories</a>
+<a href="https://quantgirl.blog/tag/statistics/" class="tag-cloud-link tag-link-5849 tag-link-position-14" style="font-size: 18pt;" aria-label="Statistics (9 items)">Statistics</a>
+<a href="https://quantgirl.blog/tag/tips/" class="tag-cloud-link tag-link-678314625 tag-link-position-15" style="font-size: 8pt;" aria-label="Tips (1 item)">Tips</a>
+<a href="https://quantgirl.blog/tag/twopiece/" class="tag-cloud-link tag-link-678314614 tag-link-position-16" style="font-size: 10.571428571429pt;" aria-label="twopiece (2 items)">twopiece</a>
+<a href="https://quantgirl.blog/tag/visualisation/" class="tag-cloud-link tag-link-8651 tag-link-position-17" style="font-size: 20.857142857143pt;" aria-label="Visualisation (15 items)">Visualisation</a></div>
+</aside><aside class="widget widget_text">			<div class="textwidget"><p><em class="ap">“We are what we repeatedly do. Excellence, then, is not an act, but a habit.”</em></p>
+</div>
+		</aside><aside class="widget widget_calendar"><div id="calendar_wrap" class="calendar_wrap"><table id="wp-calendar" class="wp-calendar-table">
+	<caption>January 2022</caption>
+	<thead>
+	<tr>
+		<th scope="col" title="Monday">M</th>
+		<th scope="col" title="Tuesday">T</th>
+		<th scope="col" title="Wednesday">W</th>
+		<th scope="col" title="Thursday">T</th>
+		<th scope="col" title="Friday">F</th>
+		<th scope="col" title="Saturday">S</th>
+		<th scope="col" title="Sunday">S</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td colspan="5" class="pad">&nbsp;</td><td>1</td><td>2</td>
+	</tr>
+	<tr>
+		<td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td>
+	</tr>
+	<tr>
+		<td><a href="https://quantgirl.blog/2022/01/10/" aria-label="Posts published on January 10, 2022">10</a></td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td>
+	</tr>
+	<tr>
+		<td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td>
+	</tr>
+	<tr>
+		<td id="today">24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td>
+	</tr>
+	<tr>
+		<td>31</td>
+		<td class="pad" colspan="6">&nbsp;</td>
+	</tr>
+	</tbody>
+	</table><nav aria-label="Previous and next months" class="wp-calendar-nav">
+		<span class="wp-calendar-nav-prev"><a href="https://quantgirl.blog/2021/12/">&laquo; Dec</a></span>
+		<span class="pad">&nbsp;</span>
+		<span class="wp-calendar-nav-next">&nbsp;</span>
+	</nav></div></aside>					</div>
+													<div class="col-lg-3 col-sm-6 widget-area">
+						<aside class="widget widget_twitter_timeline"><a class="twitter-timeline" data-theme="light" data-border-color="#e8e8e8" data-tweet-limit="2" data-lang="EN" data-partner="jetpack" data-chrome="noheader" href="https://twitter.com/@Quant_Girl" href="https://twitter.com/@Quant_Girl">My Tweets</a></aside>					</div>
+							</div>
+			<div class="site-info">
+				<a href="https://wordpress.com/?ref=footer_custom_svg" title="Create a website or blog at WordPress.com"><svg style="fill: currentColor; position: relative; top: 1px;" width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-labelledby="title" role="img">
+				<title id="title">Create a website or blog at WordPress.com</title>
+				<path d="M12.5225848,4.97949746 C13.0138466,5.87586309 13.2934037,6.90452431 13.2934037,7.99874074 C13.2934037,10.3205803 12.0351007,12.3476807 10.1640538,13.4385638 L12.0862862,7.88081544 C12.4453251,6.98296834 12.5648813,6.26504621 12.5648813,5.62667922 C12.5648813,5.39497674 12.549622,5.17994084 12.5225848,4.97949746 L12.5225848,4.97949746 Z M7.86730089,5.04801561 C8.24619178,5.02808979 8.58760099,4.98823815 8.58760099,4.98823815 C8.9267139,4.94809022 8.88671369,4.44972248 8.54745263,4.46957423 C8.54745263,4.46957423 7.52803983,4.54957381 6.86996227,4.54957381 C6.25158863,4.54957381 5.21247202,4.46957423 5.21247202,4.46957423 C4.87306282,4.44972248 4.83328483,4.96816418 5.17254589,4.98823815 C5.17254589,4.98823815 5.49358462,5.02808979 5.83269753,5.04801561 L6.81314716,7.73459399 L5.43565839,11.8651647 L3.14394256,5.04801561 C3.52312975,5.02808979 3.86416859,4.98823815 3.86416859,4.98823815 C4.20305928,4.94809022 4.16305906,4.44972248 3.82394616,4.46957423 C3.82394616,4.46957423 2.80475558,4.54957381 2.14660395,4.54957381 C2.02852925,4.54957381 1.88934333,4.54668493 1.74156477,4.54194422 C2.86690406,2.83350881 4.80113651,1.70529256 6.99996296,1.70529256 C8.638342,1.70529256 10.1302017,2.33173369 11.2498373,3.35765419 C11.222726,3.35602457 11.1962815,3.35261718 11.1683554,3.35261718 C10.5501299,3.35261718 10.1114609,3.89113285 10.1114609,4.46957423 C10.1114609,4.98823815 10.4107217,5.42705065 10.7296864,5.94564049 C10.969021,6.36482346 11.248578,6.90326506 11.248578,7.68133501 C11.248578,8.21992476 11.0413918,8.84503256 10.7696866,9.71584277 L10.1417574,11.8132391 L7.86730089,5.04801561 Z M6.99996296,14.2927074 C6.38218192,14.2927074 5.78595654,14.2021153 5.22195356,14.0362644 L7.11048207,8.54925635 L9.04486267,13.8491542 C9.05760348,13.8802652 9.07323319,13.9089317 9.08989995,13.9358945 C8.43574834,14.1661896 7.73285573,14.2927074 6.99996296,14.2927074 L6.99996296,14.2927074 Z M0.706448182,7.99874074 C0.706448182,7.08630113 0.902152921,6.22015756 1.25141403,5.43749503 L4.25357806,13.6627848 C2.15393732,12.6427902 0.706448182,10.4898387 0.706448182,7.99874074 L0.706448182,7.99874074 Z M6.99996296,0.999 C3.14016476,0.999 0,4.13905746 0,7.99874074 C0,11.8585722 3.14016476,14.999 6.99996296,14.999 C10.8596871,14.999 14,11.8585722 14,7.99874074 C14,4.13905746 10.8596871,0.999 6.99996296,0.999 L6.99996296,0.999 Z" id="wordpress-logo-simplified-cmyk" stroke="none" fill=“currentColor” fill-rule="evenodd"></path>
+			</svg></a>
+				
+							</div><!-- .site-info -->
+		</div><!-- .container -->
+	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--  -->
+<script defer id='bilmur' data-provider='wordpress.com' data-service='atomic' src='https://s0.wp.com/wp-content/js/bilmur.min.js?m=202204'></script>
+	<div style="display:none">
+	<div class="grofile-hash-map-a8e1fa7292e640b9fb4d33005d8ab29b">
+	</div>
+	</div>
+<footer class="custom-footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter"><div id="footer_copyright-3" class="widget widget_footer_copyright"><div class="wrap"><div class="footer-return return-center"><span>Return To Top</span></div><div class="footer-putter-credits footer-center single"><div class="footer-putter-copyright "><span class="copyright">Copyright © All Rights Reserved 2019-2022 Dialid Santiago</span></div><div class="footer-putter-contact " ></div></div></div></div></footer><!-- end .custom-footer --><style>.wp-container-61edf322c2c72 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322c2c72 .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322c2fd0 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322c2fd0 .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322c3290 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322c3290 .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322c3510 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322c3510 .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322c37a3 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322c37a3 .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322c3a2c .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322c3a2c .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322c3cdd .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322c3cdd .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322c3f9c .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322c3f9c .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322c43a7 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322c43a7 .alignright { float: right; margin-left: 2em; }</style>		<div id="jp-carousel-loading-overlay">
+			<div id="jp-carousel-loading-wrapper">
+				<span id="jp-carousel-library-loading">&nbsp;</span>
+			</div>
+		</div>
+		<div class="jp-carousel-overlay" style="display: none;">
+
+		<div class="jp-carousel-container">
+			<!-- The Carousel Swiper -->
+			<div
+				class="jp-carousel-wrap swiper-container jp-carousel-swiper-container jp-carousel-transitions"
+				itemscope
+				itemtype="https://schema.org/ImageGallery">
+				<div class="jp-carousel swiper-wrapper"></div>
+				<div class="jp-swiper-button-prev swiper-button-prev">
+					<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<mask id="maskPrev" mask-type="alpha" maskUnits="userSpaceOnUse" x="8" y="6" width="9" height="12">
+							<path d="M16.2072 16.59L11.6496 12L16.2072 7.41L14.8041 6L8.8335 12L14.8041 18L16.2072 16.59Z" fill="white"/>
+						</mask>
+						<g mask="url(#maskPrev)">
+							<rect x="0.579102" width="23.8823" height="24" fill="#FFFFFF"/>
+						</g>
+					</svg>
+				</div>
+				<div class="jp-swiper-button-next swiper-button-next">
+					<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<mask id="maskNext" mask-type="alpha" maskUnits="userSpaceOnUse" x="8" y="6" width="8" height="12">
+							<path d="M8.59814 16.59L13.1557 12L8.59814 7.41L10.0012 6L15.9718 12L10.0012 18L8.59814 16.59Z" fill="white"/>
+						</mask>
+						<g mask="url(#maskNext)">
+							<rect x="0.34375" width="23.8822" height="24" fill="#FFFFFF"/>
+						</g>
+					</svg>
+				</div>
+			</div>
+			<!-- The main close buton -->
+			<div class="jp-carousel-close-hint">
+				<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<mask id="maskClose" mask-type="alpha" maskUnits="userSpaceOnUse" x="5" y="5" width="15" height="14">
+						<path d="M19.3166 6.41L17.9135 5L12.3509 10.59L6.78834 5L5.38525 6.41L10.9478 12L5.38525 17.59L6.78834 19L12.3509 13.41L17.9135 19L19.3166 17.59L13.754 12L19.3166 6.41Z" fill="white"/>
+					</mask>
+					<g mask="url(#maskClose)">
+						<rect x="0.409668" width="23.8823" height="24" fill="#FFFFFF"/>
+					</g>
+				</svg>
+			</div>
+			<!-- Image info, comments and meta -->
+			<div class="jp-carousel-info">
+				<div class="jp-carousel-info-footer">
+					<div class="jp-carousel-pagination-container">
+						<div class="jp-swiper-pagination swiper-pagination"></div>
+						<div class="jp-carousel-pagination"></div>
+					</div>
+					<div class="jp-carousel-photo-title-container">
+						<h2 class="jp-carousel-photo-caption"></h2>
+					</div>
+					<div class="jp-carousel-photo-icons-container">
+						<a href="#" class="jp-carousel-icon-btn jp-carousel-icon-info" aria-label="Toggle photo metadata visibility">
+							<span class="jp-carousel-icon">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="maskInfo" mask-type="alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="21" height="20">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M12.7537 2C7.26076 2 2.80273 6.48 2.80273 12C2.80273 17.52 7.26076 22 12.7537 22C18.2466 22 22.7046 17.52 22.7046 12C22.7046 6.48 18.2466 2 12.7537 2ZM11.7586 7V9H13.7488V7H11.7586ZM11.7586 11V17H13.7488V11H11.7586ZM4.79292 12C4.79292 16.41 8.36531 20 12.7537 20C17.142 20 20.7144 16.41 20.7144 12C20.7144 7.59 17.142 4 12.7537 4C8.36531 4 4.79292 7.59 4.79292 12Z" fill="white"/>
+									</mask>
+									<g mask="url(#maskInfo)">
+										<rect x="0.8125" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+							</span>
+						</a>
+												<a href="#" class="jp-carousel-icon-btn jp-carousel-icon-comments" aria-label="Toggle photo comments visibility">
+							<span class="jp-carousel-icon">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="maskComments" mask-type="alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="21" height="20">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M4.3271 2H20.2486C21.3432 2 22.2388 2.9 22.2388 4V16C22.2388 17.1 21.3432 18 20.2486 18H6.31729L2.33691 22V4C2.33691 2.9 3.2325 2 4.3271 2ZM6.31729 16H20.2486V4H4.3271V18L6.31729 16Z" fill="white"/>
+									</mask>
+									<g mask="url(#maskComments)">
+										<rect x="0.34668" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+
+								<span class="jp-carousel-has-comments-indicator" aria-label="This image has comments."></span>
+							</span>
+						</a>
+											</div>
+				</div>
+				<div class="jp-carousel-info-extra">
+					<div class="jp-carousel-info-content-wrapper">
+						<div class="jp-carousel-photo-title-container">
+							<h2 class="jp-carousel-photo-title"></h2>
+						</div>
+						<div class="jp-carousel-comments-wrapper">
+															<div id="jp-carousel-comments-loading">
+									<span>Loading Comments...</span>
+								</div>
+								<div class="jp-carousel-comments"></div>
+								<div id="jp-carousel-comment-form-container">
+									<span id="jp-carousel-comment-form-spinner">&nbsp;</span>
+									<div id="jp-carousel-comment-post-results"></div>
+																														<form id="jp-carousel-comment-form">
+												<label for="jp-carousel-comment-form-comment-field" class="screen-reader-text">Write a Comment...</label>
+												<textarea
+													name="comment"
+													class="jp-carousel-comment-form-field jp-carousel-comment-form-textarea"
+													id="jp-carousel-comment-form-comment-field"
+													placeholder="Write a Comment..."
+												></textarea>
+												<div id="jp-carousel-comment-form-submit-and-info-wrapper">
+													<div id="jp-carousel-comment-form-commenting-as">
+																													<fieldset>
+																<label for="jp-carousel-comment-form-email-field">Email (Required)</label>
+																<input type="text" name="email" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-email-field" />
+															</fieldset>
+															<fieldset>
+																<label for="jp-carousel-comment-form-author-field">Name (Required)</label>
+																<input type="text" name="author" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-author-field" />
+															</fieldset>
+															<fieldset>
+																<label for="jp-carousel-comment-form-url-field">Website</label>
+																<input type="text" name="url" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-url-field" />
+															</fieldset>
+																											</div>
+													<input
+														type="submit"
+														name="submit"
+														class="jp-carousel-comment-form-button"
+														id="jp-carousel-comment-form-button-submit"
+														value="Post Comment" />
+												</div>
+											</form>
+																											</div>
+													</div>
+						<div class="jp-carousel-image-meta">
+							<div class="jp-carousel-title-and-caption">
+								<div class="jp-carousel-photo-info">
+									<h3 class="jp-carousel-caption" itemprop="caption description"></h3>
+								</div>
+
+								<div class="jp-carousel-photo-description"></div>
+							</div>
+							<ul class="jp-carousel-image-exif" style="display: none;"></ul>
+							<a class="jp-carousel-image-download" target="_blank" style="display: none;">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="3" y="3" width="19" height="18">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M5.84615 5V19H19.7775V12H21.7677V19C21.7677 20.1 20.8721 21 19.7775 21H5.84615C4.74159 21 3.85596 20.1 3.85596 19V5C3.85596 3.9 4.74159 3 5.84615 3H12.8118V5H5.84615ZM14.802 5V3H21.7677V10H19.7775V6.41L9.99569 16.24L8.59261 14.83L18.3744 5H14.802Z" fill="white"/>
+									</mask>
+									<g mask="url(#mask0)">
+										<rect x="0.870605" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+								<span class="jp-carousel-download-text"></span>
+							</a>
+							<div class="jp-carousel-image-map" style="display: none;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</div>
+		
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/quantgirl.blog\/box-muller-and-marsaglia-bray\/":472};
+	</script>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+			<div id="fb-root"></div>
+			<script>(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=249643311490&version=v2.3'; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</script>
+			<script>
+			document.body.addEventListener( 'is.post-load', function() {
+				if ( 'undefined' !== typeof FB ) {
+					FB.XFBML.parse();
+				}
+			} );
+			</script>
+						<script type="text/javascript">
+				( function () {
+					var currentScript = document.currentScript;
+
+					// Helper function to load an external script.
+					function loadScript( url, cb ) {
+						var script = document.createElement( 'script' );
+						var prev = currentScript || document.getElementsByTagName( 'script' )[ 0 ];
+						script.setAttribute( 'async', true );
+						script.setAttribute( 'src', url );
+						prev.parentNode.insertBefore( script, prev );
+						script.addEventListener( 'load', cb );
+					}
+
+					function init() {
+						loadScript( 'https://platform.linkedin.com/in.js?async=true', function () {
+							if ( typeof IN !== 'undefined' ) {
+								IN.init();
+							}
+						} );
+					}
+
+					if ( document.readyState === 'loading' ) {
+						document.addEventListener( 'DOMContentLoaded', init );
+					} else {
+						init();
+					}
+
+					document.body.addEventListener( 'is.post-load', function() {
+						if ( typeof IN !== 'undefined' ) {
+							IN.parse();
+						}
+					} );
+				} )();
+			</script>
+				<div id="sharing_email" style="display: none;">
+		<form action="/box-muller-and-marsaglia-bray/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input type="email" name="target_email" id="target_email" value="" />
+
+			
+				<label for="source_name">Your Name</label>
+				<input type="text" name="source_name" id="source_name" value="" />
+
+				<label for="source_email">Your Email Address</label>
+				<input type="email" name="source_email" id="source_email" value="" />
+
+						<input type="text" id="jetpack-source_f_name" name="source_f_name" class="input" value="" size="25" autocomplete="off" title="This field is for validation and should not be changed" />
+			
+			<img style="float: right; display: none" class="loading" src="https://quantgirl.blog/wp-content/plugins/jetpack/modules/sharedaddy/images/loading.gif" alt="loading" width="16" height="16" />
+			<input type="submit" value="Send Email" class="sharing_send" />
+			<a rel="nofollow" href="#cancel" class="sharing_cancel" role="button">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div>
+<style>.wp-container-61edf322cd9af .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322cd9af .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322cdcc3 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322cdcc3 .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322cdf68 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322cdf68 .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322ce1e8 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322ce1e8 .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322ce462 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322ce462 .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322ce6c6 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322ce6c6 .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322ce967 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322ce967 .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322cec42 .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322cec42 .alignright { float: right; margin-left: 2em; }</style><style>.wp-container-61edf322cf09b .alignleft { float: left; margin-right: 2em; }.wp-container-61edf322cf09b .alignright { float: right; margin-left: 2em; }</style><script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/jetpack/_inc/build/photon/photon.min.js?ver=20191001' id='jetpack-photon-js'></script>
+<script type='text/javascript' id='mkaz-code-syntax-prism-js-js-extra'>
+/* <![CDATA[ */
+var prism_settings = {"pluginUrl":"https:\/\/quantgirl.blog\/wp-content\/plugins\/code-syntax-block\/"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/code-syntax-block/assets/prism/prism.js?ver=1635730883' id='mkaz-code-syntax-prism-js-js'></script>
+<script type='text/javascript' src='//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js?ver=5.8.3' id='mathjax-js'></script>
+<script type='text/javascript' src='https://secure.gravatar.com/js/gprofiles.js?ver=202204' id='grofiles-cards-js'></script>
+<script type='text/javascript' id='wpgroho-js-extra'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/jetpack/modules/wpgroho.js?ver=10.6-a.3' id='wpgroho-js'></script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/themes/goodz-magazine/js/navigation.js?ver=20120206' id='goodz-magazine-navigation-js'></script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/themes/goodz-magazine/js/skip-link-focus-fix.js?ver=20130115' id='goodz-magazine-skip-link-focus-fix-js'></script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/themes/goodz-magazine/js/slick/slick.js?ver=5.8.3' id='goodz-magazine-slick-slider-js'></script>
+<script type='text/javascript' id='goodz-magazine-call-scripts-js-extra'>
+/* <![CDATA[ */
+var js_vars = {"load_more_text":"Load More"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/themes/goodz-magazine/js/common.js?ver=5.8.3' id='goodz-magazine-call-scripts-js'></script>
+<script type='text/javascript' src='https://c0.wp.com/c/5.8.3/wp-includes/js/comment-reply.min.js' id='comment-reply-js'></script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/jetpack/_inc/build/twitter-timeline.min.js?ver=4.0.0' id='jetpack-twitter-timeline-js'></script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-lazy-images/dist/intersection-observer.js?minify=false&#038;ver=ba2aa80003251440130b63de19cb609d' id='jetpack-lazy-images-polyfill-intersectionobserver-js'></script>
+<script type='text/javascript' id='jetpack-lazy-images-js-extra'>
+/* <![CDATA[ */
+var jetpackLazyImagesL10n = {"loading_warning":"Images are still loading. Please cancel your print and try again."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-lazy-images/dist/lazy-images.js?minify=false&#038;ver=ae8c0bea6a07ab76470a02053fc74216' id='jetpack-lazy-images-js'></script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/jetpack/_inc/build/likes/queuehandler.min.js?ver=10.6-a.3' id='jetpack_likes_queuehandler-js'></script>
+<script type='text/javascript' src='https://c0.wp.com/c/5.8.3/wp-includes/js/wp-embed.min.js' id='wp-embed-js'></script>
+<script type='text/javascript' id='jetpack-carousel-js-extra'>
+/* <![CDATA[ */
+var jetpackSwiperLibraryPath = {"url":"https:\/\/quantgirl.blog\/wp-content\/plugins\/jetpack\/_inc\/build\/carousel\/swiper-bundle.min.js"};
+var jetpackCarouselStrings = {"widths":[370,700,1000,1200,1400,2000],"is_logged_in":"","lang":"en","ajaxurl":"https:\/\/quantgirl.blog\/wp-admin\/admin-ajax.php","nonce":"e47bbd7011","display_exif":"1","display_comments":"1","display_geo":"1","single_image_gallery":"1","single_image_gallery_media_file":"","background_color":"black","comment":"Comment","post_comment":"Post Comment","write_comment":"Write a Comment...","loading_comments":"Loading Comments...","download_original":"View full size <span class=\"photo-size\">{0}<span class=\"photo-size-times\">\u00d7<\/span>{1}<\/span>","no_comment_text":"Please be sure to submit some text with your comment.","no_comment_email":"Please provide an email address to comment.","no_comment_author":"Please provide your name to comment.","comment_post_error":"Sorry, but there was an error posting your comment. Please try again later.","comment_approved":"Your comment was approved.","comment_unapproved":"Your comment is in moderation.","camera":"Camera","aperture":"Aperture","shutter_speed":"Shutter Speed","focal_length":"Focal Length","copyright":"Copyright","comment_registration":"0","require_name_email":"1","login_url":"https:\/\/quantgirl.blog\/wp-login.php?redirect_to=https%3A%2F%2Fquantgirl.blog%2Fbox-muller-and-marsaglia-bray%2F","blog_id":"1","meta_data":["camera","aperture","shutter_speed","focal_length","copyright"]};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/jetpack/_inc/build/carousel/jetpack-carousel.min.js?ver=10.6-a.3' id='jetpack-carousel-js'></script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/easy-table-of-contents/vendor/smooth-scroll/jquery.smooth-scroll.min.js?ver=2.2.0' id='jquery-smooth-scroll-js'></script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/easy-table-of-contents/vendor/js-cookie/js.cookie.min.js?ver=2.2.1' id='js-cookie-js'></script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/easy-table-of-contents/vendor/sticky-kit/jquery.sticky-kit.min.js?ver=1.9.2' id='jquery-sticky-kit-js'></script>
+<script type='text/javascript' id='ez-toc-js-js-extra'>
+/* <![CDATA[ */
+var ezTOC = {"smooth_scroll":"1","visibility_hide_by_default":"1","width":"100%","scroll_offset":"30"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/easy-table-of-contents/assets/js/front.min.js?ver=2.0.17-1616808990' id='ez-toc-js-js'></script>
+<script type='text/javascript' id='sharing-js-js-extra'>
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://quantgirl.blog/wp-content/plugins/jetpack/_inc/build/sharedaddy/sharing.min.js?ver=10.6-a.3' id='sharing-js-js'></script>
+<script type='text/javascript' id='sharing-js-js-after'>
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-facebook' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-facebook' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+						return false;
+					}
+				} );
+			} )();
+</script>
+	<iframe src='https://widgets.wp.com/likes/master.html?ver=202204#ver=202204' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+	<div id='likes-other-gravatars'><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+	
+		<!--[if IE]>
+		<script type="text/javascript">
+			if ( 0 === window.location.hash.indexOf( '#comment-' ) ) {
+				// window.location.reload() doesn't respect the Hash in IE
+				window.location.hash = window.location.hash;
+			}
+		</script>
+		<![endif]-->
+		<script type="text/javascript">
+			(function () {
+				var comm_par_el = document.getElementById( 'comment_parent' ),
+					comm_par = ( comm_par_el && comm_par_el.value ) ? comm_par_el.value : '',
+					frame = document.getElementById( 'jetpack_remote_comment' ),
+					tellFrameNewParent;
+
+				tellFrameNewParent = function () {
+					if ( comm_par ) {
+						frame.src = "https://jetpack.wordpress.com/jetpack-comment/?blogid=125824960&postid=472&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=identicon&greeting=Leave+a+Reply&greeting_reply=Leave+a+Reply+to+%25s&color_scheme=light&lang=en_US&jetpack_version=10.6-a.3&show_cookie_consent=10&has_cookie_consent=0&token_key=%3Bnormal%3B&sig=743fef1df3c652791aac9889f4d4f926f648e739#parent=https%3A%2F%2Fquantgirl.blog%2Fbox-muller-and-marsaglia-bray%2F" + '&replytocom=' + parseInt( comm_par, 10 ).toString();
+					} else {
+						frame.src = "https://jetpack.wordpress.com/jetpack-comment/?blogid=125824960&postid=472&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=identicon&greeting=Leave+a+Reply&greeting_reply=Leave+a+Reply+to+%25s&color_scheme=light&lang=en_US&jetpack_version=10.6-a.3&show_cookie_consent=10&has_cookie_consent=0&token_key=%3Bnormal%3B&sig=743fef1df3c652791aac9889f4d4f926f648e739#parent=https%3A%2F%2Fquantgirl.blog%2Fbox-muller-and-marsaglia-bray%2F";
+					}
+				};
+
+				
+				if ( 'undefined' !== typeof addComment ) {
+					addComment._Jetpack_moveForm = addComment.moveForm;
+
+					addComment.moveForm = function ( commId, parentId, respondId, postId ) {
+						var returnValue = addComment._Jetpack_moveForm( commId, parentId, respondId, postId ),
+							cancelClick, cancel;
+
+						if ( false === returnValue ) {
+							cancel = document.getElementById( 'cancel-comment-reply-link' );
+							cancelClick = cancel.onclick;
+							cancel.onclick = function () {
+								var cancelReturn = cancelClick.call( this );
+								if ( false !== cancelReturn ) {
+									return cancelReturn;
+								}
+
+								if ( ! comm_par ) {
+									return cancelReturn;
+								}
+
+								comm_par = 0;
+
+								tellFrameNewParent();
+
+								return cancelReturn;
+							};
+						}
+
+						if ( comm_par == parentId ) {
+							return returnValue;
+						}
+
+						comm_par = parentId;
+
+						tellFrameNewParent();
+
+						return returnValue;
+					};
+				}
+
+				
+				// Do the post message bit after the dom has loaded.
+				document.addEventListener( 'DOMContentLoaded', function () {
+					var iframe_url = "https:\/\/jetpack.wordpress.com";
+					if ( window.postMessage ) {
+						if ( document.addEventListener ) {
+							window.addEventListener( 'message', function ( event ) {
+								var origin = event.origin.replace( /^http:\/\//i, 'https://' );
+								if ( iframe_url.replace( /^http:\/\//i, 'https://' ) !== origin ) {
+									return;
+								}
+								frame.style.height = event.data + 'px';
+							});
+						} else if ( document.attachEvent ) {
+							window.attachEvent( 'message', function ( event ) {
+								var origin = event.origin.replace( /^http:\/\//i, 'https://' );
+								if ( iframe_url.replace( /^http:\/\//i, 'https://' ) !== origin ) {
+									return;
+								}
+								frame.style.height = event.data + 'px';
+							});
+						}
+					}
+				})
+
+			})();
+		</script>
+
+		
+<script>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:10.6-a.3',blog:'125824960',post:'472',tz:'0',srv:'quantgirl.blog'} ]);
+	_stq.push([ 'clickTrackerInit', '125824960', '472' ]);
+</script>
+
+</body>
+</html>
