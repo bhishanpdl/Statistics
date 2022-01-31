@@ -26,6 +26,9 @@ Table of Contents
       * [Binomial Test](#binomial-test)
       * [Scipy normaltest (D’Agostino and Pearson’s test for normality)](#scipy-normaltest-dagostino-and-pearsons-test-for-normality)
 
+# Notes
+
+
 # Resources
 - [Youtube: 07e Python Data Analytics: Hypothesis Testing Interactive](https://www.youtube.com/watch?v=bcb3m3LBtRk)
 - [17 Hypothesis Testing in Python](https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-sheet/)
@@ -188,8 +191,10 @@ H1: This particular coin is biased.
 if p <= alpha: We reject the null hypothesis
                and say our research hypothesis is statistically significant.
 
-But, in `scipy` testing it is opposite:
-H0: Two samples comes from normal distribution (Shapiro-Wald Test)
+We use p <= alpha in t-test, z-test, BUT in Normality test, We have opposite
+criteria. If p-value > alpha, we say two samples comes from Normal distribution.
+
+H0: Two samples comes from normal distribution (Shapiro-Wilk Test) ([official scipy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.shapiro.html))
 if p > alpha: we fail to reject null hypothesis and say data is NORMAL.
 ```
 ![](images/hyp_reject.png)
@@ -231,7 +236,9 @@ Some notes:
 
 ## One sample z-test
 ```
-z = xbar - mu / (sigma/sqrt(n))
+z = xbar - mu
+    ---------
+    sigma/sqrt(n)
 
 zstar = 1.645 for one-tailed test at alpha = 5% (gamma = 95%)
         1.96  for two-tailed test at alpha = 5% (gamma = 95%)
@@ -492,6 +499,37 @@ pval2 = 5/32 + 5/32 + 1/32 + 1/32
 print(pval2) # 0.375
 ```
 
+# Normality Tests
+## Shapiro-Wilk Test (p>0.05 then normal)
+```python
+np.random.seed(100)
+sample = np.random.randn(100)
+res = stats.shapiro(sample) # (0.9899469614028931, 0.660305917263031)
+res.pvalue = 0.66 # p>0.05 NORMAL
+
+
+# not normal
+sample = np.random.poisson(5,100)
+res = stats.shapiro(sample)
+#  (0.9666022062301636, 0.012220825999975204)
+print(res.pvalue) # 0.01 <= 0.05 NOT NORMAL
+# We have sufficient evidence to say that the sample data does not come from a normal distribution.
+```
+
+## Anderson-Darling Test
+```python
+np.random.seed(100)
+sample = np.random.randn(100)
+res = stats.anderson(sample)
+# AndersonResult(statistic=0.24447704736124365, critical_values=array([0.555, 0.632, 0.759, 0.885, 1.053]), significance_level=array([15. , 10. ,  5. ,  2.5,  1. ]))
+
+d = dict(zip(res.significance_level,res.critical_values))
+lst = sorted(d.items(), key=lambda x: x[0])
+# [(1.0, 1.053), (2.5, 0.885), (5.0, 0.759), (10.0, 0.632), (15.0, 0.555)]
+# for 5% significance level, p-value is 0.759 > 0.05, data is drawn from normal distribution.
+```
+
+
 ## Scipy normaltest (D’Agostino and Pearson’s test for normality)
 `scipy` does not have ztest but it has some normality test. The default
 normal test function uses D'Agostino test.
@@ -527,3 +565,86 @@ stat,p = stats.normaltest(a)
 print("Reject Null Hypothesis (NOT normal)" if p < 0.05 else "Fail to reject Null Hypothesis (normal).")
 # Fail to reject Null Hypothesis (normal).
 ```
+
+# Non-parametric Tests
+## Mann Whitney U test
+- [machinelearningmastery: A Gentle Introduction to Normality Tests in Python](https://machinelearningmastery.com/a-gentle-introduction-to-normality-tests-in-python/)
+
+```
+If Data Is Gaussian:
+	Use Parametric Statistical Methods
+Else:
+	Use Nonparametric Statistical Methods
+```
+
+An important decision point when working with a sample of data is whether to use parametric or nonparametric statistical methods.
+
+Parametric statistical methods assume that the data has a known and specific distribution, often a Gaussian distribution. If a data sample is not Gaussian, then the assumptions of parametric statistical tests are violated and nonparametric statistical methods must be used.
+
+Four nonparametric statistical significance tests that you can use are:
+
+1. Mann-Whitney U Test.
+1. Wilcoxon Signed-Rank Test.
+1. Kruskal-Wallis H Test.
+1. Friedman Test.
+
+[mannwhitneyu](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mannwhitneyu.html#scipy.stats.mannwhitneyu) is for independent samples. For related or paired samples, consider [scipy.stats.wilcoxon](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.wilcoxon.html#scipy.stats.wilcoxon).
+
+> H0: null hypothesis is that there is no difference between the distributions of the data samples.
+
+> H1: Two samples are different
+
+For the test to be effective, it requires at least 20 observations in each data sample.
+
+```python
+males = [19, 22, 16, 29, 24]
+females = [20, 11, 17, 12]
+
+from scipy.stats import mannwhitneyu
+
+U1, p = mannwhitneyu(males, females, method="exact")
+print(U1) # 17.0
+
+alpha = 0.05
+
+if p <= alpha:
+    print('Reject H0: different samples')
+else:
+    print('Fail to reject H0)')
+    print("Same Distribution")
+```
+
+mannwhitneyu always reports the statistic associated with the first sample, which, in this case, is males. This agrees with 
+ reported in [4]. The statistic associated with the second statistic can be calculated:
+
+ ```python
+nx, ny = len(males), len(females)
+U2 = nx*ny - U1
+print(U2) # 3.0
+ ```
+
+ Another Example:
+ ```python
+# Mann-Whitney U test
+from numpy.random import seed
+from numpy.random import randn
+from scipy.stats import mannwhitneyu
+# seed the random number generator
+seed(1)
+# generate two independent samples
+data1 = 5 * randn(100) + 50
+data2 = 5 * randn(100) + 51
+# compare samples
+stat, p = mannwhitneyu(data1, data2)
+print('Statistics=%.3f, p=%.3f' % (stat, p))
+# interpret
+alpha = 0.05
+if p > alpha:
+	print('Same distribution (fail to reject H0)')
+else:
+	print('Different distribution (reject H0)')
+
+# The p-value strongly suggests that the sample distributions are different, as is expected.
+# Statistics=4025.000, p=0.009
+# Different distribution (reject H0)
+ ```

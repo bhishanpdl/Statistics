@@ -16,7 +16,7 @@ Table of Contents
 
 
 # References
-- [scipy stats](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html) (Note: in scipy stats t interval alpha actually means confidence level)
+- [scipy stats](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html) (WARNING: in `scipy stats t interval` alpha actually means confidence level `1 - alpha`)
 
 
 # Confidence interval
@@ -54,7 +54,7 @@ Z = (phat - p0) / sqrt(p0q0/n)
 pval = 1 - stats.norm.cdf(Z)
 
 if pval < alpha:
-    Reject Null Hypothesis that coin is unbiased and say it maybe biased.
+    Reject Null Hypothesis that coin is unbiased and say we have enough evidence to call it biased.
 ```
 
 ![](images/moe.png)
